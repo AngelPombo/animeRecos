@@ -6,6 +6,6 @@ const {
     getLastEntries
 } = require('../controllers/entries');
 
-router.get('/', getLastEntries);
+router.get('/last-entries', getLastEntries);
 
 module.exports = router;

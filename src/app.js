@@ -8,8 +8,7 @@ const entryRouter = require('../src/router/entriesRouter');
 
 const server = express();
 
-server.use(express.urlencoded({extended: false})); //encargado de gestionar todos los datos que vienen por el form
-server.use(express.json());
+server.use(express.urlencoded({extended: false}));
 server.use(morgan('dev'));
 server.use(fileupload());
 
