@@ -15,6 +15,7 @@ const getDB = async () => {
             database: DATABASE
         });
     }
+
     return await pool.getConnection();
 };
 

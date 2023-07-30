@@ -13,8 +13,16 @@ async function getLastEntries (_req,res){
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
+        if(!entries.length){
+            return res.status(404).send({
+                status: 'Not Found',
+                message: 'No hay entradas para mostrar'
+            });
+        }
+
         const lastEntries = [];
-        for (let i = 0; i <= 10; i++) {
+
+        for (let i = 0; i <= 9; i++) {
             if(!entries[i]){
                 break;
             }else{
@@ -22,7 +30,7 @@ async function getLastEntries (_req,res){
             }
         }
         
-        res.status(200).send({
+        return res.status(200).send({
             status: 'OK',
             data: lastEntries
         });
