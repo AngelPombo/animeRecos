@@ -1,9 +1,8 @@
 "use strict";
 
-const getDB = require("./db");
-require('dotenv').config();
+const {createDBconnection} = require('./src/database/db');
 
-process.env.DATABASE = 'animedb';
+require('dotenv').config();
 
 const dbName = process.env.DATABASE;
 
@@ -12,8 +11,8 @@ async function createDB() {
   let connection;
 
   try {
-    connection = await getDB();
-
+    connection = await createDBconnection();
+    
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
 
     await connection.query(`USE ${dbName}`);
@@ -166,9 +165,9 @@ async function createDB() {
 
   }finally{
 
-    if (connection){
+/*     if (connection){
       connection.release();
-    }
+    } */
 
     process.exit();
 

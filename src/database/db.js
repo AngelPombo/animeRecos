@@ -19,4 +19,20 @@ const getDB = async () => {
     return await pool.getConnection();
 };
 
-module.exports = getDB;
+const createDBconnection = async () => {
+    if(!pool){
+        pool = mysql.createPool({
+            connectionLimit: 10,
+            host: HOST,
+            user: USER,
+            password: PASSWORD
+        });
+    }
+
+    return await pool.getConnection();
+};
+
+module.exports = {
+    getDB,
+    createDBconnection
+}

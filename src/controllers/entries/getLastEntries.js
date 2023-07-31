@@ -1,4 +1,4 @@
-const getDB = require('../../database/db');
+const {getDB} = require('../../database/db');
 
 async function getLastEntries (_req,res){
     try{
