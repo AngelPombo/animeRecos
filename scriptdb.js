@@ -25,7 +25,7 @@ async function createDB() {
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
             user_name VARCHAR(30) UNIQUE NOT NULL,
             email VARCHAR(256) UNIQUE NOT NULL,
-            pwd VARCHAR(100) NOT NULL,
+            pwd VARCHAR(512) NOT NULL,
             avatar VARCHAR(100),
             biography VARCHAR(500),
             link_twitter VARCHAR(200),

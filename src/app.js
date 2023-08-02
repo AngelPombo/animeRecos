@@ -8,6 +8,7 @@ const entryRouter = require('../src/router/entriesRouter');
 
 const server = express();
 
+server.use(express.json())
 server.use(express.urlencoded({extended: false}));
 server.use(morgan('dev'));
 server.use(fileupload());
@@ -18,7 +19,7 @@ server.use(express.static(staticDir));
 
 createStaticDir(staticDir); */
 
-//server.use(userRouter);
+server.use(userRouter);
 server.use(entryRouter);
 
 server.use((err, _req, res, _next) => {

@@ -9,13 +9,21 @@ async function getOneEntry (req,res) {
 
         const [entry] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, e.last_update, e.edited, e.title, e.content, e.anime_character, e.genre, e.category
+                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited, e.title, e.content, e.anime_character, e.genre, e.category
                 FROM entries e
                 INNER JOIN users u ON e.user_id=u.id
                 WHERE e.id=?
             `,
             [idEntry]
         );
+
+        if(!entry.length){
+            connect.release();
+            return res.status(400).send({
+                status: 'Error',
+                message: 'Ha intentado acceder a una entrada que no existe'
+            });
+        }
 
         const [coments] = await connect.query(
             `
@@ -64,7 +72,8 @@ async function getOneEntry (req,res) {
         );
 
         connect.release();
-        res.status(200).send({
+
+        return res.status(200).send({
             status: "OK",
             data: [entry, coments, photos, videos, votesEntry, votesComent]
         });
