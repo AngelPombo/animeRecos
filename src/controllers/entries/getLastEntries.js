@@ -6,7 +6,7 @@ async function getLastEntries (_req,res){
         
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
             `
@@ -16,8 +16,8 @@ async function getLastEntries (_req,res){
 
         if(!entries.length){
             connect.release();
-            return res.status(404).send({
-                status: 'Not Found',
+            return res.status(400).send({
+                status: 'Sin entradas',
                 message: 'No hay entradas para mostrar'
             });
         }

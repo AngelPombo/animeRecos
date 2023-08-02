@@ -10,7 +10,7 @@ async function getEntriesByGenre (req,res) {
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date, e.genre
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date, e.genre
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
                 WHERE genre =?
@@ -21,8 +21,8 @@ async function getEntriesByGenre (req,res) {
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
         if(!entries.length){
-            return res.status(404).send({
-                status: 'Not Found',
+            return res.status(400).send({
+                status: 'Sin entradas',
                 message: 'No hay entradas para mostrar'
             });
         }
