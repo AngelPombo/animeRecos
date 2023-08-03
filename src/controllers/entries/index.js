@@ -3,6 +3,7 @@ const getOneEntry = require("./getOneEntry");
 const getEntriesByCategory = require("./getEntriesByCategory");
 const getEntriesByGenre = require("./getEntriesByGenre");
 const getTopRatedEntriesByCategory = require("./getTopRatedEntriesByCategory");
+const postEntry = require("./postEntry");
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
     getOneEntry,
     getEntriesByCategory,
     getEntriesByGenre,
-    getTopRatedEntriesByCategory
+    getTopRatedEntriesByCategory,
+    postEntry
 }
