@@ -30,43 +30,47 @@ async function getOneEntry (req,res) {
                 SELECT c.coment_date, c.content, c.edited
                 FROM coments c
                 INNER JOIN entries e ON c.entry_id=?
+                GROUP BY c.id
             `,
             [idEntry]
         );
 
         const [photos] = await connect.query(
             `
-                SELECT p.id
+                SELECT p.id AS "photo_id"
                 FROM photos p
                 INNER JOIN entries e ON p.entry_id=?
+                GROUP BY p.id
             `,
             [idEntry]
         );
 
         const [videos] = await connect.query(
             `
-                SELECT vi.id
+                SELECT vi.id AS "video_id"
                 FROM videos vi
                 INNER JOIN entries e ON vi.entry_id=?
+                GROUP BY vi.id
             `,
             [idEntry]
         );
 
         const [votesEntry] = await connect.query(
             `
-                SELECT count(vo.id) AS "votos"
+                SELECT SUM (vo.vote_entry) AS "votos_entrada"
                 FROM votes vo
-                INNER JOIN entries e ON vo.entry_id=?
+                WHERE vo.entry_id=?
             `,
             [idEntry]
         );
 
         const [votesComent] = await connect.query(
             `
-                SELECT count(vo.id) AS "votos"
+                SELECT SUM(vo.vote_coment) AS "votos_comentario", c.id AS "id_comentario"
                 FROM votes vo
                 INNER JOIN coments c ON vo.coment_id=c.id
-                WHERE c.entry_id=?
+                WHERE c.entry_id=? 
+                GROUP BY c.id
             `,
             [idEntry]
         );

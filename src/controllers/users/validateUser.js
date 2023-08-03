@@ -4,6 +4,7 @@ async function validateUser(req,res) {
     try{
 
         const connect = await getDB();
+        
         const {regCode} = req.params;
 
         const [user] = await connect.query(
