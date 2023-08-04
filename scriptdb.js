@@ -40,8 +40,7 @@ async function createDB() {
             deleted BOOLEAN DEFAULT FALSE,
             last_auth_update DATETIME,
             recover_code CHAR(36),
-            banned BOOLEAN DEFAULT FALSE,
-            reports INT DEFAULT 0
+            banned BOOLEAN DEFAULT FALSE            
         );
         `
     );
@@ -53,22 +52,21 @@ async function createDB() {
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
             create_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             banned BOOLEAN DEFAULT FALSE,
-            reports INT DEFAULT 0,
             last_update DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             edited BOOLEAN DEFAULT FALSE,
             title VARCHAR(100) NOT NULL,
             content VARCHAR(1000) NOT NULL,
             anime_character VARCHAR (100),
             category ENUM(
-                "recomendaciones", "teorías", "fanArt",
-                "opennings", "cosplays", "memes"
+                "recomendaciones", "teorias", "fanArt",
+                "openings", "cosplays", "memes"
             ) NOT NULL,
             genre ENUM(
-                "acción", "aventura", "deportes",
-                "comedia", "drama", "fantasía",
-                "musical","romance", "ciencia ficción",
+                "accion", "aventura", "deportes",
+                "comedia", "drama", "fantasia",
+                "musical","romance", "ciencia-ficcion",
                 "sobrenatural", "thriller", "terror",
-                "psicológico", "infantil", "otros"
+                "psicologico", "infantil", "otros"
             ) NOT NULL,
             user_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
@@ -81,6 +79,7 @@ async function createDB() {
         `
         CREATE TABLE IF NOT EXISTS photos(
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            photo VARCHAR (100),
             photo_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             entry_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (entry_id) REFERENCES entries(id)
@@ -93,6 +92,7 @@ async function createDB() {
         `
         CREATE TABLE IF NOT EXISTS videos(
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+            video VARCHAR (100),
             video_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             entry_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (entry_id) REFERENCES entries(id)
@@ -100,15 +100,14 @@ async function createDB() {
         `
     );
 
-    //COMENTS
+    //COMMENTS
     await connection.query(
         `
-        CREATE TABLE IF NOT EXISTS coments(
+        CREATE TABLE IF NOT EXISTS comments(
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            coment_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            comment_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             content VARCHAR(500) NOT NULL,
             banned BOOLEAN DEFAULT FALSE,
-            reports INT UNSIGNED DEFAULT 0,
             edited BOOLEAN DEFAULT FALSE,
             user_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id),
@@ -125,15 +124,34 @@ async function createDB() {
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
             vote_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             vote_entry BOOLEAN DEFAULT FALSE,
-            vote_coment BOOLEAN DEFAULT FALSE,
+            vote_comment BOOLEAN DEFAULT FALSE,
             user_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id),
             entry_id INT UNSIGNED,
             FOREIGN KEY (entry_id) REFERENCES entries(id),
-            coment_id INT UNSIGNED,
-            FOREIGN KEY (coment_id) REFERENCES coments(id)
+            comment_id INT UNSIGNED,
+            FOREIGN KEY (comment_id) REFERENCES comments(id)
         );
         `
+    ); 
+
+    //REPORTS
+    await connection.query(
+    `
+    CREATE TABLE IF NOT EXISTS reports(
+        id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        report_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        report_entry BOOLEAN DEFAULT FALSE,
+        report_comment BOOLEAN DEFAULT FALSE,
+        report_user BOOLEAN DEFAULT FALSE,
+        user_id INT UNSIGNED NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        entry_id INT UNSIGNED,
+        FOREIGN KEY (entry_id) REFERENCES entries(id),
+        comment_id INT UNSIGNED,
+        FOREIGN KEY (comment_id) REFERENCES comments(id)
+    );
+    `
     );
 
     //INCIDENCES
@@ -151,8 +169,8 @@ async function createDB() {
             FOREIGN KEY (user_id) REFERENCES users(id),
             entry_id INT UNSIGNED,
             FOREIGN KEY (entry_id) REFERENCES entries(id),
-            coment_id INT UNSIGNED,
-            FOREIGN KEY (coment_id) REFERENCES coments(id)
+            comment_id INT UNSIGNED,
+            FOREIGN KEY (comment_id) REFERENCES comments(id)
         );
         `
     );
@@ -165,9 +183,9 @@ async function createDB() {
 
   }finally{
 
-/*     if (connection){
+    if (connection){
       connection.release();
-    } */
+    }
 
     process.exit();
 

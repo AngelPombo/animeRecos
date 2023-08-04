@@ -30,13 +30,13 @@ async function postEntry (req,res) {
 
         if(req.files && Object.keys(req.files).length > 0){
             for(let photoData of Object.values(req.files).slice(0,3)){
-                await savePhoto(photoData, "/photoentries");
+               const photoName =  await savePhoto(photoData, "/photoentries");
                 await connect.query(
                     `
-                        INSERT INTO photos (entry_id)
-                        VALUES (?)
+                        INSERT INTO photos (photo, entry_id)
+                        VALUES (?,?)
                     `,
-                    [insertId]
+                    [photoName, insertId]
                 )
             }
         }

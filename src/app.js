@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const fileupload = require('express-fileupload');
 const path = require('path');
+const createStaticDir = require('../src/service/createStaticDir');
 
 const userRouter = require('../src/router/userRouter');
 const entryRouter = require('../src/router/entriesRouter');
@@ -13,11 +14,11 @@ server.use(express.urlencoded({extended: false}));
 server.use(morgan('dev'));
 server.use(fileupload());
 
-/* const staticDir = path.join(__dirname,'uploads');
+const staticDir = path.join(__dirname,'uploads');
 
 server.use(express.static(staticDir));
 
-createStaticDir(staticDir); */
+createStaticDir(staticDir); 
 
 server.use(userRouter);
 server.use(entryRouter);

@@ -7,6 +7,8 @@ const updateUser = require('./updateUser');
 const changePwd = require('./changePwd');
 const recoverPwd = require('./recoverPwd');
 const setNewPwd = require('./setNewPwd');
+const deleteUser = require ('./deleteUser');
+const reportUser = require ('./reportUser')
 
 
 module.exports = {
@@ -18,5 +20,7 @@ module.exports = {
     updateUser,
     changePwd,
     recoverPwd,
-    setNewPwd
+    setNewPwd,
+    deleteUser,
+    reportUser
 }

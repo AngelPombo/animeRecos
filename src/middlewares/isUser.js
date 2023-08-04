@@ -20,13 +20,14 @@ async function isUser (req,res,next){
 
         const [user] = await connect.query(
             `
-                SELECT last_auth_update
+                SELECT last_auth_update,user_role
                 FROM users
                 WHERE id=?
             `,
             [tokenInfo.id]
         );
-
+ 
+        tokenInfo.role = user[0].user_role;
         const lastAuthUpdate = new Date(user[0].lastAuthUpdate);
         const timeStampCreateToken = new Date(tokenInfo.iat * 1000);
 

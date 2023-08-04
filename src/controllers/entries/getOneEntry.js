@@ -9,7 +9,7 @@ async function getOneEntry (req,res) {
 
         const [entry] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited, e.title, e.content, e.anime_character, e.genre, e.category
+                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited,e.banned, e.title, e.content, e.anime_character, e.genre, e.category
                 FROM entries e
                 INNER JOIN users u ON e.user_id=u.id
                 WHERE e.id=?
@@ -25,10 +25,10 @@ async function getOneEntry (req,res) {
             });
         }
 
-        const [coments] = await connect.query(
+        const [comments] = await connect.query(
             `
-                SELECT c.coment_date, c.content, c.edited
-                FROM coments c
+                SELECT c.comment_date, c.content, c.edited, c.banned
+                FROM comments c
                 INNER JOIN entries e ON c.entry_id=?
                 GROUP BY c.id
             `,
@@ -66,9 +66,9 @@ async function getOneEntry (req,res) {
 
         const [votesComent] = await connect.query(
             `
-                SELECT SUM(vo.vote_coment) AS "votos_comentario", c.id AS "id_comentario"
+                SELECT SUM(vo.vote_comment) AS "votos_comentario", c.id AS "id_comentario"
                 FROM votes vo
-                INNER JOIN coments c ON vo.coment_id=c.id
+                INNER JOIN comments c ON vo.comment_id=c.id
                 WHERE c.entry_id=? 
                 GROUP BY c.id
             `,
@@ -79,7 +79,7 @@ async function getOneEntry (req,res) {
 
         return res.status(200).send({
             status: "OK",
-            data: [entry, coments, photos, videos, votesEntry, votesComent]
+            data: [entry, comments, photos, videos, votesEntry, votesComent]
         });
     } catch(e){
         console.log(e);
