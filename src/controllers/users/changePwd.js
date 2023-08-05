@@ -7,6 +7,10 @@ async function changePwd (req,res){
         const {idUser} = req.params;
         const {oldPwd, newPwd} = req.body;
 
+        if(!oldPwd || !newPwd){
+            return res.status(400).send('Faltan datos');
+        }
+
         const [user] = await connect.query(
             `SELECT id FROM users WHERE id=? AND pwd=SHA2(?,512)`, [idUser, oldPwd]
         );
@@ -20,6 +24,7 @@ async function changePwd (req,res){
         );
 
         connect.release();
+        
         res.status(200).send({
             status: 'OK',
             message: 'Contraseña actualizada correctamente.'

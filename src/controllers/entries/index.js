@@ -14,6 +14,10 @@ const voteEntry = require("./voteEntry");
 const voteComment = require("./voteComment");
 const reportEntry = require("./reportEntry");
 const reportComment = require("./reportComment");
+const bannEntry = require('./bannEntry');
+const bannComment = require('./bannComment');
+const getTotalReportsEntry = require('./getTotalReportsEntry');
+const getTotalReportsComment = require('./getTotalReportsComment');
 
 module.exports = {
     getLastEntries,
@@ -31,6 +35,10 @@ module.exports = {
     voteEntry,
     voteComment,
     reportEntry,
-    reportComment
+    reportComment,
+    bannEntry,
+    bannComment,
+    getTotalReportsEntry,
+    getTotalReportsComment
     
 }

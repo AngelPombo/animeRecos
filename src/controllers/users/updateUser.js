@@ -10,6 +10,10 @@ async function updateUser (req,res){
 
         const connect = await getDB();
 
+        if(!nick || !email){
+            return res.status(400).send('Faltan datos');
+        }
+
         if(req.userInfo.id !== parseInt(idUser) && req.userInfo.role !== "admin"){
             return res.status(401).send('No está autorizado para modificar este usuario');
         }

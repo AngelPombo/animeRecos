@@ -19,12 +19,10 @@ async function editComment (req,res) {
             `
                 UPDATE comments 
                 SET edited = true , content = ?, user_id = ?
-                WHERE entry_id = ?
+                WHERE entry_id = ? AND id=?
             `,
-            [comment, idUser, idEntry] 
+            [comment, idUser, idEntry, idComment] 
         );
-
-        
 
         connect.release();
         

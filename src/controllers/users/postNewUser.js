@@ -7,7 +7,7 @@ async function postNewUser (req,res){
         const connect = await getDB();
 
         const [userExist] = await connect.query(
-            `SELECT id FROM users WHERE email=?`,[email]
+            `SELECT id FROM users WHERE email=? OR user_name=?`,[email,nick]
         );
 
         if(userExist.length > 0){

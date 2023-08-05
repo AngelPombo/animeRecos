@@ -8,7 +8,11 @@ async function postComment (req,res) {
 
         const {idEntry} = req.params;
         const {comment} = req.body;
-        const idUser = req.userInfo.id; 
+        const idUser = req.userInfo.id;
+
+        if(!comment){
+            res.status(400).send('El campo comment es obligatorio');
+        }
        
         
         const[newComment] = await connect.query (
