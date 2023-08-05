@@ -4,6 +4,9 @@ const router = express.Router();
 
 const isUser = require('../middlewares/isUser');
 const userExists = require("../middlewares/userExists");
+const isAdmin = require('../middlewares/isAdmin');
+const isBannedUser = require('../middlewares/isBannedUser');
+const validateDataUser = require('../middlewares/validateDataUser');
 
 const {
     getUserById,
@@ -16,22 +19,30 @@ const {
     recoverPwd,
     setNewPwd,
     deleteUser,
-    reportUser
+    reportUser,
+    bannUser,
+    getTotalReportsUser
 } = require('../controllers/users');
 
 
-router.get('/user/:idUser',userExists, isUser, getUserById);
-router.get('/user-entries/:idUser', getLastUserEntries);
-
+router.get('/user/:idUser',userExists, isUser, isBannedUser, getUserById);
+router.get('/user-entries/:idUser', isUser, isBannedUser, getLastUserEntries);
 router.get('/users/validate/:regCode', validateUser);
-router.post('/new-user', postNewUser);
-router.post('/login', loginUser);
-router.put('/edit-profile/:idUser',userExists, isUser, updateUser);
+router.get('/users/total-reports/:idUser', userExists, isUser, isAdmin, getTotalReportsUser);
 
-router.put('/users/:idUser/password', changePwd);
+router.post('/new-user', validateDataUser, postNewUser);
+router.post('/login', loginUser);
 router.post('/users/recover-password', recoverPwd);
 router.post('/users/reset-password', setNewPwd);
-router.delete('/users/:idUser', isUser, deleteUser);
-router.post('/users/:idUser/report', userExists, isUser, reportUser)
+router.post('/users/:idUser/report', userExists, isUser, reportUser);
+
+router.put('/edit-profile/:idUser',userExists, isUser, updateUser);
+router.put('/users/:idUser/password', userExists, isUser, changePwd);
+router.put('/users/:idUser/bann', userExists, isUser, isAdmin, bannUser);
+
+router.delete('/users/:idUser', userExists, isUser, deleteUser);
+
+
+
 
 module.exports = router;

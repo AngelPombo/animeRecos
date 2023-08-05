@@ -6,7 +6,7 @@ async function getLastEntries (_req,res){
         
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
             `
@@ -28,7 +28,9 @@ async function getLastEntries (_req,res){
             if(!entries[i]){
                 break;
             }else{
-                lastEntries.push(entries[i]);
+                if(entries[i].banned === 0){
+                    lastEntries.push(entries[i]);
+                }  
             }
         }
         connect.release();

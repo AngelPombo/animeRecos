@@ -6,9 +6,10 @@ async function reportUser(req,res) {
         
         const {idUser} = req.params;
         const idCurrentUser = req.userInfo.id;
+        const {type, content} = req.body;
         
       
-        const [report] = await connect.query(
+        const [reportedUser] = await connect.query(
             `
             SELECT id
             FROM users
@@ -19,7 +20,7 @@ async function reportUser(req,res) {
         );
             
 
-        if(report[0].id === idCurrentUser){
+        if(reportedUser[0].id === idCurrentUser){
             return res.status(403).send('No puedes reportar tu propia cuenta');
         }
 
@@ -35,13 +36,16 @@ async function reportUser(req,res) {
 
         if(existingReport.length > 0) return res.status(403).send('Ya reportaste a este usuario');
 
+        if(!type){
+            return res.status(400).send('Es obligatorio introducir el tipo de reporte');
+        }
        
-        await connect.query(
+        const [report] = await connect.query(
             `
-                INSERT INTO reports (report_date, report_user, user_id)
-                VALUES (?,?,?)
+                INSERT INTO reports (report_date, report_user, user_id, report_type, report_content)
+                VALUES (?,?,?,?,?)
             `,
-            [new Date(),idCurrentUser,idUser]
+            [new Date(),idCurrentUser,idUser, type, content]
         );
 
         
@@ -63,7 +67,9 @@ async function reportUser(req,res) {
             data: {
                 reports_totales: count[0].reports_totales,
                 id_usuario_reportado: idUser,
-                id_usuario_reportador: idCurrentUser
+                id_usuario_reportador: idCurrentUser,
+                type: report[0].report_type,
+                content: report[0].report_content
             }
         });
         

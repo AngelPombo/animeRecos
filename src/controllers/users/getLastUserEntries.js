@@ -25,6 +25,8 @@ async function getLastUserEntries(req, res) {
             });
         }
 
+        entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
+
         const lastEntries = [];
 
         for (let i = 0; i <= 3; i++) {

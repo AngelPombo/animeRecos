@@ -6,9 +6,9 @@ async function reportEntry(req,res) {
         
         const {idEntry} = req.params;
         const idCurrentUser = req.userInfo.id;
-        
+        const {type, content} = req.body;
       
-        const [report] = await connect.query(
+        const [reportedEntry] = await connect.query(
             `
             SELECT user_id
             FROM entries
@@ -19,7 +19,7 @@ async function reportEntry(req,res) {
         );
             
 
-        if(report[0].user_id === idCurrentUser){
+        if(reportedEntry[0].user_id === idCurrentUser){
             return res.status(403).send('No puedes reportar tu propia entrada');
         }
 
@@ -35,13 +35,16 @@ async function reportEntry(req,res) {
 
         if(existingReport.length > 0) return res.status(403).send('Ya reportaste a esta entrada');
 
-       
-        await connect.query(
+        if(!type){
+            return res.status(400).send('Es obligatorio introducir el tipo de reporte');
+        }
+
+        const [report] = await connect.query(
             `
-                INSERT INTO reports (report_date, report_user, entry_id)
-                VALUES (?,?,?)
+                INSERT INTO reports (report_date, report_user, entry_id, report_type, report_content)
+                VALUES (?,?,?,?,?)
             `,
-            [new Date(),idCurrentUser,idEntry]
+            [new Date(),idCurrentUser,idEntry,type,content]
         );
 
         
@@ -63,7 +66,9 @@ async function reportEntry(req,res) {
             data: {
                 reports_totales: count[0].reports_totales,
                 id_entrada_reportada: idEntry,
-                id_usuario_reportador: idCurrentUser
+                id_usuario_reportador: idCurrentUser,
+                type: report[0].report_type,
+                content: report[0].report_content
             }
         });
         

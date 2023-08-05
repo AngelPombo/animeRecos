@@ -6,10 +6,7 @@ async function voteEntry(req,res) {
         
         const {idEntry} = req.params;
         const idUser = req.userInfo.id;
-        
 
-       
-      
         const [entry] = await connect.query(
             `
                 SELECT user_id

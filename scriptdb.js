@@ -144,6 +144,12 @@ async function createDB() {
         report_entry BOOLEAN DEFAULT FALSE,
         report_comment BOOLEAN DEFAULT FALSE,
         report_user BOOLEAN DEFAULT FALSE,
+        report_type ENUM(
+            "acoso", "incitación al odio", "contenido sexual",
+            "apología del terrorismo", "estafa", "suplantación de identidad",
+            "otros"
+        )NOT NULL,
+        report_content VARCHAR(380),
         user_id INT UNSIGNED NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id),
         entry_id INT UNSIGNED,
@@ -154,26 +160,8 @@ async function createDB() {
     `
     );
 
-    //INCIDENCES
-    await connection.query(
-        `
-        CREATE TABLE IF NOT EXISTS incidences(
-            id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            type_incidence ENUM(
-                "acoso", "incitación al odio", "contenido sexual",
-                "apología del terrorismo", "estafa", "suplantación de identidad",
-                "otros"
-            )NOT NULL,
-            content VARCHAR(380),
-            user_id INT UNSIGNED NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id),
-            entry_id INT UNSIGNED,
-            FOREIGN KEY (entry_id) REFERENCES entries(id),
-            comment_id INT UNSIGNED,
-            FOREIGN KEY (comment_id) REFERENCES comments(id)
-        );
-        `
-    );
+    //creo que en user_id habría que quitar el NOT NULL
+    //y que el report_user debería ser un entero
 
     console.log(`Si no existía una base de datos con el mismo nombre, se ha creado ${dbName} y sus correspondientes tablas`);
 
