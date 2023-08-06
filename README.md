@@ -21,9 +21,9 @@ USUARIOS ANÓNIMOS
 - Login (Email y Password) --> /login
 
 - Registro: -->/new-user
-- Nombre
-- Email
-- Password
+    - Nombre
+    - Email
+    - Password
 
 
 USUARIOS REGISTRADOS --> NECESARIO AUTH ( /users/validate/:regCode) 
