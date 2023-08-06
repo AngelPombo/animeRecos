@@ -68,8 +68,8 @@ async function reportUser(req,res) {
                 reports_totales: count[0].reports_totales,
                 id_usuario_reportado: idUser,
                 id_usuario_reportador: idCurrentUser,
-                type: report[0].report_type,
-                content: report[0].report_content
+                type: type,
+                content: content
             }
         });
         

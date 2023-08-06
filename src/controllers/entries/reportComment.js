@@ -69,8 +69,8 @@ async function reportEntry(req,res) {
                 id_entrada: idEntry,
                 id_comentario_reportado: idComment,
                 id_usuario_reportador: idCurrentUser,
-                type: report[0].report_type,
-                content: report[0].report_content
+                type: type,
+                content: content
             }
         });
         

@@ -10,6 +10,8 @@ const isAdmin = require('../middlewares/isAdmin');
 const isBannedUser = require('../middlewares/isBannedUser');
 const isBannedEntry = require('../middlewares/isBannedEntry');
 const isBannedComment = require('../middlewares/isBannedComment');
+const updateBadge = require('../middlewares/updateBadge');
+
 
 const {
     getLastEntries,
@@ -36,11 +38,11 @@ const {
 } = require('../controllers/entries');
 
 
-router.get('/last-entries', getLastEntries);
-router.get('/entry/:idEntry', entryExists, isBannedEntry, getOneEntry);
-router.get('/entries/:category', getEntriesByCategory);
-router.get('/entries/genre/:genre', getEntriesByGenre);
-router.get('/top-rated/:category', getTopRatedEntriesByCategory);
+router.get('/last-entries', updateBadge, getLastEntries);
+router.get('/entry/:idEntry', entryExists, isBannedEntry, updateBadge, getOneEntry);
+router.get('/entries/:category', updateBadge, getEntriesByCategory);
+router.get('/entries/genre/:genre', updateBadge,  getEntriesByGenre);
+router.get('/top-rated/:category', updateBadge, getTopRatedEntriesByCategory);
 router.get('/entries/total-reports/:idEntry', entryExists, isUser, isAdmin, getTotalReportsEntry);
 router.get('/entries/total-reports/:idEntry/comments/:idComment', entryExists, isUser, isAdmin, getTotalReportsComment);
 

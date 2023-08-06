@@ -39,7 +39,7 @@ async function reportEntry(req,res) {
             return res.status(400).send('Es obligatorio introducir el tipo de reporte');
         }
 
-        const [report] = await connect.query(
+         await connect.query(
             `
                 INSERT INTO reports (report_date, report_user, entry_id, report_type, report_content)
                 VALUES (?,?,?,?,?)
@@ -59,6 +59,7 @@ async function reportEntry(req,res) {
         );
 
         connect.release();
+        
 
         res.status(200).send({
             status: 'OK',
@@ -67,8 +68,9 @@ async function reportEntry(req,res) {
                 reports_totales: count[0].reports_totales,
                 id_entrada_reportada: idEntry,
                 id_usuario_reportador: idCurrentUser,
-                type: report[0].report_type,
-                content: report[0].report_content
+                type: type,
+                content: content
+                
             }
         });
         

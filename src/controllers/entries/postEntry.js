@@ -39,7 +39,15 @@ async function postEntry (req,res) {
                     [photoName, insertId]
                 )
             }
-        }
+        }else(
+            await connect.query(
+            `
+                INSERT INTO photos (photo, entry_id)
+                VALUES ("sin foto",?)
+            `,
+            [insertId]
+            )
+        )
 
         connect.release();
 

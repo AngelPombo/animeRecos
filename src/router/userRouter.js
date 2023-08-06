@@ -7,6 +7,7 @@ const userExists = require("../middlewares/userExists");
 const isAdmin = require('../middlewares/isAdmin');
 const isBannedUser = require('../middlewares/isBannedUser');
 const validateDataUser = require('../middlewares/validateDataUser');
+const updateBadge = require('../middlewares/updateBadge');
 
 const {
     getUserById,
@@ -25,7 +26,7 @@ const {
 } = require('../controllers/users');
 
 
-router.get('/user/:idUser',userExists, isUser, isBannedUser, getUserById);
+router.get('/user/:idUser',userExists, isUser, isBannedUser, updateBadge, getUserById);
 router.get('/user-entries/:idUser', isUser, isBannedUser, getLastUserEntries);
 router.get('/users/validate/:regCode', validateUser);
 router.get('/users/total-reports/:idUser', userExists, isUser, isAdmin, getTotalReportsUser);
