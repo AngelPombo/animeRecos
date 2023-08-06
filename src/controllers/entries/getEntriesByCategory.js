@@ -9,7 +9,7 @@ async function getEntriesByCategory (req,res) {
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.genre, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
                 WHERE category =?

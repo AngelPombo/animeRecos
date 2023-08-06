@@ -40,7 +40,7 @@ async function getOneEntry (req,res) {
                 SELECT p.id AS "photo_id"
                 FROM photos p
                 INNER JOIN entries e ON p.entry_id=?
-                GROUP BY p.id
+                GROUP BY p.entry_id
             `,
             [idEntry]
         );
@@ -50,7 +50,7 @@ async function getOneEntry (req,res) {
                 SELECT vi.id AS "video_id"
                 FROM videos vi
                 INNER JOIN entries e ON vi.entry_id=?
-                GROUP BY vi.id
+                GROUP BY vi.entry_id
             `,
             [idEntry]
         );

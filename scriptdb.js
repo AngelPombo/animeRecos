@@ -143,14 +143,14 @@ async function createDB() {
         report_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         report_entry BOOLEAN DEFAULT FALSE,
         report_comment BOOLEAN DEFAULT FALSE,
-        report_user BOOLEAN DEFAULT FALSE,
+        report_user INT DEFAULT NULL,
         report_type ENUM(
-            "acoso", "incitación al odio", "contenido sexual",
-            "apología del terrorismo", "estafa", "suplantación de identidad",
+            "acoso", "incitacion al odio", "contenido sexual",
+            "apologia del terrorismo", "estafa", "suplantacion de identidad",
             "otros"
         )NOT NULL,
         report_content VARCHAR(380),
-        user_id INT UNSIGNED NOT NULL,
+        user_id INT UNSIGNED,
         FOREIGN KEY (user_id) REFERENCES users(id),
         entry_id INT UNSIGNED,
         FOREIGN KEY (entry_id) REFERENCES entries(id),
@@ -160,7 +160,7 @@ async function createDB() {
     `
     );
 
-    //creo que en user_id habría que quitar el NOT NULL
+    //creo que en user_id habría que quitar el NOT NULL// es usuario que reporta
     //y que el report_user debería ser un entero
 
     console.log(`Si no existía una base de datos con el mismo nombre, se ha creado ${dbName} y sus correspondientes tablas`);
