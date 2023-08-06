@@ -1,5 +1,8 @@
 # NoticiasColaborativasAnime
 
+Para crear base de datos antes de ejecutar el programa utiliza el comando **node scriptdb.js**
+
+
 DESCRIPCIÓN
 Implementar una API que permita gestionar noticias colaborativas, estilo reddit o menéame,
 donde los usuarios puedan registrarse y publicar una noticia en una serie de categorías
