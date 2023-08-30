@@ -14,9 +14,9 @@ async function updateBadge(req,res,next){
             `,
             [idUser]
         );
-        let numeroEntradas = entries[0].total_entradas
 
-        console.log(numeroEntradas)
+        let numeroEntradas = entries[0].total_entradas;
+
         if(numeroEntradas<5){
             await connect.query(
                 `
@@ -72,14 +72,13 @@ async function updateBadge(req,res,next){
                 [idUser]
             ); 
         }
-   
 
         connect.release();
         
-
-        next();
     } catch (error) {
         console.log(error);
+    } finally{
+        next();
     }
 };
 

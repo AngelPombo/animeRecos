@@ -11,6 +11,8 @@ async function recoverPwd(req,res){
         const {email} = req.body;
 
         if(!email){
+            connect.release();
+
             return res.status(400).send('Es necesario ingresar el correo electrónico para esta acción');
         }
 
@@ -24,6 +26,8 @@ async function recoverPwd(req,res){
         );
 
         if(!user.length || user.length === 0){
+            connect.release();
+
             return res.status(404).send('El correo electrónico no está asociado a ningún usuario');
         }
 

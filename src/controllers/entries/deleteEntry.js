@@ -6,7 +6,6 @@ async function deleteEntry (req,res){
         const connect = await getDB();
         const {idEntry} = req.params;
 
-      
         const [photos] = await connect.query(
             `
                 SELECT photo
@@ -16,15 +15,13 @@ async function deleteEntry (req,res){
             [idEntry]
         );
 
- 
+
         await connect.query(`DELETE FROM photos WHERE entry_id=?`,[idEntry]);
 
-     
         for(let item of photos){
             await deletePhoto(item.photo,'/photoentries');
         }
 
-     
         await connect.query(
             `
                 DELETE FROM votes WHERE entry_id=?
@@ -32,7 +29,6 @@ async function deleteEntry (req,res){
             [idEntry]
         );
 
-     
         await connect.query(`DELETE FROM entries WHERE id=?`,[idEntry]);
 
         connect.release();

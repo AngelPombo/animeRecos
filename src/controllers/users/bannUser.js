@@ -14,9 +14,9 @@ async function bannUser (req,res){
             [idUser]
         );
 
-        console.log(user);
-
         if(user[0].banned === 1){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Error',
                 message: 'El usuario ya está baneado, en caso de que quiera desbanearlo, utilice la ruta correspondiente'

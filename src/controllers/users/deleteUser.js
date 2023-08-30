@@ -5,7 +5,6 @@ async function deleteUser(req,res){
         const { idUser } = req.params;
         const connect = await getDB();
 
-      
         await connect.query(
             `
                 UPDATE users
@@ -14,7 +13,9 @@ async function deleteUser(req,res){
             `,
             [new Date(),idUser]
         );
+
         connect.release();
+
         res.status(200).send({
             status: 'OK',
             message: `El usuario con id: ${idUser} eliminado`

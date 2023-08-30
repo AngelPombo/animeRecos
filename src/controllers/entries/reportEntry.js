@@ -7,7 +7,7 @@ async function reportEntry(req,res) {
         const {idEntry} = req.params;
         const idCurrentUser = req.userInfo.id;
         const {type, content} = req.body;
-      
+
         const [reportedEntry] = await connect.query(
             `
             SELECT user_id
@@ -15,15 +15,16 @@ async function reportEntry(req,res) {
             WHERE id=?
             `,
             [idEntry]
-                
         );
             
 
         if(reportedEntry[0].user_id === idCurrentUser){
+            connect.release();
+
             return res.status(403).send('No puedes reportar tu propia entrada');
         }
 
-     
+
         const [existingReport] = await connect.query(
             `
                 SELECT r.entry_id
@@ -33,13 +34,19 @@ async function reportEntry(req,res) {
             [idEntry,idCurrentUser]
         );
 
-        if(existingReport.length > 0) return res.status(403).send('Ya reportaste a esta entrada');
+        if(existingReport.length > 0){
+            connect.release();
+
+            return res.status(403).send('Ya reportaste a esta entrada');
+        } 
 
         if(!type){
+            connect.release();
+
             return res.status(400).send('Es obligatorio introducir el tipo de reporte');
         }
 
-         await connect.query(
+        await connect.query(
             `
                 INSERT INTO reports (report_date, report_user, entry_id, report_type, report_content)
                 VALUES (?,?,?,?,?)
@@ -59,7 +66,6 @@ async function reportEntry(req,res) {
         );
 
         connect.release();
-        
 
         res.status(200).send({
             status: 'OK',

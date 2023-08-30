@@ -20,6 +20,7 @@ async function getTopRatedEntriesByCategory (req,res){
 
         if(!entries.length){
             connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas',
                 message: 'No hay entradas para mostrar'
@@ -39,6 +40,8 @@ async function getTopRatedEntriesByCategory (req,res){
         }
 
         if(!noBannedEntries.length){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas (baneadas)',
                 message: 'No hay entradas para mostrar'

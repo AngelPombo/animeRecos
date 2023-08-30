@@ -19,10 +19,11 @@ async function voteComment(req,res) {
 
 
         if(comment[0].user_id === idUser){
+            connect.release();
+
             return res.status(403).send('No puedes votar tu propio comentario');
         }
 
-     
         const [existingVote] = await connect.query(
             `
                 SELECT id
@@ -32,9 +33,12 @@ async function voteComment(req,res) {
             [idUser,idComment]
         );
 
-        if(existingVote.length > 0) return res.status(403).send('Ya votaste este comentario');
+        if(existingVote.length > 0){
+            connect.release();
 
-       
+            return res.status(403).send('Ya votaste este comentario');
+        } 
+
         await connect.query(
             `
                 INSERT INTO votes (vote_date, vote_comment ,  user_id, comment_id)

@@ -12,11 +12,12 @@ async function getLastEntries (_req,res){
                 INNER JOIN photos p ON p.entry_id = e.id
             `
         );
-       
+
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
         if(!entries.length){
             connect.release();
+            
             return res.status(400).send({
                 status: 'Sin entradas',
                 message: 'No hay entradas para mostrar'
@@ -34,7 +35,9 @@ async function getLastEntries (_req,res){
                 }  
             }
         }
+
         connect.release();
+
         return res.status(200).send({
             status: 'OK',
             data: lastEntries

@@ -19,16 +19,20 @@ async function addPhotoEntry (req, res){
                 [photoEntry,idEntry]
             )
 
+            connect.release();
+
             return res.status(200).send({
                 status: 'OK',
                 message: 'La imagen se cargó correctamente'
             });
         }else{
+            connect.release();
+
             return res.status(409).send('El envío de la imagen es obligatorio')
         }
 
     }catch(e){
         console.log(e);
-    } 
+    }
 }
 module.exports = addPhotoEntry;

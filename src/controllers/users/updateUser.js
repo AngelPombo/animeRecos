@@ -11,10 +11,14 @@ async function updateUser (req,res){
         const connect = await getDB();
 
         if(!nick || !email){
+            connect.release();
+
             return res.status(400).send('Faltan datos');
         }
 
         if(req.userInfo.id !== parseInt(idUser) && req.userInfo.role !== "admin"){
+            connect.release();
+
             return res.status(401).send('No está autorizado para modificar este usuario');
         }
 
@@ -47,6 +51,8 @@ async function updateUser (req,res){
             );
 
             if(existingEmail.length > 0){
+                connect.release();
+
                 return res.status(409).send('Ya existe un usuario registrado con ese email')
             }
 
@@ -86,7 +92,7 @@ async function updateUser (req,res){
             `,
             [nick,email,bio,linkTwitter,linkYoutube,linkInsta,linkTtv,idUser]
         );
-        
+
         connect.release();
 
         res.status(200).send({

@@ -8,6 +8,8 @@ async function changePwd (req,res){
         const {oldPwd, newPwd} = req.body;
 
         if(!oldPwd || !newPwd){
+            connect.release();
+
             return res.status(400).send('Faltan datos');
         }
 
@@ -16,6 +18,8 @@ async function changePwd (req,res){
         );
 
         if(!user.length || user.length === 0){
+            connect.release();
+
             return res.status(401).send('Las contraseñas no coinciden.');
         }
 

@@ -8,6 +8,8 @@ async function loginUser (req,res){
         const {email, pwd} = req.body;
 
         if(!email || !pwd){
+            connect.release();
+
             return res.status(400).send('Faltan datos.');
         }
 
@@ -21,6 +23,8 @@ async function loginUser (req,res){
         );
 
         if(!user.length){
+            connect.release();
+
             return res.status(404).send('Usuario y/o contraseña incorrecto/s');
         }
 

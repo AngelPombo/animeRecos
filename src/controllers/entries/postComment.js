@@ -11,21 +11,20 @@ async function postComment (req,res) {
         const idUser = req.userInfo.id;
 
         if(!comment){
+            connect.release();
+
             res.status(400).send('El campo comment es obligatorio');
         }
-       
         
         const[newComment] = await connect.query (
             `
             INSERT INTO comments (comment_date, content, user_id, entry_id)
                 VALUES (?,?,?,?)
-                 
             `,
             [new Date(), comment, idUser,idEntry ]
         
             );
-          
-        
+
         connect.release();
 
         res.status(200).send({

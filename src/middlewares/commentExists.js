@@ -15,20 +15,25 @@ const commentExists = async (req,res,next) => {
             [idComment]
         );
 
-        if(comment.length === 0) return res.status(404).send('El comentario no existe');
+        if(comment.length === 0){
+            connect.release();
+
+            return res.status(404).send('El comentario no existe');
+        } 
 
         const objCommentInfo = {
             banned: comment[0].banned,
             id: comment[0].id
         }
 
-        connect.release();
-
         req.infoComment = objCommentInfo;
 
-        next();
+        connect.release();
+
     } catch (error) {
         console.log(error);
+    }finally{
+        next();
     }
 };
 

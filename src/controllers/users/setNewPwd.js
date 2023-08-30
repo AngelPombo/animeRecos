@@ -9,6 +9,8 @@ async function setNewPwd (req,res){
         const {recoverCode, newPassword} = req.body;
 
         if(!recoverCode || !newPassword || newPassword.length < 6){
+            connect.release();
+
             return res.status(400).send('Faltan datos. La contraseña debe tener al menos 6 caracteres');
         }
 
@@ -22,6 +24,8 @@ async function setNewPwd (req,res){
         );
 
         if(!user.length || user.length === 0){
+            connect.release();
+
             return res.status(400).send('Código de recuperación inválido');
         }
 
@@ -34,8 +38,6 @@ async function setNewPwd (req,res){
             [newPassword, new Date(), user[0].id]
         );
 
-        connect.release();
-
         res.status(200).send({
             status: 'OK',
             message: 'Se ha restablecido la contraseña correctamente'
@@ -43,6 +45,8 @@ async function setNewPwd (req,res){
 
     }catch(e){
         console.log(e);
+    }finally{
+        connect.release();
     }
 }
 

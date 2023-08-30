@@ -7,6 +7,8 @@ async function isUser (req,res,next){
         const auth = req.headers['auth'];
 
         if(!auth){
+            connect.release();
+
             return res.status(401).send('Falta cabecera de autorización.');
         }
 
@@ -26,7 +28,7 @@ async function isUser (req,res,next){
             `,
             [tokenInfo.id]
         );
- 
+
         tokenInfo.banned = user[0].banned;
         tokenInfo.role = user[0].user_role;
         const lastAuthUpdate = new Date(user[0].lastAuthUpdate);
@@ -38,10 +40,15 @@ async function isUser (req,res,next){
 
         req.userInfo = tokenInfo;
 
-        next();
+        connect.release();
+
     }catch(e){
         console.log(e);
+    }finally{
+        next();
     }
+
+    
 }
 
 module.exports = isUser;

@@ -7,8 +7,7 @@ async function reportEntry(req,res) {
         const {idEntry, idComment} = req.params;
         const idCurrentUser = req.userInfo.id;
         const {type, content} = req.body;
-        
-      
+
         const [reportedComment] = await connect.query(
             `
             SELECT user_id
@@ -18,13 +17,13 @@ async function reportEntry(req,res) {
             [idComment]
                 
         );
-            
 
         if(reportedComment[0].user_id === idCurrentUser){
+            connect.release();
+
             return res.status(403).send('No puedes reportar tu propio comentario');
         }
 
-     
         const [existingReport] = await connect.query(
             `
                 SELECT r.comment_id
@@ -34,12 +33,18 @@ async function reportEntry(req,res) {
             [idComment,idCurrentUser]
         );
 
-        if(existingReport.length > 0) return res.status(403).send('Ya reportaste este comentario');
+        if(existingReport.length > 0){
+            connect.release();
+
+            return res.status(403).send('Ya reportaste este comentario');
+        } 
 
         if(!type){
+            connect.release();
+
             return res.status(400).send('Es obligatorio introducir el tipo de reporte');
         }
-       
+
         const [report] = await connect.query(
             `
                 INSERT INTO reports (report_date, report_user, comment_id, report_type, report_content)

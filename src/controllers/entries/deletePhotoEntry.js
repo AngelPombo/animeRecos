@@ -5,7 +5,7 @@ async function deletePhotoEntry(req,res) {
     try {
         const connect = await getDB();
         const {idEntry, idPhoto} = req.params;
-       
+
         const [current] = await connect.query(
             `
                 SELECT photo
@@ -16,7 +16,9 @@ async function deletePhotoEntry(req,res) {
         );
         
         if(current.length === 0){
-            res.status(404).send('La imagen no existe')
+            connect.release();
+
+            return res.status(404).send('La imagen no existe')
         }
 
         
