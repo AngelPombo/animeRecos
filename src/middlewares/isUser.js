@@ -35,6 +35,8 @@ async function isUser (req,res,next){
         const timeStampCreateToken = new Date(tokenInfo.iat * 1000);
 
         if(timeStampCreateToken < lastAuthUpdate){
+            connect.release();
+            
             res.status(401).send('Ha caducado el token. Debe volver a identificarse');
         }
 

@@ -38,6 +38,8 @@ async function setNewPwd (req,res){
             [newPassword, new Date(), user[0].id]
         );
 
+        connect.release();
+
         res.status(200).send({
             status: 'OK',
             message: 'Se ha restablecido la contraseña correctamente'
@@ -45,8 +47,6 @@ async function setNewPwd (req,res){
 
     }catch(e){
         console.log(e);
-    }finally{
-        connect.release();
     }
 }
 
