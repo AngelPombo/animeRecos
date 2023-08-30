@@ -11,10 +11,26 @@ async function postEntry (req,res) {
 
         const idUser = req.userInfo.id; 
 
-        if(!title) return res.status(400).send("El campo title es obligatorio");
-        if(!content) return res.status(400).send("El campo content es obligatorio");
-        if(!category) return res.status(400).send("El campo category es obligatorio");
-        if(!genre) return res.status(400).send("El campo genre es obligatorio");
+        if(!title){
+            connect.release();
+
+            return res.status(400).send("El campo title es obligatorio");
+        } 
+        if(!content){
+            connect.release();
+
+            return res.status(400).send("El campo content es obligatorio");
+        } 
+        if(!category){
+            connect.release();
+
+            return res.status(400).send("El campo category es obligatorio");
+        } 
+        if(!genre){
+            connect.release();
+
+            return res.status(400).send("El campo genre es obligatorio");
+        } 
 
 
         const [newEntry] = await connect.query(
@@ -30,7 +46,7 @@ async function postEntry (req,res) {
 
         if(req.files && Object.keys(req.files).length > 0){
             for(let photoData of Object.values(req.files).slice(0,3)){
-               const photoName =  await savePhoto(photoData, "/photoentries");
+                const photoName =  await savePhoto(photoData, "/photoentries");
                 await connect.query(
                     `
                         INSERT INTO photos (photo, entry_id)

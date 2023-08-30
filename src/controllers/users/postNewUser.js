@@ -11,6 +11,8 @@ async function postNewUser (req,res){
         );
 
         if(userExist.length > 0){
+            connect.release();
+
             return res.status(409).send({
                 status: 'ERROR',
                 message: 'El usuario ya existe'

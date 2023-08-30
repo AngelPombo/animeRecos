@@ -18,11 +18,11 @@ async function getEntriesByGenre (req,res) {
             [genre]
         );
 
-        console.log(entries);
-
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
         if(!entries.length){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas',
                 message: 'No hay entradas para mostrar',
@@ -43,6 +43,8 @@ async function getEntriesByGenre (req,res) {
         }
 
         if(!noBannedEntries.length){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas (baneadas)',
                 message: 'No hay entradas para mostrar'
@@ -58,7 +60,7 @@ async function getEntriesByGenre (req,res) {
 
     }catch(e){
         console.log(e);
-    };
+    }
 }
 
 

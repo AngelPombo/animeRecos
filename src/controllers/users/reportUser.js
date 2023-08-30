@@ -7,8 +7,7 @@ async function reportUser(req,res) {
         const {idUser} = req.params;
         const idCurrentUser = req.userInfo.id;
         const {type, content} = req.body;
-        
-      
+
         const [reportedUser] = await connect.query(
             `
             SELECT id
@@ -21,10 +20,11 @@ async function reportUser(req,res) {
             
 
         if(reportedUser[0].id === idCurrentUser){
+            connect.release();
+
             return res.status(403).send('No puedes reportar tu propia cuenta');
         }
 
-     
         const [existingReport] = await connect.query(
             `
                 SELECT r.user_id
@@ -34,12 +34,18 @@ async function reportUser(req,res) {
             [idUser,idCurrentUser]
         );
 
-        if(existingReport.length > 0) return res.status(403).send('Ya reportaste a este usuario');
+        if(existingReport.length > 0){
+            connect.release();
+
+            return res.status(403).send('Ya reportaste a este usuario');
+        } 
 
         if(!type){
+            connect.release();
+
             return res.status(400).send('Es obligatorio introducir el tipo de reporte');
         }
-       
+
         const [report] = await connect.query(
             `
                 INSERT INTO reports (report_date, report_user, user_id, report_type, report_content)

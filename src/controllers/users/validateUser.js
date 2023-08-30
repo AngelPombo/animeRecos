@@ -17,6 +17,8 @@ async function validateUser(req,res) {
         );
 
         if(user.length === 0){
+            connect.release();
+
             return res.status(404).send('No existe ningún usuario con ese código');
         }
 

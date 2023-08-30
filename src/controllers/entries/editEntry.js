@@ -10,10 +10,30 @@ async function editEntry (req,res) {
 
         const { title, content, category, genre, animeCharacter } = req.body;
 
-        if(!title) return res.status(400).send("El campo title es obligatorio");
-        if(!content) return res.status(400).send("El campo content es obligatorio");
-        if(!category) return res.status(400).send("El campo category es obligatorio");
-        if(!genre) return res.status(400).send("El campo genre es obligatorio");
+        if(!title){
+            connect.release();
+
+            return res.status(400).send("El campo title es obligatorio");
+
+        }
+
+        if(!content){
+            connect.release();
+
+            return res.status(400).send("El campo content es obligatorio");
+        }
+
+        if(!category){
+            connect.release();
+            
+            return res.status(400).send("El campo category es obligatorio");
+        }
+
+        if(!genre){
+            connect.release();
+
+            return res.status(400).send("El campo genre es obligatorio");
+        } 
 
         const [editedEntry] = await connect.query(
             `
@@ -23,8 +43,6 @@ async function editEntry (req,res) {
             `,
             [new Date(), title, content, animeCharacter, category, genre, idEntry] 
         );
-
-        
 
         connect.release();
         

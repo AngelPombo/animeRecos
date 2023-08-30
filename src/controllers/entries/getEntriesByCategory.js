@@ -20,6 +20,8 @@ async function getEntriesByCategory (req,res) {
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
         if(!entries.length){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas',
                 message: 'No hay entradas para mostrar'
@@ -38,15 +40,17 @@ async function getEntriesByCategory (req,res) {
             }
         }
 
-        connect.release();
-
         if(!noBannedEntries.length){
+            connect.release();
+
             return res.status(400).send({
                 status: 'Sin entradas (baneadas)',
                 message: 'No hay entradas para mostrar'
             });
         }
-        
+
+        connect.release();
+
         return res.status(200).send({
             status: "OK",
             data: noBannedEntries

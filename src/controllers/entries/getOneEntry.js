@@ -19,6 +19,7 @@ async function getOneEntry (req,res) {
 
         if(!entry.length){
             connect.release();
+
             return res.status(400).send({
                 status: 'Error',
                 message: 'Ha intentado acceder a una entrada que no existe'

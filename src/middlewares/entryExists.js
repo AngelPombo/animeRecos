@@ -17,20 +17,25 @@ const entryExists = async (req,res,next) => {
             [idEntry]
         );
 
-        if(entry.length === 0) return res.status(404).send('La entrada a la que deseas acceder no existe');
+        if(entry.length === 0){
+            connect.release();
+
+            return res.status(404).send('La entrada a la que deseas acceder no existe');
+        } 
 
         const objEntryInfo = {
             banned: entry[0].banned,
             id: entry[0].id
         }
 
-        connect.release();
-
         req.infoEntry = objEntryInfo;
 
-        next();
+        connect.release();
+
     } catch (error) {
         console.log(error);
+    }finally{
+        next();
     }
 };
 

@@ -17,10 +17,11 @@ async function voteEntry(req,res) {
         );
 
         if(entry[0].user_id === idUser){
+            connect.release();
+
             return res.status(403).send('No puedes votar tu propia entrada');
         }
 
-     
         const [existingVote] = await connect.query(
             `
                 SELECT id
@@ -30,9 +31,12 @@ async function voteEntry(req,res) {
             [idUser,idEntry]
         );
 
-        if(existingVote.length > 0) return res.status(403).send('Ya votaste esta entrada');
+        if(existingVote.length > 0){
+            connect.release();
 
-       
+            return res.status(403).send('Ya votaste esta entrada');
+        } 
+
         await connect.query(
             `
                 INSERT INTO votes (vote_date, vote_entry ,  user_id, entry_id)
@@ -41,7 +45,6 @@ async function voteEntry(req,res) {
             [new Date(),1,idUser,idEntry]
         );
 
-        
         const [suma] = await connect.query(
             `
                 SELECT SUM(v.vote_entry) AS "votos_totales"

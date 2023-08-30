@@ -15,13 +15,17 @@ const userExists = async (req,res,next) => {
         );
         
         if(user.length === 0){
+            connect.release();
+
             res.status(404).send('No existe el usuario');
         }
 
-        next();
+        connect.release();
 
     } catch (error) {
         console.log(error);
+    }finally{
+        next();
     }
 }
 

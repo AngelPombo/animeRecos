@@ -12,7 +12,11 @@ async function editComment (req,res) {
         const idUser = req.userInfo.id; 
 
         
-        if(!comment) return res.status(400).send("El campo comment es obligatorio");
+        if(!comment){
+            connect.release();
+
+            return res.status(400).send("El campo comment es obligatorio");
+        } 
         
 
         const [editedComment] = await connect.query(
