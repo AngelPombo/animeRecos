@@ -10,14 +10,27 @@ async function editComment (req,res) {
 
         const {comment} = req.body;
         const idUser = req.userInfo.id; 
-
         
         if(!comment){
             connect.release();
 
             return res.status(400).send("El campo comment es obligatorio");
-        } 
-        
+        }
+
+        const [idOwnerComment] = await connect.query(
+            `
+                SELECT user_id
+                FROM comments
+                WHERE id=? AND entry_id=?
+            `,
+            [idComment, idEntry]
+        );
+
+        if(idUser !== idOwnerComment[0].user_id && req.userInfo.role !== 'admin'){
+            connect.release();
+
+            return res.status(401).send('No tiene permisos para modificar este comentario');
+        }
 
         const [editedComment] = await connect.query(
             `

@@ -1,4 +1,5 @@
 const {getDB} = require('../../database/db');
+const jwt = require('jsonwebtoken');
 
 async function changePwd (req,res){
     try{
@@ -6,6 +7,13 @@ async function changePwd (req,res){
 
         const {idUser} = req.params;
         const {oldPwd, newPwd} = req.body;
+        const idCurrentUser = req.userInfo.id;
+
+        if(parseInt(idUser) !== idCurrentUser){
+            connect.release();
+
+            return res.status(401).send('No estás autorizado para realizar este cambio de contraseña');
+        }
 
         if(!oldPwd || !newPwd){
             connect.release();
@@ -27,11 +35,15 @@ async function changePwd (req,res){
             `UPDATE users SET pwd=SHA2(?,512), last_auth_update=? WHERE id=?`,[newPwd,new Date(),idUser]
         );
 
+/*         const token = req.headers.auth;
+
+        jwt.destroy(token); */
+
         connect.release();
         
         res.status(200).send({
             status: 'OK',
-            message: 'Contraseña actualizada correctamente.'
+            message: 'Contraseña actualizada correctamente. Es necesario volver a iniciar sesión.'
         });
 
     }catch(e){

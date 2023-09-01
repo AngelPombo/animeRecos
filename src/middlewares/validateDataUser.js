@@ -4,8 +4,8 @@ function validateDataUser(req,res,next){
 
     const schema = joi.object().keys({
         nick: joi.string().required(),
-        email: joi.string().min(3).required().email(),
-        pwd: joi.string().min(3).required()
+        email: joi.string().min(7).required().email(),
+        pwd: joi.string().min(6).required()
     });
 
     const validation = schema.validate(req.body);

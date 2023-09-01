@@ -30,7 +30,17 @@ async function loginUser (req,res){
 
         const info = {
             id: user[0].id,
-            role: user[0].role
+            role: user[0].role,
+            active: user[0].active_user
+        }
+
+        if(!info.active){
+            connect.release();
+            
+            return res.status(401).send({
+                status:'Pendiente de activación',
+                message:'El usuario no ha validado su cuenta'
+            })
         }
 
         const token = jwt.sign(info, process.env.SECRET_TOKEN, {expiresIn: '1d'});

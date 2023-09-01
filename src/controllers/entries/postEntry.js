@@ -31,7 +31,45 @@ async function postEntry (req,res) {
 
             return res.status(400).send("El campo genre es obligatorio");
         } 
+        
+        const categoryValues = ["recomendaciones", "teorias", "fanArt",
+        "openings", "cosplays", "memes"];
 
+        let categoryExists = null;
+
+        for (let i = 0; i < categoryValues.length; i++) {
+            if(categoryValues[i] === category){
+                categoryExists = categoryValues[i];
+            }
+            
+        }
+
+        if(categoryExists === null){
+            connect.release();
+
+            return res.status(400).send("El campo category no coincide con las categorías disponibles");
+        }
+
+        const genreValues = ["accion", "aventura", "deportes",
+        "comedia", "drama", "fantasia",
+        "musical","romance", "ciencia-ficcion",
+        "sobrenatural", "thriller", "terror",
+        "psicologico", "infantil", "otros"];
+
+        let genreExists = null;
+
+        for (let i = 0; i < genreValues.length; i++) {
+            if(genreValues[i] === genre){
+                genreExists = genreValues[i];
+            }
+            
+        }
+
+        if(genreExists === null){
+            connect.release();
+
+            return res.status(400).send("El campo genre no coincide con los géneros disponibles");
+        }
 
         const [newEntry] = await connect.query(
             `
@@ -55,15 +93,7 @@ async function postEntry (req,res) {
                     [photoName, insertId]
                 )
             }
-        }else(
-            await connect.query(
-            `
-                INSERT INTO photos (photo, entry_id)
-                VALUES ("sin foto",?)
-            `,
-            [insertId]
-            )
-        )
+        }
 
         connect.release();
 
