@@ -38,20 +38,22 @@ async function getOneEntry (req,res) {
 
         const [photos] = await connect.query(
             `
-                SELECT p.id AS "photo_id"
+                SELECT p.id AS "photo_id", p.photo AS "name_photo"
                 FROM photos p
                 INNER JOIN entries e ON p.entry_id=?
-                GROUP BY p.entry_id
+                WHERE p.entry_id
+                GROUP BY p.id
             `,
             [idEntry]
         );
 
         const [videos] = await connect.query(
             `
-                SELECT vi.id AS "video_id"
+                SELECT vi.id AS "video_id", vi.video AS "name_video"
                 FROM videos vi
                 INNER JOIN entries e ON vi.entry_id=?
-                GROUP BY vi.entry_id
+                WHERE vi.entry_id
+                GROUP BY vi.id
             `,
             [idEntry]
         );

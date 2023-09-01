@@ -6,12 +6,28 @@ async function getLastEntries (_req,res){
         
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, p.photo, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, e.id AS "entry_id", CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
                 FROM users u
                 INNER JOIN entries e ON u.id=e.user_id
-                INNER JOIN photos p ON p.entry_id = e.id
             `
         );
+
+        let photos = [];
+        let infoPhotos = [];
+        
+        for (let i = 0; i < entries.length; i++) {
+
+            photos[i] = await connect.query(
+                `
+                    SELECT p.photo, p.entry_id
+                    FROM photos p
+                    WHERE entry_id=?
+                `,[entries[i].entry_id]
+            )
+
+            infoPhotos[i] = photos[i][0];
+        }
+
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
@@ -40,7 +56,8 @@ async function getLastEntries (_req,res){
 
         return res.status(200).send({
             status: 'OK',
-            data: lastEntries
+            entries: [lastEntries],
+            photos: infoPhotos
         });
 
     }catch(e){

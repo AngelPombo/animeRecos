@@ -17,6 +17,7 @@ async function isUser (req,res,next){
         try{
             tokenInfo = jwt.verify(auth, process.env.SECRET_TOKEN);
         }catch(e){
+            connect.release();
             return res.status(401).send('Token inválido.');
         }
 

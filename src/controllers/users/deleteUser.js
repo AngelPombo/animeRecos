@@ -4,6 +4,13 @@ async function deleteUser(req,res){
     try {
         const { idUser } = req.params;
         const connect = await getDB();
+        const idCurrentUser = req.userInfo.id;
+
+        if(parseInt(idUser) !== idCurrentUser){
+            connect.release();
+
+            return res.status(401).send('No estás autorizado para eliminar este usuario');
+        }
 
         await connect.query(
             `
