@@ -7,6 +7,7 @@ async function changePwd (req,res){
 
         const {idUser} = req.params;
         const {oldPwd, newPwd} = req.body;
+
         const idCurrentUser = req.userInfo.id;
 
         if(parseInt(idUser) !== idCurrentUser){
@@ -34,10 +35,6 @@ async function changePwd (req,res){
         await connect.query(
             `UPDATE users SET pwd=SHA2(?,512), last_auth_update=? WHERE id=?`,[newPwd,new Date(),idUser]
         );
-
-/*         const token = req.headers.auth;
-
-        jwt.destroy(token); */
 
         connect.release();
         
