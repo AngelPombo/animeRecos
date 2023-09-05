@@ -2,12 +2,13 @@ const {getDB} = require('../database/db');
 const jwt = require('jsonwebtoken');
 
 async function isUser (req,res,next){
+    let connect;
+
     try{
-        const connect = await getDB();
+        connect = await getDB();
         const auth = req.headers['auth'];
 
         if(!auth){
-            connect.release();
 
             return res.status(401).send('Falta cabecera de autorización.');
         }
@@ -17,7 +18,7 @@ async function isUser (req,res,next){
         try{
             tokenInfo = jwt.verify(auth, process.env.SECRET_TOKEN);
         }catch(e){
-            connect.release();
+
             return res.status(401).send('Token inválido.');
         }
 
@@ -32,26 +33,28 @@ async function isUser (req,res,next){
 
         tokenInfo.banned = user[0].banned;
         tokenInfo.role = user[0].user_role;
-        const lastAuthUpdate = new Date(user[0].lastAuthUpdate);
+
+        const lastAuthUpdate = new Date(user[0].last_auth_update);
         const timeStampCreateToken = new Date(tokenInfo.iat * 1000);
 
         if(timeStampCreateToken < lastAuthUpdate){
-            connect.release();
-            
-            res.status(401).send('Ha caducado el token. Debe volver a identificarse');
+            let error = new Error('Ha caducado el token. Debe volver a identificarse');
+            error.code = 401;
+            throw error;
         }
 
         req.userInfo = tokenInfo;
 
-        connect.release();
+        next();
 
     }catch(e){
         console.log(e);
+        next(e);
     }finally{
-        next();
+        if(connect){
+            connect.release();
+        }
     }
-
-    
 }
 
 module.exports = isUser;
