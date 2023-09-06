@@ -28,7 +28,7 @@ async function addPhotoEntry (req, res){
         }else{
             connect.release();
 
-            return res.status(409).send('El envío de la imagen es obligatorio')
+            return res.status(401).send('El envío de la imagen es obligatorio');
         }
 
     }catch(e){

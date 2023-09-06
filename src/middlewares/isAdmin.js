@@ -6,11 +6,10 @@ async function isAdmin (req,res,next){
         if(role !== 'admin'){
             return res.status(401).send('No puedes acceder a este contenido si no eres un administrador');
         }
-        
+        next();
     }catch(e){
         console.log(e);
-    }finally{
-        next();
+        next(e);
     }
 }
 

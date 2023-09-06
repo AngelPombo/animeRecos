@@ -13,7 +13,7 @@ async function postComment (req,res) {
         if(!comment){
             connect.release();
 
-            res.status(400).send('El campo comment es obligatorio');
+            return res.status(400).send('El campo comment es obligatorio');
         }
         
         const[newComment] = await connect.query (

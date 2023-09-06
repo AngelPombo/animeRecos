@@ -1,8 +1,11 @@
 const {getDB} = require('../database/db');
 
 async function updateBadge(req,res,next){
+
+    let connect;
+
     try {
-        const connect = await getDB();
+        connect = await getDB();
         
         const {idUser} = req.params;
 
@@ -73,12 +76,15 @@ async function updateBadge(req,res,next){
             ); 
         }
 
-        connect.release();
+        next();
         
     } catch (error) {
         console.log(error);
+        next(error);
     } finally{
-        next();
+        if(connect){
+            connect.release();
+        }
     }
 };
 

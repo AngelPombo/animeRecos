@@ -44,7 +44,7 @@ router.get('/entries/:category', updateBadge, getEntriesByCategory);
 router.get('/entries/genre/:genre', updateBadge,  getEntriesByGenre);
 router.get('/top-rated/:category', updateBadge, getTopRatedEntriesByCategory);
 router.get('/entries/total-reports/:idEntry', entryExists, isUser, isAdmin, getTotalReportsEntry);
-router.get('/entries/total-reports/:idEntry/comments/:idComment', entryExists, isUser, isAdmin, getTotalReportsComment);
+router.get('/entries/total-reports/:idEntry/comments/:idComment', entryExists, isUser, isAdmin, commentExists, getTotalReportsComment);
 
 router.post('/entry', isUser, isBannedUser, postEntry);
 router.post('/entry/:idEntry/comments', entryExists, isBannedEntry, isUser, isBannedUser, postComment);

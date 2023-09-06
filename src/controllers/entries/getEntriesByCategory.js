@@ -9,7 +9,7 @@ async function getEntriesByCategory (req,res) {
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.genre, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.category, e.genre, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
                 WHERE category =?
@@ -22,9 +22,9 @@ async function getEntriesByCategory (req,res) {
         if(!entries.length){
             connect.release();
 
-            return res.status(400).send({
-                status: 'Sin entradas',
-                message: 'No hay entradas para mostrar'
+            return res.status(404).send({
+                status: `No se han encontrado entradas de la categoría ${category}`,
+                message: 'No hay entradas en esta categoría o la categoría no existe'
             });
         }
 
@@ -51,7 +51,7 @@ async function getEntriesByCategory (req,res) {
 
         connect.release();
 
-        return res.status(200).send({
+        res.status(200).send({
             status: "OK",
             data: noBannedEntries
         });

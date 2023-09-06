@@ -1,9 +1,11 @@
 const {getDB} = require('../database/db');
 
 const userExists = async (req,res,next) => {
+    let connect;
+
     try {
         const {idUser} = req.params;
-        const connect = await getDB();
+        connect = await getDB();
 
         const [user] = await connect.query(
             `
@@ -17,15 +19,18 @@ const userExists = async (req,res,next) => {
         if(user.length === 0){
             connect.release();
 
-            res.status(404).send('No existe el usuario');
+            return res.status(404).send('No existe el usuario');
         }
 
-        connect.release();
+        next();
 
     } catch (error) {
         console.log(error);
+        next(error);
     }finally{
-        next();
+        if(connect){
+            connect.release();
+        }
     }
 }
 

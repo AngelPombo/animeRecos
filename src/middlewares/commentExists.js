@@ -1,8 +1,10 @@
 const {getDB} = require('../database/db');
 
 const commentExists = async (req,res,next) => {
+    let connect;
+    
     try {
-        const connect = await getDB();
+        connect = await getDB();
         
         const {idComment} = req.params;
 
@@ -28,12 +30,15 @@ const commentExists = async (req,res,next) => {
 
         req.infoComment = objCommentInfo;
 
-        connect.release();
+        next();
 
     } catch (error) {
         console.log(error);
+        next(error);
     }finally{
-        next();
+        if(connect){
+            connect.release();
+        }
     }
 };
 

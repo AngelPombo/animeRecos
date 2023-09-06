@@ -8,13 +8,12 @@ async function editEntry (req,res) {
         const {idEntry} = req.params;
         const connect = await getDB();
 
-        const { title, content, category, genre, animeCharacter } = req.body;
+        const { title, content, video, category, genre, animeCharacter} = req.body;
 
         if(!title){
             connect.release();
 
             return res.status(400).send("El campo title es obligatorio");
-
         }
 
         if(!content){
@@ -38,15 +37,15 @@ async function editEntry (req,res) {
         const [editedEntry] = await connect.query(
             `
                 UPDATE entries 
-                SET last_update = ?,title = ?, content = ?, anime_character = ?, category = ?, genre = ?
+                SET last_update = ?,title = ?, content = ?, video_url = ?, anime_character = ?, category = ?, genre = ?
                 WHERE id = ?
             `,
-            [new Date(), title, content, animeCharacter, category, genre, idEntry] 
+            [new Date(), title, content, video, animeCharacter, category, genre, idEntry] 
         );
 
         connect.release();
         
-        return res.status(200).send({
+        res.status(200).send({
             status: "OK",
             data: editedEntry
         });
