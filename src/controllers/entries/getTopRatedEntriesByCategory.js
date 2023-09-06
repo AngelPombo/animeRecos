@@ -10,7 +10,7 @@ async function getTopRatedEntriesByCategory (req,res){
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.genre, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.genre, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
                 WHERE e.category=?
@@ -50,7 +50,7 @@ async function getTopRatedEntriesByCategory (req,res){
 
         const [votesEntry] = await connect.query(
             `
-                SELECT count(vo.id) AS "votos", e.id AS "id_entry", u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.genre, e.create_date
+                SELECT count(vo.id) AS "votos", e.id AS "id_entry", u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.genre, e.create_date
                 FROM votes vo
                 INNER JOIN entries e ON vo.entry_id=e.id
                 INNER JOIN users u ON e.user_id=u.id

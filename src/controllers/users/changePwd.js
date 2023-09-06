@@ -1,5 +1,4 @@
 const {getDB} = require('../../database/db');
-const jwt = require('jsonwebtoken');
 
 async function changePwd (req,res){
     try{

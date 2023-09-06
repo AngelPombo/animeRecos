@@ -27,7 +27,7 @@ async function getUserById(req, res) {
 
         connect.release();
 
-        return res.status(200).send({
+        res.status(200).send({
             status: 'OK',
             data: user
         });

@@ -1,8 +1,10 @@
 const {getDB} = require('../database/db');
 
 const canEdit = async (req,res,next) => {
+    let connect;
+
     try {
-        const connect = await getDB();
+        connect = await getDB();
         const {idEntry} = req.params;
 
         const [entry] = await connect.query(
@@ -20,12 +22,15 @@ const canEdit = async (req,res,next) => {
             return res.status(401).send('No tiene permisos para modificar esta entrada');
         }
 
-        connect.release();
+        next();
 
     } catch (error) {
         console.log(error);
+        next(error);
     }finally{
-        next();
+        if(connect){
+            connect.release();
+        }
     }
 }
 

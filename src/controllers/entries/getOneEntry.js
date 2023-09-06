@@ -9,7 +9,7 @@ async function getOneEntry (req,res) {
 
         const [entry] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited,e.banned, e.title, e.content, e.anime_character, e.genre, e.category
+                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited,e.banned, e.title, e.content, e.video_url, e.anime_character, e.genre, e.category
                 FROM entries e
                 INNER JOIN users u ON e.user_id=u.id
                 WHERE e.id=?
@@ -47,17 +47,6 @@ async function getOneEntry (req,res) {
             [idEntry]
         );
 
-        const [videos] = await connect.query(
-            `
-                SELECT vi.id AS "video_id", vi.video AS "name_video"
-                FROM videos vi
-                INNER JOIN entries e ON vi.entry_id=?
-                WHERE vi.entry_id
-                GROUP BY vi.id
-            `,
-            [idEntry]
-        );
-
         const [votesEntry] = await connect.query(
             `
                 SELECT SUM (vo.vote_entry) AS "votos_entrada"
@@ -80,9 +69,9 @@ async function getOneEntry (req,res) {
 
         connect.release();
 
-        return res.status(200).send({
+        res.status(200).send({
             status: "OK",
-            data: [entry, comments, photos, videos, votesEntry, votesComent]
+            data: [entry, comments, photos, votesEntry, votesComent]
         });
     } catch(e){
         console.log(e);

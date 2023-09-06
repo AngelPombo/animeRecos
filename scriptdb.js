@@ -8,9 +8,9 @@ const dbName = process.env.DATABASE;
 
 async function createDB() {
 
-  let connection;
+    let connection;
 
-  try {
+    try {
     connection = await createDBconnection();
     
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
@@ -68,6 +68,7 @@ async function createDB() {
                 "sobrenatural", "thriller", "terror",
                 "psicologico", "infantil", "otros"
             ) NOT NULL,
+            video_url VARCHAR(3000),
             user_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
         );
@@ -81,19 +82,6 @@ async function createDB() {
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
             photo VARCHAR (100),
             photo_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            entry_id INT UNSIGNED NOT NULL,
-            FOREIGN KEY (entry_id) REFERENCES entries(id)
-        );
-        `
-    );
-
-    //VIDEOS
-    await connection.query(
-        `
-        CREATE TABLE IF NOT EXISTS videos(
-            id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            video VARCHAR (100),
-            video_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             entry_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (entry_id) REFERENCES entries(id)
         );

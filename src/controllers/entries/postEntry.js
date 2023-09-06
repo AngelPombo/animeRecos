@@ -7,7 +7,7 @@ async function postEntry (req,res) {
 
         const connect = await getDB();
 
-        const { title, content, category, genre, animeCharacter } = req.body;
+        const { title, content, category, genre, animeCharacter, video} = req.body;
 
         const idUser = req.userInfo.id; 
 
@@ -73,10 +73,10 @@ async function postEntry (req,res) {
 
         const [newEntry] = await connect.query(
             `
-                INSERT INTO entries (create_date, title, content, anime_character, category, genre, user_id)
-                VALUES (?,?,?,?,?,?,?)
+                INSERT INTO entries (create_date, title, content, video_url, anime_character, category, genre, user_id)
+                VALUES (?,?,?,?,?,?,?,?)
             `,
-            [new Date(), title, content, animeCharacter, category, genre, idUser] 
+            [new Date(), title, content, video, animeCharacter, category, genre, idUser] 
         );
 
         const {insertId} = newEntry; 

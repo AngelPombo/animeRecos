@@ -6,10 +6,11 @@ async function isBannedEntry (req,res,next){
             return res.status(401).send('No es posible acceder a este contenido. La entrada está baneada');
         }
 
+        next();
+
     }catch(e){
         console.log(e);
-    }finally{
-        next();
+        next(e);
     }
 }
 

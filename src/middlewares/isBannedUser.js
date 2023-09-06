@@ -6,10 +6,11 @@ async function isBannedUser (req,res,next){
             return res.status(401).send('Permiso denegado. Has sido baneado por un administrador');
         }
 
+        next();
+
     }catch(e){
         console.log(e);
-    }finally{
-        next();
+        next(e);
     }
 }
 

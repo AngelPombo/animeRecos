@@ -18,6 +18,16 @@ async function getTotalReportsEntry (req,res){
 
         totalReports.sort((a, b) => new Date(b.report_date) - new Date(a.report_date));
 
+        if(totalReports.length === 0){
+            connect.release();
+            
+            return res.status(404).send({
+                status: 'Sin reports',
+                message: 'No se han encontrado reports para esta entrada',
+                id_entry: idEntry
+            })
+        }
+
         connect.release();
 
         res.status(200).send({

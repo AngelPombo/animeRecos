@@ -25,7 +25,7 @@ async function deleteUser(req,res){
 
         res.status(200).send({
             status: 'OK',
-            message: `El usuario con id: ${idUser} eliminado`
+            message: `El usuario con id #${idUser} ha sido eliminado`
         });
 
     } catch (error) {

@@ -6,10 +6,10 @@ async function isBannedComment (req,res,next){
             return res.status(401).send('No es posible acceder a este contenido. El comentario está baneado');
         }
 
+        next();
     }catch(e){
         console.log(e);
-    }finally{
-        next();
+        next(e);
     }
 }
 
