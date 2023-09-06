@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --marron-claro: #bb4730;
+    --marron-oscuro: #712c27;
+    --crema: #faeed4;
+    --verde-claro: #9da63d;
+    --verde-oscuro: #5d6d2c;
+}
+
+div.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main{
+    flex-grow: 1;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:link, a:active{
+    color: var(--verde-oscuro);
+}
+
+a:visited{
+    color: var(--marron-oscuro);
+}

@@ -1,6 +1,9 @@
 # NoticiasColaborativasAnime
 
-Para crear base de datos antes de ejecutar el programa utiliza el comando **node scriptdb.js**
+Primeros pasos:
+1. Utiliza el .env.example para rellenar los datos necesarios del archivo .env
+2. Instala las dependencias ejecutando el comando **npm i**
+3. Crea la base de datos antes de ejecutar el programa, utiliza los comandos **cd server** y **node scriptdb.js**
 
 
 DESCRIPCIÓN
