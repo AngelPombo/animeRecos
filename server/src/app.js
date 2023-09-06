@@ -7,8 +7,10 @@ const createStaticDir = require('../src/service/createStaticDir');
 const userRouter = require('../src/router/userRouter');
 const entryRouter = require('../src/router/entriesRouter');
 
+const cors = require('cors');
 const server = express();
 
+server.use(cors());
 server.use(express.json())
 server.use(express.urlencoded({extended: false}));
 server.use(morgan('dev'));
