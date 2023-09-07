@@ -25,7 +25,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas en esta categoría o la categoría no existe'
             });
         }
-
+       
         let photos = [];
         let infoPhotos = [];
         
@@ -36,12 +36,12 @@ async function getEntriesByCategory (req,res) {
                     SELECT p.photo, p.entry_id
                     FROM photos p
                     WHERE entry_id=?
-                `,[entries[i].entry_id]
+                `,[entries[i].id]
             )
 
             infoPhotos[i] = photos[i][0];
         }
-
+       
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
@@ -67,6 +67,7 @@ async function getEntriesByCategory (req,res) {
             }
         }
 
+       
         if(!noBannedEntries.length){
             connect.release();
 
@@ -75,7 +76,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas para mostrar'
             });
         }
-
+       console.log(noBannedEntries[0].photos_info[0])
         connect.release();
 
         res.status(200).send({
