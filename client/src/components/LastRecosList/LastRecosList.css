@@ -1,0 +1,7 @@
+.recos-list{
+ grid-column: 2/3;
+ grid-row: 1/-1;  
+ display: flex;
+ flex-direction: column;
+ gap: 2rem;
+}
