@@ -25,7 +25,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas en esta categoría o la categoría no existe'
             });
         }
-       
+        
         let photos = [];
         let infoPhotos = [];
         
@@ -80,7 +80,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas para mostrar'
             });
         }
-        
+
         connect.release();
 
         res.status(200).send({
