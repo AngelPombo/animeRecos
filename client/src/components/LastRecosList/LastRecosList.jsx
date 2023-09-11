@@ -19,11 +19,14 @@ function LastRecosList({endpoint}) {
                     //el problema es que queremos pintar antes de que lleguen los datos
                 )
                 :(
-                <ul className='recos-list'>
-                {dataPosts.slice(0,10).map((post) => {
-                return <li key={post.id}><RecosCard post={post}/></li>
-                })}
-                </ul>)
+                <section className='section-recos-list'>
+                    <h2>Recos</h2>
+                    <ul className='recos-list'>
+                    {dataPosts.slice(0,10).map((post) => {
+                    return <li key={post.id}><RecosCard post={post}/></li>
+                    })}
+                    </ul>
+                </section>)
     );
 }
 

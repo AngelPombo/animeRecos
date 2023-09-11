@@ -38,3 +38,12 @@ a:link, a:active{
 a:visited{
     color: var(--marron-oscuro);
 }
+
+/*QUITAR ESTE CSS DE IMG*/
+img {
+    max-width: 300px;
+}
+.avatar{
+    max-width: 100px;
+    border-radius: 50%;
+}

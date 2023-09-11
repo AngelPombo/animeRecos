@@ -1,10 +1,11 @@
 import React from 'react'
 import imgUrlLogo from '/animeRecosIcono1.png';
+import { Link } from 'react-router-dom';
 
 function TopHeader() {
     return (
         <section className="top-header">
-            <img className="logo" src={imgUrlLogo} alt="animeRecos"></img>
+        <Link to={"/"}><img className="logo" src={imgUrlLogo} alt="animeRecos" ></img></Link> 
         </section>
     )
 }

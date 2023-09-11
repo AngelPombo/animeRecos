@@ -1,16 +1,16 @@
 import React from 'react';
 const baseUrl = import.meta.env.VITE_API_URL;
 
-function MemesCard({post}) {
+function CosplaysCard({post}) {
 
-console.log(post.avatar)
+
     return (
         <article>
             <h4>{post.user_name}</h4>
             <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
             <div>{post.user_badge}</div>
             <h3>{post.title}</h3>
-            <h5>{new Date(post.create_date).toDateString()}</h5>
+            <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
             <img 
             src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
             alt={post.photos_info[0].photo} 
@@ -22,5 +22,4 @@ console.log(post.avatar)
         </article>
     )
 }
-export {MemesCard};
-
+export {CosplaysCard};

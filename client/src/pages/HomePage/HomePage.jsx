@@ -1,9 +1,11 @@
 import React from 'react';
 import './HomePage.css';
-import { useBlog } from "../../hooks/useBlog";
+
 
 import {LastRecosList} from '../../components/LastRecosList/LastRecosList';
 import { LastMemesList } from '../../components/LastMemesList/LastMemesList';
+import { LastFanartList } from '../../components/LastFanartList/LastFanartList';
+import { LastCosplaysList } from '../../components/LastCosplaysList/LastCosplaysList';
 
 
 function HomePage() {
@@ -13,8 +15,11 @@ function HomePage() {
         <main className="home-page">
             <LastMemesList endpoint={"http://localhost:3001/entries/memes"}/>
             <LastRecosList endpoint={"http://localhost:3001/entries/recomendaciones"}/>
+            <LastFanartList endpoint={"http://localhost:3001/entries/fanArt"}/>
+            <LastCosplaysList endpoint={"http://localhost:3001/entries/cosplays"}/>
+            
        
-          { /* <LastPostList endpoint={"http://localhost:3001/entries/memes"}category="memes" maxnum = {1}/>*/}
+          
    
         </main>
     )
