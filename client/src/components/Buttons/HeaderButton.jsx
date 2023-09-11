@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function HeaderButton({category}) {
     return (
-        <button className="header-btn">
-            {category}
-        </button>
+        <Link to={`/${category}`} ><button className="header-btn">
+        {category}
+    </button></Link>  
     )
 }
 

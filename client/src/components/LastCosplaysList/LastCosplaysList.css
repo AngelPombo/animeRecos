@@ -1,9 +1,9 @@
-.section-memes-list{
+.section-cosplays-list{
     grid-column: 3/4;
-    grid-row: 1/2;  
+    grid-row: 4/5;  
    
    }
-   .memes-list{
+   .cosplays-list{
        display: flex;
        flex-direction: column;
        gap: 2rem;
