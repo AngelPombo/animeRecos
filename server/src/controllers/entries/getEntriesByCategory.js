@@ -30,7 +30,7 @@ async function getEntriesByCategory (req,res) {
         let infoPhotos = [];
         
         for (let i = 0; i < entries.length; i++) {
-
+            //console.log(entries[i].id)
             photos[i] = await connect.query(
                 `
                     SELECT p.photo, p.entry_id
@@ -40,6 +40,7 @@ async function getEntriesByCategory (req,res) {
             )
 
             infoPhotos[i] = photos[i][0];
+            //console.log(infoPhotos[i])
         }
        
 
@@ -62,11 +63,16 @@ async function getEntriesByCategory (req,res) {
             }else{
                 if(entries[i].banned === 0){
                     noBannedEntries.push(entries[i]);
-                    noBannedEntries[i].photos_info = infoPhotos[i];
+                    for(let j = 0 ; j < infoPhotos.length; j++){
+                        if(noBannedEntries[i].id===infoPhotos[j].entry_id){
+                            noBannedEntries[i].photos_info = infoPhotos[j];
+                        }
+                    }
+                   
                 }  
             }
         }
-
+        console.log(noBannedEntries)
        
         if(!noBannedEntries.length){
             connect.release();
@@ -76,7 +82,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas para mostrar'
             });
         }
-       console.log(noBannedEntries[0].photos_info[0])
+     
         connect.release();
 
         res.status(200).send({
