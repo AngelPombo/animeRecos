@@ -42,7 +42,6 @@ async function getEntriesByCategory (req,res) {
             infoPhotos[i] = photos[i][0];
             //console.log(infoPhotos[i])
         }
-       
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
 
@@ -55,7 +54,7 @@ async function getEntriesByCategory (req,res) {
             });
         }
 
-        const noBannedEntries = [];
+        let noBannedEntries = [];
 
         for (let i = 0; i < entries.length; i++) {
             if(!entries[i]){
@@ -68,12 +67,11 @@ async function getEntriesByCategory (req,res) {
                             noBannedEntries[i].photos_info = infoPhotos[j];
                         }
                     }
-                   
                 }  
             }
         }
         console.log(noBannedEntries)
-       
+
         if(!noBannedEntries.length){
             connect.release();
 
@@ -82,7 +80,7 @@ async function getEntriesByCategory (req,res) {
                 message: 'No hay entradas para mostrar'
             });
         }
-     
+        
         connect.release();
 
         res.status(200).send({
