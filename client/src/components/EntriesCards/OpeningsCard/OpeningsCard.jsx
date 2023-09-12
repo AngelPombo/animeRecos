@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
 const baseUrl = import.meta.env.VITE_API_URL;
 
-function MemesCard({post}) {
+function OpeningsCard({post}) {
+
+    console.log(post)
 
     return (
         <article>
@@ -10,16 +13,11 @@ function MemesCard({post}) {
             <div>{post.user_badge}</div>
             <h3>{post.title}</h3>
             <h5>{new Date(post.create_date).toDateString()}</h5>
-            <img 
-            src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
-            alt={post.photos_info[0].photo} 
-            />
-            {/* {post.edited && <p>"Editado"</p>}
-            {post.video_url && <div>{post.video_url}</div>} */}
+            <ReactPlayer url={post.video_url}/>
+            {/* {post.edited && <p>"Editado"</p>}*/}
            
 
         </article>
     )
 }
-export {MemesCard};
-
+export {OpeningsCard};

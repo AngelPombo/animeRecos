@@ -5,6 +5,7 @@ import {Footer} from './components/Footer/Footer';
 
 //---Importamos las páginas
 import {HomePage} from './pages/HomePage/HomePage';
+import {NovedadesPage} from './pages/NovedadesPage/NovedadesPage';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
                 <Route path='/cosplays'element={<p>cosplay</p>}/>
                 <Route path='/openings'element={<p>openings</p>}/>
                 <Route path='/recos'element={<p>recomendaciones</p>}/>
-                <Route path='/novedades' element={<p>last entries</p>}/>
+                <Route path='/novedades' element={<NovedadesPage />}/>
                 <Route path='/terminos-condiciones-uso'element= {<p>terminos</p>}/>
                 <Route path='/entrada/:idEntry' element= {<p>get one entry</p>}/>
                 <Route path='/crear-entrada' element= {<p>crear entrada</p>}/> 
