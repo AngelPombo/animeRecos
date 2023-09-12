@@ -9,7 +9,7 @@ async function getEntriesByCategory (req,res) {
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.id, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.category, e.genre, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.id, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,300),"...") AS content, e.video_url, e.category, e.genre, e.create_date
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
                 WHERE category =?
@@ -38,7 +38,10 @@ async function getEntriesByCategory (req,res) {
                 `,[entries[i].id]
             )
 
-            infoPhotos[i] = photos[i][0];
+            if(photos[i][0].length > 0){
+                infoPhotos[i] = photos[i][0];
+            }
+
         }
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
@@ -61,13 +64,11 @@ async function getEntriesByCategory (req,res) {
                 if(entries[i].banned === 0){
                     noBannedEntries.push(entries[i]);
                     for(let j = 0 ; j < infoPhotos.length; j++){
-                        if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
-                            console.log(noBannedEntries[i].id);
-                            console.log(infoPhotos[j][0].entry_id)
+                         if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
                             noBannedEntries[i].photos_info = infoPhotos[j];
                         }
                     }
-                }  
+                } 
             }
         }
 
