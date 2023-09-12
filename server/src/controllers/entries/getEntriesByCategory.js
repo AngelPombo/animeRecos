@@ -30,7 +30,6 @@ async function getEntriesByCategory (req,res) {
         let infoPhotos = [];
         
         for (let i = 0; i < entries.length; i++) {
-            //console.log(entries[i].id)
             photos[i] = await connect.query(
                 `
                     SELECT p.photo, p.entry_id
@@ -40,7 +39,6 @@ async function getEntriesByCategory (req,res) {
             )
 
             infoPhotos[i] = photos[i][0];
-            //console.log(infoPhotos[i])
         }
 
         entries.sort((a, b) => new Date(b.create_date) - new Date(a.create_date));
@@ -63,14 +61,15 @@ async function getEntriesByCategory (req,res) {
                 if(entries[i].banned === 0){
                     noBannedEntries.push(entries[i]);
                     for(let j = 0 ; j < infoPhotos.length; j++){
-                        if(noBannedEntries[i].id===infoPhotos[j].entry_id){
+                        if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
+                            console.log(noBannedEntries[i].id);
+                            console.log(infoPhotos[j][0].entry_id)
                             noBannedEntries[i].photos_info = infoPhotos[j];
                         }
                     }
                 }  
             }
         }
-        console.log(noBannedEntries)
 
         if(!noBannedEntries.length){
             connect.release();
