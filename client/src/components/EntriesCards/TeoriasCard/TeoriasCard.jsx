@@ -1,25 +1,23 @@
 import React from 'react';
+import "./TeoriasCard.css"
 const baseUrl = import.meta.env.VITE_API_URL;
 
-function MemesCard({post}) {
+function TeoriasCard({post}) {
+
 
     return (
-        <article>
+        <article className='teorias-card'>
             <h4>{post.user_name}</h4>
             <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
-            <div>{post.user_badge}</div>
+            <div className='badge'>{post.user_badge}</div>
             <h3>{post.title}</h3>
-            <h5>{new Date(post.create_date).toDateString()}</h5>
-            <img 
-            src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
-            alt={post.photos_info[0].photo} 
-            />
+            <div className='genre'>{post.genre}</div>
+            <h5>{post.create_date}</h5>
             {/* {post.edited && <p>"Editado"</p>}
             {post.video_url && <div>{post.video_url}</div>} */}
-           
+            <p>{post.content}</p>
 
         </article>
     )
 }
-export {MemesCard};
-
+export {TeoriasCard};
