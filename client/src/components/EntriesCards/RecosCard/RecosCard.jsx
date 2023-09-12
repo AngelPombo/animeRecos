@@ -1,5 +1,6 @@
 import React from 'react';
 import "./RecosCard.css"
+const baseUrl = import.meta.env.VITE_API_URL;
 
 function RecosCard({post}) {
 
@@ -7,7 +8,7 @@ function RecosCard({post}) {
     return (
         <article className='recos-card'>
             <h4>{post.user_name}</h4>
-            <img className="avatar" src={post.avatar} alt={post.user_name}></img>
+            <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
             <div className='badge'>{post.user_badge}</div>
             <h3>{post.title}</h3>
             <div className='genre'>{post.genre}</div>
