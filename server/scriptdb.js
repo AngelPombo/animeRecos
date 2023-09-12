@@ -27,7 +27,7 @@ async function createDB() {
             email VARCHAR(256) UNIQUE NOT NULL,
             pwd VARCHAR(512) NOT NULL,
             avatar VARCHAR(100),
-            biography VARCHAR(500),
+            biography VARCHAR(3000),
             link_twitter VARCHAR(200),
             link_youtube VARCHAR(200),
             link_insta VARCHAR(200),
@@ -55,7 +55,7 @@ async function createDB() {
             last_update DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             edited BOOLEAN DEFAULT FALSE,
             title VARCHAR(100) NOT NULL,
-            content VARCHAR(1000) NOT NULL,
+            content VARCHAR(10000) NOT NULL,
             anime_character VARCHAR (100),
             category ENUM(
                 "recomendaciones", "teorias", "fanArt",
@@ -80,7 +80,7 @@ async function createDB() {
         `
         CREATE TABLE IF NOT EXISTS photos(
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            photo VARCHAR (100),
+            photo VARCHAR (1000),
             photo_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             entry_id INT UNSIGNED NOT NULL,
             FOREIGN KEY (entry_id) REFERENCES entries(id)
@@ -94,7 +94,7 @@ async function createDB() {
         CREATE TABLE IF NOT EXISTS comments(
             id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
             comment_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            content VARCHAR(500) NOT NULL,
+            content VARCHAR(5000) NOT NULL,
             banned BOOLEAN DEFAULT FALSE,
             edited BOOLEAN DEFAULT FALSE,
             user_id INT UNSIGNED NOT NULL,
@@ -137,7 +137,7 @@ async function createDB() {
             "apologia del terrorismo", "estafa", "suplantacion de identidad",
             "otros"
         )NOT NULL,
-        report_content VARCHAR(380),
+        report_content VARCHAR(2000),
         user_id INT UNSIGNED,
         FOREIGN KEY (user_id) REFERENCES users(id),
         entry_id INT UNSIGNED,
@@ -147,9 +147,6 @@ async function createDB() {
     );
     `
     );
-
-    //creo que en user_id habría que quitar el NOT NULL// es usuario que reporta
-    //y que el report_user debería ser un entero
 
     console.log(`Si no existía una base de datos con el mismo nombre, se ha creado ${dbName} y sus correspondientes tablas`);
 

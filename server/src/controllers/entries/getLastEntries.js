@@ -12,6 +12,15 @@ async function getLastEntries (_req,res){
             `
         );
 
+        if(!entries.length){
+            connect.release();
+
+            return res.status(404).send({
+                status: `No se han encontrado entradas`,
+                message: 'No hay entradas'
+            });
+        }
+
         let photos = [];
         let infoPhotos = [];
         
@@ -22,10 +31,13 @@ async function getLastEntries (_req,res){
                     SELECT p.photo, p.entry_id
                     FROM photos p
                     WHERE entry_id=?
-                `,[entries[i].entry_id]
+                `,[entries[i].id]
             )
 
-            infoPhotos[i] = photos[i][0];
+            if(photos[i][0].length > 0){
+                infoPhotos[i] = photos[i][0];
+            }
+
         }
 
 
@@ -40,25 +52,37 @@ async function getLastEntries (_req,res){
             });
         }
 
-        const lastEntries = [];
+        let noBannedEntries = [];
 
-        for (let i = 0; i <= 9; i++) {
+        for (let i = 0; i < 10; i++) {
             if(!entries[i]){
                 break;
             }else{
                 if(entries[i].banned === 0){
-                    
-                    lastEntries.push(entries[i]);
-                    lastEntries[i].photos_info = infoPhotos[i];
-                }  
+                    noBannedEntries.push(entries[i]);
+                    for(let j = 0 ; j < infoPhotos.length; j++){
+                         if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
+                            noBannedEntries[i].photos_info = infoPhotos[j];
+                        }
+                    }
+                } 
             }
+        }
+
+        if(!noBannedEntries.length){
+            connect.release();
+
+            return res.status(400).send({
+                status: 'Sin entradas (baneadas)',
+                message: 'No hay entradas para mostrar'
+            });
         }
 
         connect.release();
 
         res.status(200).send({
             status: 'OK',
-            entries: [lastEntries]
+            data: noBannedEntries
         });
 
     }catch(e){
