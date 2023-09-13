@@ -64,7 +64,7 @@ async function getEntriesByCategory (req,res) {
                 if(entries[i].banned === 0){
                     noBannedEntries.push(entries[i]);
                     for(let j = 0 ; j < infoPhotos.length; j++){
-                         if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
+                        if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
                             noBannedEntries[i].photos_info = infoPhotos[j];
                         }
                     }
