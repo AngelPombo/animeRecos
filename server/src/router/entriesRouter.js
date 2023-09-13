@@ -41,12 +41,12 @@ const {
 router.get('/last-entries', updateBadge, getLastEntries);
 router.get('/entry/:idEntry', entryExists, isBannedEntry, updateBadge, getOneEntry);
 router.get('/entries/:category', updateBadge, getEntriesByCategory);
-router.get('/entries/genre/:genre', updateBadge,  getEntriesByGenre);
+router.get('/entries/:category/:genre', updateBadge, getEntriesByGenre);
 router.get('/top-rated/:category', updateBadge, getTopRatedEntriesByCategory);
 router.get('/entries/total-reports/:idEntry', entryExists, isUser, isAdmin, getTotalReportsEntry);
 router.get('/entries/total-reports/:idEntry/comments/:idComment', entryExists, isUser, isAdmin, commentExists, getTotalReportsComment);
 
-router.post('/entry', isUser, isBannedUser, postEntry);
+router.post('/entry', isUser, isBannedUser, updateBadge, postEntry);
 router.post('/entry/:idEntry/comments', entryExists, isBannedEntry, isUser, isBannedUser, postComment);
 router.post('/entries/:idEntry/photos', entryExists, isBannedEntry, isUser, isBannedUser, canEdit, addPhotoEntry);
 router.post('/entries/:idEntry/votes',isUser, isBannedUser, entryExists, isBannedEntry, voteEntry);
@@ -60,7 +60,7 @@ router.put('/entries/:idEntry/bann', isUser, isAdmin, entryExists, isBannedUser,
 router.put('/entries/:idEntry/comments/:idComment/bann', isUser, isAdmin, isBannedUser, entryExists, isBannedEntry, commentExists, isBannedComment, bannComment);
 
 router.delete('/entries/:idEntry/photos/:idPhoto', isUser, entryExists, canEdit, deletePhotoEntry);
-router.delete('/entry/:idEntry', isUser, entryExists, canEdit, deleteEntry);
+router.delete('/entry/:idEntry', isUser, entryExists, canEdit, updateBadge, deleteEntry);
 
 
 
