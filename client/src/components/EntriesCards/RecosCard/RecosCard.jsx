@@ -1,9 +1,10 @@
 import React from 'react';
-import "./RecosCard.css"
-const baseUrl = import.meta.env.VITE_API_URL;
+import "./RecosCard.css";
+import { CardButton } from '../../Buttons/CardButton';
 
 function RecosCard({post}) {
-
+    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     return (
         <article className='recos-card'>
@@ -16,6 +17,7 @@ function RecosCard({post}) {
             {/* {post.edited && <p>"Editado"</p>}
             {post.video_url && <div>{post.video_url}</div>} */}
             <p>{post.content}</p>
+            <CardButton id={post.id}/>
 
         </article>
     )

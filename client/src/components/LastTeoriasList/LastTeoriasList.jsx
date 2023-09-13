@@ -1,13 +1,13 @@
 import React from 'react'
 import {TeoriasCard} from "../EntriesCards/TeoriasCard/TeoriasCard";
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import "./LastTeoriasList.css"
 
 
 
 function LastTeoriasList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;

@@ -1,5 +1,5 @@
 import React from 'react'
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import { CosplaysCard } from '../EntriesCards/CosplaysCard/CosplaysCard';
 import "./LastCosplaysList.css"
 
@@ -7,7 +7,7 @@ import "./LastCosplaysList.css"
 
 function LastCosplaysList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;

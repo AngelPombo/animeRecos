@@ -1,11 +1,15 @@
 //---Importamos los componentes
 import {Header} from './components/Header/Header';
 import {Footer} from './components/Footer/Footer';
- import {Route, Routes} from 'react-router-dom'; 
+import {Route, Routes} from 'react-router-dom'; 
 
 //---Importamos las páginas
 import {HomePage} from './pages/HomePage/HomePage';
 import {NovedadesPage} from './pages/NovedadesPage/NovedadesPage';
+import { SelectGenrePage } from './pages/SelectGenrePage/SelectGenrePage';
+import { FilterCategoriesByGenre } from './pages/FilterCategoriesByGenre/FilterCategoriesByGenre';
+import { TermsAndConditions } from './components/TermsAndConditions/TermsAndConditions';
+import { OneEntryPage } from './pages/OneEntryPage/OneEntryPage';
 
 
 function App() {
@@ -19,15 +23,16 @@ function App() {
                 <Route path="/login" element={<p>pagina de logeo</p>} />
                 <Route path='/editar-perfil/:idUser' element= {<p>pagina editar perfil</p>}/>
                 <Route path='/perfil/:idUser' element= {<p>pagina  perfil usuario</p>}/> 
-                <Route path='/fanart'element={<p>fanart</p>}/>
-                <Route path='/memes'element={<p>memes</p>}/>
-                <Route path='/teorias'element={<p>teorias</p>}/>
-                <Route path='/cosplays'element={<p>cosplay</p>}/>
-                <Route path='/openings'element={<p>openings</p>}/>
-                <Route path='/recos'element={<p>recomendaciones</p>}/>
+                <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>
+                <Route path='/memes'element={<SelectGenrePage category="memes"/>}/>
+                <Route path='/teorias'element={<SelectGenrePage category="teorias"/>}/>
+                <Route path='/cosplays'element={<SelectGenrePage category="cosplays"/>}/>
+                <Route path='/openings'element={<SelectGenrePage category="openings"/>}/>
+                <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
                 <Route path='/novedades' element={<NovedadesPage />}/>
-                <Route path='/terminos-condiciones-uso'element= {<p>terminos</p>}/>
-                <Route path='/entrada/:idEntry' element= {<p>get one entry</p>}/>
+                <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
+                <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
+                <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
                 <Route path='/crear-entrada' element= {<p>crear entrada</p>}/> 
                 <Route path="*" element={<p>not found</p>} />
 

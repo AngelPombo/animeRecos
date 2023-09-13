@@ -1,12 +1,12 @@
 import React from 'react'
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import { OpeningsCard } from '../EntriesCards/OpeningsCard/OpeningsCard';
 import "./LastOpeningsList.css"
 
 
 function LastOpeningsList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;
@@ -26,7 +26,7 @@ function LastOpeningsList({endpoint}) {
                     })}
                     </ul>
                 </section>
-               )
+                )
     );
 }
 

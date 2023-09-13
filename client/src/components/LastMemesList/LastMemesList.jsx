@@ -1,12 +1,12 @@
 import React from 'react'
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import { MemesCard } from '../EntriesCards/MemesCard/MemesCard';
 import "./LastMemesList.css"
 
 
 function LastMemesList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;
@@ -26,7 +26,7 @@ function LastMemesList({endpoint}) {
                     })}
                     </ul>
                 </section>
-               )
+                )
     );
 }
 
