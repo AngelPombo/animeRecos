@@ -1,9 +1,12 @@
 import React from 'react';
 import "./NovedadesCard.css"
 import ReactPlayer from 'react-player';
-const baseUrl = import.meta.env.VITE_API_URL;
+import { CardButton } from '../../Buttons/CardButton';
 
 function NovedadesCard({post}) {
+
+    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     if(!post.photos_info && !post.video_url){
         return (
@@ -17,6 +20,7 @@ function NovedadesCard({post}) {
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
                 <p>{post.content}</p>
+                <CardButton id={post.entry_id}/>
             </article>
         )
     } else if(post.video_url){
@@ -30,6 +34,7 @@ function NovedadesCard({post}) {
                 <p>{post.content}</p>
                 <ReactPlayer url={post.video_url}/>
                 {/* {post.edited && <p>"Editado"</p>}*/}
+                <CardButton id={post.entry_id}/>
             </article>
         )
     } else {
@@ -47,6 +52,7 @@ function NovedadesCard({post}) {
                 />
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
+                <CardButton id={post.entry_id}/>
             </article>
         )
     }

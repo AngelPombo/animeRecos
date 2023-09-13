@@ -1,7 +1,10 @@
 import React from 'react';
-const baseUrl = import.meta.env.VITE_API_URL;
+import { CardButton } from '../../Buttons/CardButton';
 
 function MemesCard({post}) {
+
+    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     return (
         <article>
@@ -16,7 +19,7 @@ function MemesCard({post}) {
             />
             {/* {post.edited && <p>"Editado"</p>}
             {post.video_url && <div>{post.video_url}</div>} */}
-           
+            <CardButton id={post.id}/>
 
         </article>
     )

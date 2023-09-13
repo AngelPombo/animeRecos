@@ -1,13 +1,13 @@
 import React from 'react'
 import {RecosCard} from "../EntriesCards/RecosCard/RecosCard";
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import "./LastRecosList.css"
 
 
 
 function LastRecosList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;

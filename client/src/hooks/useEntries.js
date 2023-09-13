@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function useBlog(endpoint){
+function useEntries(endpoint){
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -8,12 +8,9 @@ function useBlog(endpoint){
         setIsLoading(true);
         async function getData(endpoint){
             
-            /* console.log("URL API USEBLOG:", endpoint); */
             try{
                 const res = await fetch(endpoint);
                 const dataJSON = await res.json();
-
-                /* console.log("dataJSON ----", dataJSON); */
 
                 setData(dataJSON);
                 setIsLoading(false);
@@ -28,5 +25,5 @@ function useBlog(endpoint){
     return {data, isLoading};
 }
 
-export {useBlog};
+export {useEntries};
 

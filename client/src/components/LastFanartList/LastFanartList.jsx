@@ -1,5 +1,5 @@
 import React from 'react'
-import {useBlog} from '../../hooks/useBlog';
+import {useEntries} from '../../hooks/useEntries';
 import { FanartCard } from '../EntriesCards/FanartCard/FanartCard';
 import "./LastFanartList.css"
 
@@ -7,7 +7,7 @@ import "./LastFanartList.css"
 
 function LastFanartList({endpoint}) {
 
-    const {data, isLoading} = useBlog(endpoint);
+    const {data, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;

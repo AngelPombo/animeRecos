@@ -11,20 +11,17 @@ import { LastTeoriasList } from '../../components/LastTeoriasList/LastTeoriasLis
 
 
 function HomePage() {
-
+    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+    const baseUrl = import.meta.env.VITE_API_URL;
 
     return (
         <main className="home-page">
-            <LastMemesList endpoint={"http://localhost:3001/entries/memes"}/>
-            <LastRecosList endpoint={"http://localhost:3001/entries/recomendaciones"}/>
-            <LastFanartList endpoint={"http://localhost:3001/entries/fanArt"}/>
-            <LastCosplaysList endpoint={"http://localhost:3001/entries/cosplays"}/>
-            <LastOpeningsList endpoint={"http://localhost:3001/entries/openings"}/>
-            <LastTeoriasList endpoint={"http://localhost:3001/entries/teorias"} />
-            
-       
-          
-   
+            <LastMemesList endpoint={`${baseUrl}/entries/memes`}/>
+            <LastRecosList endpoint={`${baseUrl}/entries/recomendaciones`}/>
+            <LastFanartList endpoint={`${baseUrl}/entries/fanArt`}/>
+            <LastCosplaysList endpoint={`${baseUrl}/entries/cosplays`}/>
+            <LastOpeningsList endpoint={`${baseUrl}/entries/openings`}/>
+            <LastTeoriasList endpoint={`${baseUrl}/entries/teorias`} />
         </main>
     )
 }
