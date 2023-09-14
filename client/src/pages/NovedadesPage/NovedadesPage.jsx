@@ -1,18 +1,23 @@
 import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
 import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard'; 
+import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import "./NovedadesPage.css"
+
 
 
 function NovedadesPage() {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    const {data, isLoading} = useEntries(`${baseUrl}/last-entries`);
+    const {data,error, isLoading} = useEntries(`${baseUrl}/last-entries`);
     
 
     const dataPosts = data.data;
 //si no hay data da undefined
+    if(error){
+        return <ErrorMessage message= {error}/>
+    }
 
     return (
         isLoading ? 

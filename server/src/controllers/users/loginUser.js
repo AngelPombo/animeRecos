@@ -51,7 +51,8 @@ async function loginUser (req,res){
             status: 'OK',
             message: 'Login',
             data: {
-                token
+                token,
+                email
             }
         });
     }catch(e){
