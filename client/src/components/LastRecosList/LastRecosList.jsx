@@ -1,16 +1,30 @@
 import React from 'react'
 import {RecosCard} from "../EntriesCards/RecosCard/RecosCard";
 import {useEntries} from '../../hooks/useEntries';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import "./LastRecosList.css"
 
 
 
 function LastRecosList({endpoint}) {
 
-    const {data, isLoading} = useEntries(endpoint);
+    const {data, error, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;
+
+    if(error){
+        return <ErrorMessage message= {error}/>
+    }
+    if(!dataPosts){
+        return(
+        <section>
+            <h2>Recos</h2>
+            <p>Anímate, se el primero en publicar una entrada!</p>
+
+        </section>
+        )
+    }
 
     return (
         isLoading ? 

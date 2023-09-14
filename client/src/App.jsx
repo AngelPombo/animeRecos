@@ -10,6 +10,9 @@ import { SelectGenrePage } from './pages/SelectGenrePage/SelectGenrePage';
 import { FilterCategoriesByGenre } from './pages/FilterCategoriesByGenre/FilterCategoriesByGenre';
 import { TermsAndConditions } from './components/TermsAndConditions/TermsAndConditions';
 import { OneEntryPage } from './pages/OneEntryPage/OneEntryPage';
+import LoginForm from './pages/LoginPage/LoginForm';
+import { RegisterPage } from './pages/RegisterPage/RegisterPage';
+import { RegisterValidate } from './components/RegisterValidate/RegisterValidate';
 
 
 function App() {
@@ -19,8 +22,9 @@ function App() {
           <Header />
           <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/registro" element={<p>pagina de registro</p>} />
-                <Route path="/login" element={<p>pagina de logeo</p>} />
+                <Route path="/registro" element={<RegisterPage/>} />
+                <Route path='/validar' element= {<RegisterValidate/>}/>
+                <Route path="/login" element={<LoginForm/>} />
                 <Route path='/editar-perfil/:idUser' element= {<p>pagina editar perfil</p>}/>
                 <Route path='/perfil/:idUser' element= {<p>pagina  perfil usuario</p>}/> 
                 <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>

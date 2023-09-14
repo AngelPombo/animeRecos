@@ -1,17 +1,30 @@
 import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
 import { CosplaysCard } from '../EntriesCards/CosplaysCard/CosplaysCard';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import "./LastCosplaysList.css"
 
 
 
 function LastCosplaysList({endpoint}) {
 
-    const {data, isLoading} = useEntries(endpoint);
+    const {data, error, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;
-//si no hay data da undefined
+    if(error){
+        return <ErrorMessage message= {error}/>
+    }
+    if(!dataPosts){
+        return(
+        <section>
+            <h2>Cosplays</h2>
+            <p>Anímate, se el primero en publicar una entrada!</p>
+
+        </section>
+        )
+    }
+
     return (
         isLoading ? 
                 (

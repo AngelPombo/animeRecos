@@ -1,17 +1,30 @@
 import React from 'react'
 import {TeoriasCard} from "../EntriesCards/TeoriasCard/TeoriasCard";
 import {useEntries} from '../../hooks/useEntries';
+import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import "./LastTeoriasList.css"
 
 
 
 function LastTeoriasList({endpoint}) {
 
-    const {data, isLoading} = useEntries(endpoint);
+    const {data, error, isLoading} = useEntries(endpoint);
     
 
     const dataPosts = data.data;
 
+    if(error){
+        return <ErrorMessage message= {error}/>
+    }
+    if(!dataPosts){
+        return(
+        <section>
+            <h2>Teorías</h2>
+            <p>Anímate, se el primero en publicar una entrada!</p>
+
+        </section>
+        )
+    }
     return (
         isLoading ? 
                 (
