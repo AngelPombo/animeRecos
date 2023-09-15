@@ -13,6 +13,8 @@ import { OneEntryPage } from './pages/OneEntryPage/OneEntryPage';
 import LoginForm from './pages/LoginPage/LoginForm';
 import { RegisterPage } from './pages/RegisterPage/RegisterPage';
 import { RegisterValidate } from './components/RegisterValidate/RegisterValidate';
+import { NotFound } from './components/NotFound/Notfound';
+import { RecoverPasswordPage } from './pages/RecoverPasswordPage/RecoverPasswordPage';
 
 
 function App() {
@@ -38,8 +40,8 @@ function App() {
                 <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                 <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
                 <Route path='/crear-entrada' element= {<p>crear entrada</p>}/> 
-                <Route path="*" element={<p>not found</p>} />
-
+                <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
+                <Route path="*" element={<NotFound/>} />
           </Routes> 
           <Footer />
       </div>

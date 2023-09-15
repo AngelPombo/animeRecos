@@ -20,7 +20,11 @@ function NovedadesCard({post}) {
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
                 <p>{post.content}</p>
-                <CardButton id={post.entry_id}/>
+                {
+                    post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                    : <p>0</p>
+                }
+                <CardButton id={post.id}/>
             </article>
         )
     } else if(post.video_url){
@@ -32,9 +36,13 @@ function NovedadesCard({post}) {
                 <h3>{post.title}</h3>
                 <h5>{new Date(post.create_date).toDateString()}</h5>
                 <p>{post.content}</p>
+                {
+                    post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                    : <p>0</p>
+                }
                 <ReactPlayer url={post.video_url}/>
                 {/* {post.edited && <p>"Editado"</p>}*/}
-                <CardButton id={post.entry_id}/>
+                <CardButton id={post.id}/>
             </article>
         )
     } else {
@@ -46,13 +54,17 @@ function NovedadesCard({post}) {
                 <h3>{post.title}</h3>
                 <h5>{new Date(post.create_date).toDateString()}</h5>
                 <p>{post.content}</p>
+                {
+                    post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                    : <p>0</p>
+                }
                 <img 
                 src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
                 alt={post.photos_info[0].photo} 
                 />
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
-                <CardButton id={post.entry_id}/>
+                <CardButton id={post.id}/>
             </article>
         )
     }

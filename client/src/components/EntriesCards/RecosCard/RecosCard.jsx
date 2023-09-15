@@ -17,6 +17,10 @@ function RecosCard({post}) {
             {/* {post.edited && <p>"Editado"</p>}
             {post.video_url && <div>{post.video_url}</div>} */}
             <p>{post.content}</p>
+            {
+                post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                : <p>0</p>
+            }
             <CardButton id={post.id}/>
 
         </article>

@@ -18,7 +18,7 @@ function LastMemesList({endpoint}) {
         return(
         <section>
             <h2>Memes</h2>
-            <p>Anímate, se el primero en publicar una entrada!</p>
+            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )
