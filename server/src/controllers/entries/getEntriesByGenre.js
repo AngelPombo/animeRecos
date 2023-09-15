@@ -32,7 +32,9 @@ async function getEntriesByGenre (req,res) {
 
         let photos = [];
         let infoPhotos = [];
-        
+        let votesEntry = [];
+        let infoVotes = [];
+
         for (let i = 0; i < entries.length; i++) {
             photos[i] = await connect.query(
                 `
@@ -41,6 +43,18 @@ async function getEntriesByGenre (req,res) {
                     WHERE entry_id=?
                 `,[entries[i].id]
             )
+
+            votesEntry[i] = await connect.query(
+                `
+                    SELECT SUM (vo.vote_entry) AS "votos_entrada", vo.entry_id
+                    FROM votes vo
+                    WHERE vo.entry_id=?
+                `,
+                [entries[i].id]
+            );
+            if(votesEntry[i].length > 0){
+                infoVotes[i] = votesEntry[i][0];
+            }
 
             if(photos[i][0].length > 0){
                 infoPhotos[i] = photos[i][0];
@@ -68,6 +82,9 @@ async function getEntriesByGenre (req,res) {
                     for(let j = 0 ; j < infoPhotos.length; j++){
                         if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
                             noBannedEntries[i].photos_info = infoPhotos[j];
+                        }
+                        if(noBannedEntries[i].id === infoVotes[j][0].entry_id){
+                            noBannedEntries[i].votes = infoVotes[j];
                         }
                     }
                 } 

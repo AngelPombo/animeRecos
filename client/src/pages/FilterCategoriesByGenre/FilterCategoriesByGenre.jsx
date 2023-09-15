@@ -19,7 +19,7 @@ function FilterCategoriesByGenre() {
         <section>
             <h2>{category.toUpperCase()}</h2>
             <h3>{genre.toUpperCase()}</h3>
-            <p>Anímate, se el primero en publicar una entrada!</p>
+            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )

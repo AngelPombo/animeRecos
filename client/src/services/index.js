@@ -1,3 +1,5 @@
+import { ErrorMessage } from "../components/ErrorMessage/ErrorMessage";
+
 async function getOneEntryService (id){
     const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${id}`);
     const json = await res.json();
@@ -25,6 +27,23 @@ async function registerUserService ({ nick, email, pwd }){
     }
   };
 
+   async function recoverPasswordService ({email}){
+    
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/recover-password`, {
+        method: "POST",
+        body: JSON.stringify({email}),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const dataJSON = await res.json();
+      
+      if(!res.ok){
+        throw new Error(dataJSON.message);
+      }
+   
+  }  
+    
 
-export {getOneEntryService, registerUserService};
+export {getOneEntryService, registerUserService, recoverPasswordService};
 

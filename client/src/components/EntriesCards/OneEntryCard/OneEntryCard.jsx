@@ -17,6 +17,10 @@ function OneEntryCard({post}) {
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
                 <p>{post[0][0].content}</p>
+                {
+                post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                : <p>0</p>
+                }
             </article>
         )
     } else if(post[0][0].video_url){
@@ -29,6 +33,10 @@ function OneEntryCard({post}) {
                 <h5>{post[0][0].create_date}</h5>
                 <p>{post[0][0].content}</p>
                 <ReactPlayer url={post[0][0].video_url}/>
+                {
+                post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                : <p>0</p>
+                }
                 {/* {post.edited && <p>"Editado"</p>}*/}
             </article>
         )
@@ -41,6 +49,10 @@ function OneEntryCard({post}) {
                 <h3>{post[0][0].title}</h3>
                 <h5>{post[0][0].create_date}</h5>
                 <p>{post[0][0].content}</p>
+                {
+                post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                : <p>0</p>
+                }
                 <img 
                 src={`${baseUrl}/photoentries/${post[2][0].name_photo}`} 
                 alt={post[2][0].name_photo} 

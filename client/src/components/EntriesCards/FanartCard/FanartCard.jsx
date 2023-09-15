@@ -16,6 +16,10 @@ function FanartCard({post}) {
             src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
             alt={post.photos_info[0].photo} 
             />
+            {
+                post.votes ? <p>{post.votes[0].votos_entrada}</p>
+                : <p>0</p>
+            }
             {/* {post.edited && <p>"Editado"</p>}
             {post.video_url && <div>{post.video_url}</div>} */}
             <CardButton id={post.id}/>

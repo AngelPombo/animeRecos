@@ -1,8 +1,9 @@
 import React from 'react'
+import img404 from "/animerecos404.png"
 
-function Notfound() {
+function NotFound() {
   return (
-    <p>imagen not found</p>
+    <img src={img404} alt='Not found' />
   )
 }
- export {Notfound}
+ export {NotFound}
