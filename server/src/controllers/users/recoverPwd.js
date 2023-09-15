@@ -13,7 +13,10 @@ async function recoverPwd(req,res){
         if(!email){
             connect.release();
 
-            return res.status(400).send('Es necesario ingresar el correo electrónico para esta acción');
+            return res.status(400).send({
+                status: "Faltan datos",
+                message:'Es necesario ingresar el correo electrónico para esta acción'
+            });
         }
 
         const [user] = await connect.query(
@@ -28,7 +31,10 @@ async function recoverPwd(req,res){
         if(!user.length || user.length === 0){
             connect.release();
 
-            return res.status(404).send('El correo electrónico no está asociado a ningún usuario');
+            return res.status(404).send({
+                status: "Usuario no encontrado",
+                message: 'El correo electrónico no está asociado a ningún usuario'
+            });
         }
 
         const {v4: uuidv4} = require('uuid');
