@@ -20,7 +20,10 @@ const commentExists = async (req,res,next) => {
         if(comment.length === 0){
             connect.release();
 
-            return res.status(404).send('El comentario no existe');
+            return res.status(404).send({
+                status: 'Not found',
+                message: 'El comentario al que desea acceder no existe'
+            });
         } 
 
         const objCommentInfo = {

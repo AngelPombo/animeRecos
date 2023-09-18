@@ -10,7 +10,10 @@ async function isUser (req,res,next){
 
         if(!auth){
 
-            return res.status(401).send('Falta cabecera de autorización.');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'Falta cabecera de autorización'
+            });
         }
 
         let tokenInfo;
@@ -19,7 +22,10 @@ async function isUser (req,res,next){
             tokenInfo = jwt.verify(auth, process.env.SECRET_TOKEN);
         }catch(e){
 
-            return res.status(401).send('Token inválido.');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'Token inválido'
+            });
         }
 
         const [user] = await connect.query(

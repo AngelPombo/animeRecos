@@ -3,7 +3,10 @@ async function isBannedUser (req,res,next){
         const bannU = req.userInfo.banned;
         
         if(bannU === 1){
-            return res.status(401).send('Permiso denegado. Has sido baneado por un administrador');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'Usuario baneado'
+            });
         }
 
         next();

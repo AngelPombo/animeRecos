@@ -3,7 +3,10 @@ async function isBannedEntry (req,res,next){
         const bannE = req.infoEntry.banned;
 
         if(bannE === 1){
-            return res.status(401).send('No es posible acceder a este contenido. La entrada está baneada');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'La entrada se encuentra actualmente baneada'
+            });
         }
 
         next();
