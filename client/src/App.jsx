@@ -15,6 +15,8 @@ import { RegisterPage } from './pages/RegisterPage/RegisterPage';
 import { RegisterValidate } from './components/RegisterValidate/RegisterValidate';
 import { NotFound } from './components/NotFound/Notfound';
 import { RecoverPasswordPage } from './pages/RecoverPasswordPage/RecoverPasswordPage';
+import { NewPasswordWithCode } from './pages/NewPasswordWithCode/NewPasswordWithCode';
+import { PostEntryPage } from './pages/PostEntryPage/PostEntryPage';
 
 
 function App() {
@@ -39,8 +41,9 @@ function App() {
                 <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
                 <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                 <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
-                <Route path='/crear-entrada' element= {<p>crear entrada</p>}/> 
+                <Route path='/crear-entrada' element= {<PostEntryPage/>}/> 
                 <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
+                <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
                 <Route path="*" element={<NotFound/>} />
           </Routes> 
           <Footer />

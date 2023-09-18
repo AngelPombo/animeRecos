@@ -54,7 +54,7 @@ function LoginForm() {
           <input
             type="email"
             name="email"
-            placeholder="Nombre de usuario"
+            placeholder="Nombre de usuario..."
           ></input>
         </label>
 
@@ -63,7 +63,7 @@ function LoginForm() {
           <input
             type="password"
             name="pwd"
-            placeholder="**"
+            placeholder="Introduce tu contraseña..."
           ></input>
         </label>
 
