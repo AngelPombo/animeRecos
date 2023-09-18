@@ -3,7 +3,10 @@ async function isBannedComment (req,res,next){
         const bannC = req.infoComment.banned;
 
         if(bannC === 1){
-            return res.status(401).send('No es posible acceder a este contenido. El comentario está baneado');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'El comentario se encuentra actualmente baneado'
+            });
         }
 
         next();

@@ -14,22 +14,34 @@ async function postEntry (req,res) {
         if(!title){
             connect.release();
 
-            return res.status(400).send("El campo title es obligatorio");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "Es obligatorio introducir un título"
+            });
         } 
         if(!content){
             connect.release();
 
-            return res.status(400).send("El campo content es obligatorio");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "Es obligatorio escribir el contenido"
+            });
         } 
         if(!category){
             connect.release();
 
-            return res.status(400).send("El campo category es obligatorio");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "Es obligatorio seleccionar una categoría"
+            });
         } 
         if(!genre){
             connect.release();
 
-            return res.status(400).send("El campo genre es obligatorio");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "Es obligatorio seleccionar un género"
+            });
         } 
         
         const categoryValues = ["recomendaciones", "teorias", "fanArt",
@@ -47,7 +59,10 @@ async function postEntry (req,res) {
         if(categoryExists === null){
             connect.release();
 
-            return res.status(400).send("El campo category no coincide con las categorías disponibles");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "La categoría no se corresponde con ninguna de las disponibles"
+            });
         }
 
         const genreValues = ["accion", "aventura", "deportes",
@@ -68,7 +83,10 @@ async function postEntry (req,res) {
         if(genreExists === null){
             connect.release();
 
-            return res.status(400).send("El campo genre no coincide con los géneros disponibles");
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: "El género no se corresponde con ninguno de los disponibles"
+            });
         }
 
         const [newEntry] = await connect.query(

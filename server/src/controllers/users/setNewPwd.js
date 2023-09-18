@@ -8,10 +8,17 @@ async function setNewPwd (req,res){
         const connect = await getDB();
         const {recoverCode, newPassword} = req.body;
 
+        console.log(req.body);
+        console.log(recoverCode);
+        console.log(newPassword);
+
         if(!recoverCode || !newPassword || newPassword.length < 6){
             connect.release();
 
-            return res.status(400).send('Faltan datos. La contraseña debe tener al menos 6 caracteres');
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: 'La contraseña debe tener al menos 6 caracteres'
+            });
         }
 
         const [user] = await connect.query(
@@ -26,7 +33,10 @@ async function setNewPwd (req,res){
         if(!user.length || user.length === 0){
             connect.release();
 
-            return res.status(400).send('Código de recuperación inválido');
+            return res.status(400).send({
+                status: 'Código inválido',
+                message: 'El código de recuperación introducido no es correcto'
+            });
         }
 
         await connect.query(

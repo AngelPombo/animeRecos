@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { recoverPasswordService } from '../../services';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function RecoverPasswordPage () {
 
-    const [error, setError] = useState("");
+    const [sendEmail, setSendEmail] = useState(false);
+    const [error, setError] = useState(null);
+    const navigateTo = useNavigate();
+
+    useEffect(() => {
+        if(sendEmail){
+            navigateTo("/nueva-password");
+        }
+    },[sendEmail])
     
     async function handleSubmit(e){
         e.preventDefault();
-        const email = e.target.email.value;
+        let email = e.target.email.value;
         
         const objEmailRecover = {
             email: email
         }
 
         try{
+            setError(null);
             await recoverPasswordService(objEmailRecover);
         }catch(e){
             setError(e.message);
+        }finally{
+            e.target.email.value = "";
+
+            if(error !== null){
+                setSendEmail(true);
+            }
         }
     }
-
-    // CUANDO METEMOS UN CORREO QUE NO VALE EL ERROR NO DESAPARECE CUANDO METES UNO QUE SI QUE VALE
-
-
 
     return (
         <section>
@@ -32,8 +44,8 @@ function RecoverPasswordPage () {
             <form onSubmit={handleSubmit}>
                 <label htmlFor='email'>Email</label>
                 <input name="email" id="email" type='email' placeholder='tuemail@ejemplo.com'></input>
-                <button type='submit'>Enviar</button>
                 {error ? <p>{error}</p> : null}
+                <button type='submit'>Enviar</button>
             </form>
         </section>
     );

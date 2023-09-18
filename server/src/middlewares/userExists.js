@@ -19,7 +19,10 @@ const userExists = async (req,res,next) => {
         if(user.length === 0){
             connect.release();
 
-            return res.status(404).send('No existe el usuario');
+            return res.status(404).send({
+                status: 'Not found',
+                message: 'El usuario no existe'
+            });
         }
 
         next();

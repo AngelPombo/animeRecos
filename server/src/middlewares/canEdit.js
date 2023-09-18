@@ -19,7 +19,10 @@ const canEdit = async (req,res,next) => {
         if(req.userInfo.id !== entry[0].user_id && req.userInfo.role !== 'admin'){
             connect.release();
 
-            return res.status(401).send('No tiene permisos para modificar esta entrada');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'No tiene permisos para modificar esta entrada'
+            });
         }
 
         next();

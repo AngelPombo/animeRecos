@@ -22,7 +22,10 @@ const entryExists = async (req,res,next) => {
         if(entry.length === 0){
             connect.release();
 
-            return res.status(404).send('La entrada a la que deseas acceder no existe');
+            return res.status(404).send({
+                status: 'Not found',
+                message: 'La entrada a la que desea acceder no existe'
+            });
         } 
 
         const objEntryInfo = {
