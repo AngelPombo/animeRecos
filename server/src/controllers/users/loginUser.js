@@ -10,7 +10,10 @@ async function loginUser (req,res){
         if(!email || !pwd){
             connect.release();
 
-            return res.status(400).send('Faltan datos.');
+            return res.status(400).send({
+                status:'Faltan datos.',
+                message: 'Es obligatorio introducir email y contraseña'
+            });
         }
 
         const [user] = await connect.query(
@@ -25,7 +28,10 @@ async function loginUser (req,res){
         if(!user.length){
             connect.release();
 
-            return res.status(404).send('Usuario y/o contraseña incorrecto/s');
+            return res.status(404).send({
+                status: 'No autorizado',
+                message: 'Usuario y/o contraseña incorrecto/s'
+            })
         }
 
         const info = {
@@ -53,7 +59,8 @@ async function loginUser (req,res){
             data: {
                 token,
                 email
-            }
+            },
+            info 
         });
     }catch(e){
         console.log(e);

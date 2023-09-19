@@ -33,12 +33,12 @@ function LoginForm() {
 
     const jsonData = await response.json();
 
-    console.log(jsonData)
-
     if (response.ok) {
       handleLogin({
         email: jsonData.data.email,
-        token: jsonData.data.token
+        token: jsonData.data.token,
+        id: jsonData.info.id,
+        auth: true
       });
       navigateTo("/")
     } else setFeedbackMsg("Error al autenticarte");
