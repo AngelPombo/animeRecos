@@ -1,4 +1,3 @@
-import { ErrorMessage } from "../components/ErrorMessage/ErrorMessage";
 
 async function getOneEntryService (id){
     const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${id}`);
@@ -76,5 +75,21 @@ async function registerUserService ({ nick, email, pwd }){
     }
   }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService};
+async function getUserInfoService (id, token){
+  
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/user/${id}`,{
+    headers: {
+      auth: token,
+    }
+  });
+  const json = await res.json();
+
+  if(!res.ok){
+      throw new Error(json.message);
+  }
+
+  return json.data; 
+}
+
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService};
 
