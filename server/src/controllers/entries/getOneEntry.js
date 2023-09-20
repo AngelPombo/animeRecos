@@ -9,7 +9,7 @@ async function getOneEntry (req,res) {
 
         const [entry] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.last_update, e.edited,e.banned, e.title, e.content, e.video_url, e.anime_character, e.genre, e.category
+                SELECT u.user_name, u.id AS user_id, u.avatar, u.user_badge, e.id AS entry_id, e.last_update, e.edited,e.banned, e.title, e.content, e.video_url, e.anime_character, e.genre, e.category
                 FROM entries e
                 INNER JOIN users u ON e.user_id=u.id
                 WHERE e.id=?
