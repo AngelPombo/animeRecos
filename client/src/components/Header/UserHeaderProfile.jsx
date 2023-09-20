@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { getUserInfoService } from '../../services';
-import { ErrorMessage } from '../ErrorMessage/ErrorMessage'
 import sessionContext from '../../context/sessionContext';
 
 function UserHeaderProfile () {
@@ -33,7 +32,7 @@ function UserHeaderProfile () {
         userProfileInfo();
     }, [])
 
-
+    if(dataUser.length === 0) return <p>No es posible acceder a la información del usuario. Debes iniciar sesión.</p>
     if(loading) return <p>Cargando...</p>;
 
     return (

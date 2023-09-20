@@ -11,10 +11,9 @@ function NovedadesPage() {
     const baseUrl = import.meta.env.VITE_API_URL;
 
     const {data,error, isLoading} = useEntries(`${baseUrl}/last-entries`);
-    
 
     const dataPosts = data.data;
-//si no hay data da undefined
+
     if(error){
         return <ErrorMessage message= {error}/>
     }
@@ -29,7 +28,7 @@ function NovedadesPage() {
                 <section className='section-novedades-page'> 
                     <ul className='novedades-page'>
                     {dataPosts.map((post) => {
-                    return <li key={post.entry_id}><NovedadesCard post={post}/></li>
+                    return <li key={post.id}><NovedadesCard post={post}/></li>
                     })}
                     </ul>
                 </section>

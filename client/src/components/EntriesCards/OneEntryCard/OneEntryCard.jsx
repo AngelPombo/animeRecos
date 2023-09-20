@@ -1,9 +1,65 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactPlayer from 'react-player';
+import sessionContext from '../../../context/sessionContext';
+import { useNavigate } from 'react-router-dom';
 
 function OneEntryCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
+
+    //traemos del contexto si el user está logueado y su id
+    const {logged, userId} = useContext(sessionContext);
+
+    //llamamos al hook useNavigate que vamos a utilizar en la función
+    const navigateTo = useNavigate();
+
+    //función que maneja el click en el botón delete
+    function handleClick(){
+
+        //esto entiendo que habría que cambiarlo, de momento pongo un confirm
+        //para asegurarme de que el usuario quiere borrar la entrada
+        const wantDelete = confirm("¿Seguro que quieres eliminar esta entrada?");
+
+        //Si la respuesta del confirm es true, hacemos la función que elimina la entrada:
+        if(wantDelete){
+            //hacemos la función async porque necesitamos esperar al fetch
+            async function deleteEntry(){                
+                try{
+                    //capturamos el token del localStorage
+                    const token = window.localStorage.getItem("jwt");
+
+                    //hacemos el fetch con el id de la entrada y enviamos el token
+                    const res = await fetch(`${baseUrl}/entry/${post[0][0].entry_id}`, {
+                        method: 'DELETE',
+                        headers:{
+                            auth: token,
+                        }
+                    });
+
+                    //si la res.ok es false, tiramos un error
+                    if(!res.ok){
+                        throw new Error("Se ha producido un error eliminando la entrada")
+                    }
+
+                    //guardamos el mensaje del server
+                    const data = await res.json();
+            
+                    //Retornamos el mensaje del server, hay que cambiar el alert
+                    alert(`${data.message}. Será redirigido a la página de inicio.`);
+
+                    //redirigimos a la página de inicio,
+                    //no sé si queréis que lleve a novedades (igual que el post) >> puse inicio por poner una jeje
+                    navigateTo("/");
+                }catch(e){
+                    //esto habría que hacerlo con algo mejor que un alert jeje
+                    alert(e.message);
+                }
+            }
+
+            //llamamos a la función que acabamos de crear
+            deleteEntry();
+        }
+    }
 
     if(post[2].length === 0 && !post[0][0].video_url){
         return (
@@ -20,6 +76,15 @@ function OneEntryCard({post}) {
                 {
                 post.votes ? <p>{post.votes[0].votos_entrada}</p>
                 : <p>0</p>
+                }
+                {
+                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
+                    logged && parseInt(userId) === post[0][0].user_id
+                    ?
+                    <button onClick={handleClick}>Eliminar</button>
+                    :
+                    null
                 }
             </article>
         )
@@ -38,6 +103,15 @@ function OneEntryCard({post}) {
                 : <p>0</p>
                 }
                 {/* {post.edited && <p>"Editado"</p>}*/}
+                {
+                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
+                    logged && parseInt(userId) === post[0][0].user_id
+                    ?
+                    <button onClick={handleClick}>Eliminar</button>
+                    :
+                    null
+                }
             </article>
         )
     } else {
@@ -59,6 +133,15 @@ function OneEntryCard({post}) {
                 />
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
+                {
+                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
+                    logged && parseInt(userId) === post[0][0].user_id
+                    ?
+                    <button onClick={handleClick}>Eliminar</button>
+                    :
+                    null
+                }
             </article>
         )
     }

@@ -9,11 +9,21 @@ function OpeningsCard({post}) {
     return (
         <article>
             <h4>{post.user_name}</h4>
-            <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+            {
+                post.avatar ?
+                <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+                :
+                null
+            }
             <div>{post.user_badge}</div>
             <h3>{post.title}</h3>
             <h5>{new Date(post.create_date).toDateString()}</h5>
-            <ReactPlayer url={post.video_url}/>
+            {
+                post.video_url ?
+                <ReactPlayer url={post.video_url}/>
+                :
+                null
+            }
             {
                 post.votes ? <p>{post.votes[0].votos_entrada}</p>
                 : <p>0</p>

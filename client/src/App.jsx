@@ -41,7 +41,7 @@ function App() {
                 <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
                 <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                 <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
-                <Route path='/crear-entrada' element= {<PostEntryPage/>}/> 
+                <Route path='/crear-entrada' element= {<PostEntryPage/>}/>
                 <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
                 <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
                 <Route path="*" element={<NotFound/>} />

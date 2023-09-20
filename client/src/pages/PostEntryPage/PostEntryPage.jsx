@@ -45,7 +45,7 @@ function PostEntryPage() {
             e.target.genre.value = "";
             e.target["anime-character"].value = "";
 
-            if(error !== null){
+            if(error === null){
                 setPostEntry(true);
             }
         }
