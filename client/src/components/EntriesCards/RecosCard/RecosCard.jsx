@@ -9,7 +9,12 @@ function RecosCard({post}) {
     return (
         <article className='recos-card'>
             <h4>{post.user_name}</h4>
-            <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+            {
+                post.avatar ?
+                <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+                :
+                null
+            }
             <div className='badge'>{post.user_badge}</div>
             <h3>{post.title}</h3>
             <div className='genre'>{post.genre}</div>

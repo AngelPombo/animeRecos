@@ -13,8 +13,6 @@ function SessionProvider(props) {
   const [username, setUsername] = useState("anónimo");
   const [userId, setUserId] = useState("");
 
-  console.log(logged)
-
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
     if (token) {
