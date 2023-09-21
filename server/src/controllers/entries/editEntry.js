@@ -13,31 +13,43 @@ async function editEntry (req,res) {
         if(!title){
             connect.release();
 
-            return res.status(400).send("El campo title es obligatorio");
+            return res.status(400).send({
+                status: "Faltan datos",
+                message: "El título es obligatorio"
+            });
         }
 
         if(!content){
             connect.release();
 
-            return res.status(400).send("El campo content es obligatorio");
+            return res.status(400).send({
+                status: "Faltan datos",
+                message: "El contenido es obligatorio"
+            });
         }
 
         if(!category){
             connect.release();
             
-            return res.status(400).send("El campo category es obligatorio");
+            return res.status(400).send({
+                status: "Faltan datos",
+                message: "La categoría es obligatoria"
+            });
         }
 
         if(!genre){
             connect.release();
 
-            return res.status(400).send("El campo genre es obligatorio");
+            return res.status(400).send({
+                status: "Faltan datos",
+                message: "El género es obligatorio"
+            });
         } 
 
         const [editedEntry] = await connect.query(
             `
                 UPDATE entries 
-                SET last_update = ?,title = ?, content = ?, video_url = ?, anime_character = ?, category = ?, genre = ?
+                SET last_update = ?,title = ?, content = ?, video_url = ?, anime_character = ?, category = ?, genre = ?, edited = 1
                 WHERE id = ?
             `,
             [new Date(), title, content, video, animeCharacter, category, genre, idEntry] 
