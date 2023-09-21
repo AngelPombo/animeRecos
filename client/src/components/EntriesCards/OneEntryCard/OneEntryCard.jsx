@@ -61,6 +61,10 @@ function OneEntryCard({post}) {
         }
     }
 
+    function handleEdit(){
+        navigateTo(`/editar-entrada/${post[0][0].entry_id}`);
+    }
+
     if(post[2].length === 0 && !post[0][0].video_url){
         return (
             <article className='novedades-card'>
@@ -78,14 +82,18 @@ function OneEntryCard({post}) {
                 : <p>0</p>
                 }
                 {
-                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <button onClick={handleClick}>Eliminar</button>
+                    <div>
+                        <button onClick={handleClick}>Eliminar</button>
+                        <button onClick={handleEdit}>Editar</button>
+                    </div>
                     :
                     null
                 }
+
             </article>
         )
     } else if(post[0][0].video_url){
@@ -104,11 +112,14 @@ function OneEntryCard({post}) {
                 }
                 {/* {post.edited && <p>"Editado"</p>}*/}
                 {
-                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <button onClick={handleClick}>Eliminar</button>
+                    <div>
+                        <button onClick={handleClick}>Eliminar</button>
+                        <button onClick={handleEdit}>Editar</button>
+                    </div>
                     :
                     null
                 }
@@ -134,11 +145,14 @@ function OneEntryCard({post}) {
                 {/* {post.edited && <p>"Editado"</p>}
                 {post.video_url && <div>{post.video_url}</div>} */}
                 {
-                    //Lógica para que el botón delete salga en la publicación ampliada
+                    //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <button onClick={handleClick}>Eliminar</button>
+                    <div>
+                        <button onClick={handleClick}>Eliminar</button>
+                        <button onClick={handleEdit}>Editar</button>
+                    </div>
                     :
                     null
                 }
