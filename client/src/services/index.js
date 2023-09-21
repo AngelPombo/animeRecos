@@ -75,6 +75,23 @@ async function registerUserService ({ nick, email, pwd }){
     }
   }
 
+  async function editEntryService ({title, content, category, genre, animeCharacter, token, id}){
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/edit-entry/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({title, content, category, genre, animeCharacter}),
+      headers: {
+          "Content-Type": "application/json",
+          auth: token
+      },
+    });
+        
+    const json = await response.json();
+    
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+  }
+
 async function getUserInfoService (id, token){
   
   const res = await fetch(`${import.meta.env.VITE_API_URL}/user/${id}`,{
@@ -91,5 +108,5 @@ async function getUserInfoService (id, token){
   return json.data; 
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService};
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService};
 
