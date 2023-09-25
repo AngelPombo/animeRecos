@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 
 async function getOneEntryService (id){
     const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${id}`);
@@ -69,11 +70,36 @@ async function registerUserService ({ nick, email, pwd }){
     });
         
     const json = await response.json();
+
     
     if (!response.ok) {
         throw new Error(json.message);
     }
+        return json.data;
   }
+
+  async function addPhotoService({token, formElem, entry_id}){
+    console.log(formElem)
+
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry_id}/photos`,{
+      method: "POST",
+      body: new FormData(formElem),
+      headers: {
+        "Content-Type": "multipart/form-data",
+        auth: token
+        
+      },
+    });
+    const json = await response.json();
+    
+    if (!response.ok) {
+        throw new Error(json.message);
+    }
+
+  }
+
+
 
   async function editEntryService ({title, content, category, genre, animeCharacter, token, id}){
     const response = await fetch(`${import.meta.env.VITE_API_URL}/edit-entry/${id}`, {
@@ -108,5 +134,5 @@ async function getUserInfoService (id, token){
   return json.data; 
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService};
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService, addPhotoService};
 

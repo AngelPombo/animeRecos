@@ -32,7 +32,15 @@ function UserHeaderProfile () {
         userProfileInfo();
     }, [])
 
-    if(dataUser.length === 0) return <p>No es posible acceder a la información del usuario. Debes iniciar sesión.</p>
+    if(dataUser.length === 0){
+       // window.localStorage.removeItem("jwt");
+        //window.localStorage.removeItem("email");
+        //window.localStorage.removeItem("id");
+
+        return <p>No es posible acceder a la información del usuario. Debes iniciar sesión.</p>
+
+
+    } 
     if(loading) return <p>Cargando...</p>;
 
     return (
