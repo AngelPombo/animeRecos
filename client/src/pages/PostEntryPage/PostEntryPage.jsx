@@ -9,13 +9,33 @@ function PostEntryPage() {
     const [postEntry, setPostEntry] = useState(false);
     const [error, setError] = useState(null);
     const navigateTo = useNavigate();
+    const [idEntry, setidEntry]= useState(null);
+    const [buttonPhotoClicked, setButtonPhotoClicked]= useState(false);
+    const [buttonPostClicked, setButtonPostClicked]= useState(false);
+    
 
     useEffect(() => {
+       
         if(postEntry){
-            navigateTo("/novedades");
+            if (buttonPhotoClicked){
+                navigateTo(`/borrador/${idEntry}`);
+            }
+            if (buttonPostClicked){
+                navigateTo(`/novedades`);
+            }
+                        
         }
     },[postEntry])
     
+    function handlePhotoClick(){
+        setButtonPhotoClicked(true)
+    }
+
+    function handlePostClick(){
+        setButtonPostClicked(true)
+    }
+
+
     async function handleSubmit(e){
         e.preventDefault();
 
@@ -33,10 +53,14 @@ function PostEntryPage() {
 
             setPostEntry(false);
             setError(null);
-            await postEntryService({title, content, category, genre, animeCharacter, token});
+            const {insertId} = await postEntryService({title, content, category, genre, animeCharacter, token});
+            setidEntry(insertId);
+            
+            
         }catch(e){
             setPostEntry(false);
             setError(e.message);
+            setidEntry(null);
         }finally{
             e.target.title.value = "";
             e.target.content.value = "";
@@ -50,7 +74,7 @@ function PostEntryPage() {
             }
         }
     }
-
+    
     return (
         <section className="post-entry-page">
             <form onSubmit={handleSubmit}>
@@ -98,10 +122,12 @@ function PostEntryPage() {
                             <label htmlFor="anime-character">Personaje:</label>
                             <input type="text" name="anime-character" id="anime-character" placeholder='Escribe el nombre del personaje...' />
                         </li>
+                        
                     </ul>
                 </fieldset>
                 {error ? <p>{error}</p> : null}
-                <button type="submit">Crear nueva entrada</button>
+                <button onClick={handlePhotoClick} type="submit">Añadir foto</button>
+                <button onClick= {handlePostClick} type='submit'>Publicar</button>
             </form>
         </section>
     )
