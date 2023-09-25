@@ -6,10 +6,14 @@ async function addPhotoEntry (req, res){
     try {
         const {idEntry} = req.params;
         const connect = await getDB();
+
+        console.log(req.body, "body")
         
+        console.log(req.files, "files")
         if(req.files && req.files.img){
             
             const photoEntry = await savePhoto(req.files.img,'/photoentries');
+            console.log(req.files.img)
 
             await connect.query(
                 `
@@ -28,7 +32,10 @@ async function addPhotoEntry (req, res){
         }else{
             connect.release();
 
-            return res.status(401).send('El envío de la imagen es obligatorio');
+            return res.status(401).send({
+                status:"faltan datos",
+                message: 'El envío de la imagen es obligatorio'
+            });
         }
 
     }catch(e){
