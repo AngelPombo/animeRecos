@@ -8,7 +8,7 @@ async function getLastUserEntries(req, res) {
 
         const [entries] = await connect.query(
             `
-                SELECT e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
+                SELECT e.title, e.id, u.avatar, CONCAT(SUBSTRING(e.content,1,50),"...") AS content,e.category, e.create_date
                 FROM entries e, users u
                 WHERE u.id=? AND u.id=e.user_id
             `,

@@ -19,6 +19,7 @@ import { NewPasswordWithCode } from './pages/NewPasswordWithCode/NewPasswordWith
 import { PostEntryPage } from './pages/PostEntryPage/PostEntryPage';
 import { EditEntryPage } from './pages/EditEntryPage/EditEntryPage';
 import { DraftPage } from './pages/DraftPage/DraftPage';
+import { UserPage } from './pages/UserPage/UserPage';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
                 <Route path='/editar-entrada/:id' element={<EditEntryPage/>}/>
                 <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
                 <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
+                <Route path='/perfil-usuario/:id' element={<UserPage/>}/>
                 <Route path="*" element={<NotFound/>} />
           </Routes> 
           <Footer />

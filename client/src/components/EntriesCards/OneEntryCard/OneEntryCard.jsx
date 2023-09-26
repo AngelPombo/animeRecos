@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import ReactPlayer from 'react-player';
 import sessionContext from '../../../context/sessionContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function OneEntryCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
@@ -68,7 +69,7 @@ function OneEntryCard({post}) {
     if(post[2].length === 0 && !post[0][0].video_url){
         return (
             <article className='novedades-card'>
-                <h4>{post[0][0].user_name}</h4>
+                <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
                 {post[0][0].avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
                 <div className='badge'>{post[0][0].user_badge}</div>
                 <h3>{post[0][0].title}</h3>
@@ -99,7 +100,7 @@ function OneEntryCard({post}) {
     } else if(post[0][0].video_url){
         return(
             <article>
-                <h4>{post[0][0].user_name}</h4>
+                <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
                 {post[0][0].avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
                 <div>{post[0][0].user_badge}</div>
                 <h3>{post[0][0].title}</h3>
@@ -128,7 +129,7 @@ function OneEntryCard({post}) {
     } else {
         return(
             <article>
-                <h4>{post[0][0].user_name}</h4>
+                <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
                 {post[0][0].avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
                 <div>{post[0][0].user_badge}</div>
                 <h3>{post[0][0].title}</h3>

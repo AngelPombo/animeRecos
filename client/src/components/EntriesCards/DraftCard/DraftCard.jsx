@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactPlayer from 'react-player';
 import sessionContext from '../../../context/sessionContext';
 import { useNavigate } from 'react-router-dom';
@@ -14,23 +14,33 @@ function DraftCard({post}) {
     //llamamos al hook useNavigate que vamos a utilizar en la función
     //const navigateTo = useNavigate();
 
+
     async function handleSubmit(e){
         e.preventDefault();
-        const formElem = (e.target)
-        //console.log(formElem)
-      
-        /*const img1 = e.target.img1.value
-        const img2 = e.target.img2.value<
-        const img3 = e.target.img3.value */
         
-          
+        /* console.log(e.target.img.files[0]) */
+      
+        const form = e.target
+        const img = e.target.img.files[0]
+
+        /* const img2 = e.target.img2.files[1]
+        const img3 = e.target.img3.files[2] */
+        
+        const formData = new FormData();
+
+        formData.append("img", img, img.name)
+
+        // Display the values
+        /* for (const value of formData.values()) {
+        console.log(value);
+        }  */
         
         const token = window.localStorage.getItem("jwt")
       
                
         try {
             const entry_id = post[0][0].entry_id
-            await addPhotoService({token, formElem, entry_id})   
+            await addPhotoService({token, entry_id, formData})   
 
         } catch (error) {
             console.log(error)
@@ -38,6 +48,7 @@ function DraftCard({post}) {
         }
     }
 
+    
 
     if(post[2].length === 0 && !post[0][0].video_url){
         return (
@@ -60,7 +71,7 @@ function DraftCard({post}) {
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <form id='formElem' onSubmit={handleSubmit}>
+                    <form id='formElem' onSubmit={handleSubmit} action="/photoentries" method="post" encType='multipart/form-data'>
                         <label htmlFor="img"></label>
                         <input type="file" name='img' id='img'/>
                        {/*  <label htmlFor="img2"></label>
@@ -95,7 +106,7 @@ function DraftCard({post}) {
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <form id='formElem' onSubmit={handleSubmit}>
+                    <form id='formElem' onSubmit={handleSubmit} action="/photoentries" method="post" encType='multipart/form-data'>
                         <label htmlFor="img"></label>
                         <input type="file" name='img' id='img'/>
                        {/*  <label htmlFor="img2"></label>
@@ -133,7 +144,7 @@ function DraftCard({post}) {
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                     logged && parseInt(userId) === post[0][0].user_id
                     ?
-                    <form id='formElem' onSubmit={handleSubmit}>
+                    <form id='formElem' onSubmit={handleSubmit} action="/photoentries" method="post" encType='multipart/form-data'>
                          <label htmlFor="img"></label>
                         <input type="file" name='img' id='img'/>
                        {/*  <label htmlFor="img2"></label>
