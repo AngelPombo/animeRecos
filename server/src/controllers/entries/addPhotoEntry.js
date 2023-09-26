@@ -7,13 +7,11 @@ async function addPhotoEntry (req, res){
         const {idEntry} = req.params;
         const connect = await getDB();
 
-        console.log(req.body, "body")
+        console.log(req)
         
-        console.log(req.files, "files")
         if(req.files && req.files.img){
             
             const photoEntry = await savePhoto(req.files.img,'/photoentries');
-            console.log(req.files.img)
 
             await connect.query(
                 `
