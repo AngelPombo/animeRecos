@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 
-function useEntries(endpoint){
+function useEntries(endpoint, token){
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() =>{
         
-        async function getData(endpoint){
+        async function getData(endpoint, token){
             
             try{
                 setIsLoading(true);
-                const res = await fetch(endpoint);
+                const res = await fetch(endpoint, {
+                    headers: {
+                        auth: token
+                    } 
+                });
                 const dataJSON = await res.json();
 
                 setData(dataJSON);
@@ -23,7 +27,7 @@ function useEntries(endpoint){
             }
         }
 
-        getData(endpoint);
+        getData(endpoint, token);
     }, [endpoint]);
 
     return {data, error, isLoading};

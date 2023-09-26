@@ -78,18 +78,21 @@ async function registerUserService ({ nick, email, pwd }){
         return json.data;
   }
 
-  async function addPhotoService({token, formElem, entry_id}){
-    console.log(formElem)
-
+  async function addPhotoService({token, entry_id, formData}){
+    
+    
+    for (const value of formData.values()) {
+      console.log(value);
+    } 
 
     const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry_id}/photos`,{
       method: "POST",
-      body: new FormData(formElem),
+      body: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         auth: token
-        
       },
+
     });
     const json = await response.json();
     
@@ -98,8 +101,6 @@ async function registerUserService ({ nick, email, pwd }){
     }
 
   }
-
-
 
   async function editEntryService ({title, content, category, genre, animeCharacter, token, id}){
     const response = await fetch(`${import.meta.env.VITE_API_URL}/edit-entry/${id}`, {
