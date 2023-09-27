@@ -33,7 +33,8 @@ const {
     bannEntry,
     bannComment,
     getTotalReportsEntry,
-    getTotalReportsComment
+    getTotalReportsComment,
+    getComments
     
 } = require('../controllers/entries');
 
@@ -45,6 +46,7 @@ router.get('/entries/:category/:genre', updateBadge, getEntriesByGenre);
 router.get('/top-rated/:category', updateBadge, getTopRatedEntriesByCategory);
 router.get('/entries/total-reports/:idEntry', entryExists, isUser, isAdmin, getTotalReportsEntry);
 router.get('/entries/total-reports/:idEntry/comments/:idComment', entryExists, isUser, isAdmin, commentExists, getTotalReportsComment);
+router.get('/comments/:idEntry', entryExists, isUser, isBannedEntry, getComments)
 
 router.post('/entry', isUser, isBannedUser, updateBadge, postEntry);
 router.post('/entry/:idEntry/comments', entryExists, isBannedEntry, isUser, isBannedUser, postComment);

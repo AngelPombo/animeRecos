@@ -1,5 +1,6 @@
 const { getDB } = require('../../database/db');
 
+
 async function getUserById(req, res) {
     try {
         const { idUser } = req.params;
@@ -8,7 +9,7 @@ async function getUserById(req, res) {
 
         const [user] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, u.biography, u.link_twitter, u.link_youtube, u.link_insta, u.link_ttv, u.created_date
+                SELECT u.user_name, u.email, u.pwd, u.id, u.avatar, u.user_badge, u.biography, u.link_twitter, u.link_youtube, u.link_insta, u.link_ttv, u.created_date
                 FROM users u
                 WHERE id=?
             `,

@@ -13,7 +13,10 @@ async function updateUser (req,res){
         if(!nick || !email){
             connect.release();
 
-            return res.status(400).send('Faltan datos');
+            return res.status(400).send({
+                status:"Faltan datos",
+                message: "Debe introducir email y nombre de usuario"
+            });
         }
 
         if(req.userInfo.id !== parseInt(idUser) && req.userInfo.role !== "admin"){

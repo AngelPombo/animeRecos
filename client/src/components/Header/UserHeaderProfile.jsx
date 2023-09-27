@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { getUserInfoService } from '../../services';
 import sessionContext from '../../context/sessionContext';
+import { Link } from 'react-router-dom';
 
 function UserHeaderProfile () {
 
@@ -32,6 +33,7 @@ function UserHeaderProfile () {
         userProfileInfo();
     }, [])
 
+
     if(dataUser.length === 0){
        // window.localStorage.removeItem("jwt");
         //window.localStorage.removeItem("email");
@@ -46,7 +48,7 @@ function UserHeaderProfile () {
     return (
         <>
             <img src={`${baseUrl}/avataruser/${dataUser[0].avatar}`} alt={dataUser[0].user_name} />
-            <h4>@{dataUser[0].user_name}</h4>
+            <Link to={`/perfil-usuario/${dataUser[0].id}`}><h4>@{dataUser[0].user_name}</h4></Link>
             <p>{dataUser[0].user_badge}</p>
         </>
     );

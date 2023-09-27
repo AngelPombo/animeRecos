@@ -22,13 +22,15 @@ function DraftCard({post}) {
       
         const form = e.target
         const img = e.target.img.files[0]
+        /* const img = e.target.img.files[0].value */
+        console.log("------------", img)
 
         /* const img2 = e.target.img2.files[1]
         const img3 = e.target.img3.files[2] */
         
         const formData = new FormData();
 
-        formData.append("img", img, img.name)
+        formData.append("img", img);
 
         // Display the values
         /* for (const value of formData.values()) {
