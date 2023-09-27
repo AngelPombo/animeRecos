@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { useEntries } from '../../hooks/useEntries';
 import { NovedadesCard } from '../EntriesCards/NovedadesCard/NovedadesCard';
@@ -11,18 +11,40 @@ function UserProfile ({user}) {
 
     const {id} = useParams();
 
+    const currentId = window.localStorage.getItem("id");
+
     const token = window.localStorage.getItem("jwt")
 
     const {data, error, isLoading} = useEntries(`${baseUrl}/user-entries/${id}`, token)
 
     const dataPosts = data.data;
 
+    const navigateTo = useNavigate();
+
     if(error){
         return <ErrorMessage message= {error} />
     }
 
+    function handleEditProfile (){
+        navigateTo(`/editar-perfil/${id}`);
+    }
+
+    function handleDeleteUser(){
+        navigateTo(`/users/${id}`);
+    }
+
     return (
         <article className='user-profile'>
+            {
+                currentId === id
+                ?
+                <div>
+                    <button onClick={handleEditProfile}>Editar perfil</button>
+                    <button onClick={handleDeleteUser}>Eliminar cuenta</button>
+                </div>
+                :
+                null
+            }
             <h3>{user[0].user_name}</h3>
             <p>{user[0].user_badge}</p>
             <img src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
@@ -61,11 +83,17 @@ function UserProfile ({user}) {
                 )
                 :(
                     <section className='section-entradas-perfil'>
-                        <ul className='lista-entradas-perfil'>
-                        {dataPosts.map((post) => {
-                        return <li key={post.id}><NovedadesCard post={post}/></li>
-                        })}
-                        </ul>
+                        {
+                            dataPosts
+                            ?
+                            <ul className='lista-entradas-perfil'>
+                            {dataPosts.map((post) => {
+                            return <li key={post.id}><NovedadesCard post={post}/></li>
+                            })}
+                            </ul>
+                            :
+                            <p>¡Todavía no hay publicaciones!</p>
+                        }
                     </section>
                 )
             }

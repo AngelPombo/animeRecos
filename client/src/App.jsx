@@ -20,6 +20,9 @@ import { PostEntryPage } from './pages/PostEntryPage/PostEntryPage';
 import { EditEntryPage } from './pages/EditEntryPage/EditEntryPage';
 import { DraftPage } from './pages/DraftPage/DraftPage';
 import { UserPage } from './pages/UserPage/UserPage';
+import { EditProfileForm } from './components/EditProfileForm/EditProfileForm';
+import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage';
+import { DeleteUserPage } from './pages/DeleteUserPage/DeleteUserPage';
 
 
 function App() {
@@ -32,8 +35,8 @@ function App() {
                 <Route path="/registro" element={<RegisterPage/>} />
                 <Route path='/validar' element= {<RegisterValidate/>}/>
                 <Route path="/login" element={<LoginForm/>} />
-                <Route path='/editar-perfil/:idUser' element= {<p>pagina editar perfil</p>}/>
-                <Route path='/perfil/:idUser' element= {<p>pagina  perfil usuario</p>}/> 
+                <Route path='/editar-perfil/:id' element= {<EditProfileForm/>}/>
+                <Route path='/perfil-usuario/:id' element={<UserPage/>}/> 
                 <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>
                 <Route path='/memes'element={<SelectGenrePage category="memes"/>}/>
                 <Route path='/teorias'element={<SelectGenrePage category="teorias"/>}/>
@@ -49,7 +52,8 @@ function App() {
                 <Route path='/editar-entrada/:id' element={<EditEntryPage/>}/>
                 <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
                 <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
-                <Route path='/perfil-usuario/:id' element={<UserPage/>}/>
+                <Route path='/cambiar-password/:id' element={<ChangePasswordPage/>}/>
+                <Route path='/users/:id' element={<DeleteUserPage/>} />
                 <Route path="*" element={<NotFound/>} />
           </Routes> 
           <Footer />

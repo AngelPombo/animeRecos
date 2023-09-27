@@ -135,5 +135,62 @@ async function getUserInfoService (id, token){
   return json.data; 
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService, addPhotoService};
+async function newUserProfile ({id, token, email,  nick, bio, linkTwitter, linkYoutube, linkInsta, linkTtv, avatar}){
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/edit-profile/${id}`,{
+    method: "PUT",
+    body: JSON.stringify({email,  nick, bio, linkTwitter, linkYoutube, linkInsta, linkTtv, avatar}),
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+async function changePwdService(oldPwd, newPwd, token, id){
+
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${id}/password`, {
+    method: "PUT",
+    body: JSON.stringify({oldPwd, newPwd}),
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+async function deleteUserService(id, token){
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${id}`,{
+    method: "DELETE",
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService};
 
