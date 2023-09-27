@@ -1,4 +1,6 @@
 const {getDB} = require('../../database/db');
+const {v4: uuidv4} = require('uuid');
+const userCode = uuidv4();
 
 async function deleteUser(req,res){
     try {
@@ -9,16 +11,19 @@ async function deleteUser(req,res){
         if(parseInt(idUser) !== idCurrentUser){
             connect.release();
 
-            return res.status(401).send('No estás autorizado para eliminar este usuario');
+            return res.status(401).send({
+                status: "No autorizado",
+                message: 'No estás autorizado para eliminar este usuario'
+            });
         }
 
         await connect.query(
             `
                 UPDATE users
-                SET pwd="[borrado]", user_name="[borrado]", avatar=null, active_user= 0, deleted=1, last_auth_update=?
+                SET pwd="[borrado]", user_name=?, avatar=null, active_user= 0, deleted=1, last_auth_update=?
                 WHERE id=?
             `,
-            [new Date(),idUser]
+            [userCode, new Date(),idUser]
         );
 
         connect.release();
