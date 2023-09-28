@@ -10,7 +10,7 @@ function UserHeader () {
         return (
             <>
                 {
-                    (logged && (new Date().getTime() < (timeStamp + oneDayMs)))
+                    (logged && (new Date().getTime() < (parseInt(timeStamp) + oneDayMs)))
                     &&
                     <section className='user-header'>
                         <UserHeaderProfile /> 

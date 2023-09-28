@@ -12,12 +12,14 @@ function SessionProvider(props) {
   const [logged, setLogged] = useState(false);
   const [username, setUsername] = useState("anónimo");
   const [userId, setUserId] = useState("");
-  const [timeStamp, setTimeStamp] = useState(0);
+  const initialTimeStampValue = window.localStorage.getItem("timestamp");
+  const [timeStamp, setTimeStamp] = useState(initialTimeStampValue);
   const oneDayMs = 86400000;
 
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
-    if (token && (new Date().getTime() < (timeStamp + oneDayMs))) {
+
+    if (token && (new Date().getTime() < (parseInt(timeStamp) + oneDayMs))) {
       setLogged(true);
       setUsername(window.localStorage.getItem("email"));
       setUserId(window.localStorage.getItem("id"));
