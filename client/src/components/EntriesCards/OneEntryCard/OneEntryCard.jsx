@@ -4,6 +4,7 @@ import sessionContext from '../../../context/sessionContext';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { CommentsList } from '../../CommentsList/CommentsList';
+import { CommentForm } from '../../CommentForm/CommentForm';
 
 function OneEntryCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
@@ -102,6 +103,7 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
+                    <CommentForm/>
                     <CommentsList/>
                 </section>
             </article>
@@ -140,6 +142,7 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
+                    <CommentForm/>
                     <CommentsList/>
                 </section>
             </article>
@@ -182,6 +185,7 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
+                    <CommentForm/>
                     <CommentsList/>
                 </section>
             </article>

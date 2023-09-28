@@ -59,12 +59,12 @@ async function registerUserService ({ nick, email, pwd }){
     }
   }
 
-  async function postEntryService ({title, content, category, genre, animeCharacter, token}){
+  async function postEntryService (formData, token){
     const response = await fetch(`${import.meta.env.VITE_API_URL}/entry`, {
       method: "POST",
-      body: JSON.stringify({title, content, category, genre, animeCharacter}),
+      body: formData,
       headers: {
-          "Content-Type": "application/json",
+          
           auth: token
       },
     });
@@ -77,6 +77,27 @@ async function registerUserService ({ nick, email, pwd }){
     }
         return json.data;
   }
+
+async function postCommentService ({id, token, content}){
+  console.log(id)
+const response = await fetch (`${import.meta.env.VITE_API_URL}/entry/${id}/comments`,{
+  method: "POST",
+  body: JSON.stringify({content}),
+  headers:{
+    "Content-Type": "application/json",
+    auth: token
+  },
+});
+const json = await response.json();
+if (!response.ok){
+  throw new Error (json.message);
+}
+  return  json;
+
+}
+
+
+
 
   async function addPhotoService({token, entry_id, formData}){
     
@@ -192,5 +213,5 @@ async function deleteUserService(id, token){
   return json;
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService};
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService};
 
