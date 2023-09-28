@@ -76,10 +76,10 @@ function DraftCard({post}) {
                     <form id='formElem' onSubmit={handleSubmit} action="/photoentries" method="post" encType='multipart/form-data'>
                         <label htmlFor="img"></label>
                         <input type="file" name='img' id='img'/>
-                       {/*  <label htmlFor="img2"></label>
+                        <label htmlFor="img2"></label>
                         <input type="file" name='img2' id='img2'/>
                         <label htmlFor="img3"></label>
-                        <input type="file" name='img3' id='img3'/> */}
+                        <input type="file" name='img3' id='img3'/> 
                         <button type='submit'>publicar</button>
                     </form>
                     :

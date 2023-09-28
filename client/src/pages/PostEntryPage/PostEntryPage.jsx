@@ -1,77 +1,83 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { postEntryService } from '../../services';
+import { addPhotoService, postEntryService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 
 function PostEntryPage() {
-    //por los headers el auth, que está guardado en el localStorage
+    
     const { logged } = useContext(sessionContext);
-    const [postEntry, setPostEntry] = useState(false);
     const [error, setError] = useState(null);
     const navigateTo = useNavigate();
-    const [idEntry, setidEntry]= useState(null);
-    const [buttonPhotoClicked, setButtonPhotoClicked]= useState(false);
-    const [buttonPostClicked, setButtonPostClicked]= useState(false);
-    
+  
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [category, setCategory] = useState('')
+    const [genre, setGenre] = useState('')
+    const [animeCharacter, setAnimeCharacter]  = useState('')
+    const [img, setImg] = useState()
+    const [img2, setImg2] = useState()
+    const [img3, setImg3] = useState()
 
-    useEffect(() => {
-       
-        if(postEntry){
-            if (buttonPhotoClicked){
-                navigateTo(`/borrador/${idEntry}`);
-            }
-            if (buttonPostClicked){
-                navigateTo(`/novedades`);
-            }
-                        
+   
+    function handleChange (e){
+        const {name}= e.target
+        const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
+              
+        if (name === 'title'){
+            setTitle(value)
+          
         }
-    },[postEntry])
-    
-    function handlePhotoClick(){
-        setButtonPhotoClicked(true)
+        if (name === 'content'){
+            setContent(value)
+        }
+        if (name === 'category'){
+            setCategory(value)
+        }
+        if (name === 'genre'){
+            setGenre(value)
+        }
+        if (name === 'animeCharacter'){
+            setAnimeCharacter(value)
+        }     
+               
+        if (name === 'img'){
+            setImg(value)
+            
+        }
+        if (name === 'img2'){
+            setImg2(value)
+        }
+        if (name === 'img3'){
+            setImg3(value)
+        }
     }
 
-    function handlePostClick(){
-        setButtonPostClicked(true)
-    }
 
 
     async function handleSubmit(e){
         e.preventDefault();
 
-        let title = e.target.title.value;
-        let content = e.target.content.value;
-        let category = e.target.category.value;
-        let genre = e.target.genre.value;
-        let animeCharacter = e.target["anime-character"].value;
+        const data = new FormData (e.target); 
+     
         let token;
-
+   
         try{
             if(logged){
                 token = window.localStorage.getItem("jwt");
             }
 
-            setPostEntry(false);
+         
             setError(null);
-            const {insertId} = await postEntryService({title, content, category, genre, animeCharacter, token});
-            setidEntry(insertId);
+         
+            await postEntryService(data, token);
             
+      
+        
+           navigateTo(`/novedades`)
             
         }catch(e){
-            setPostEntry(false);
             setError(e.message);
-            setidEntry(null);
-        }finally{
-            e.target.title.value = "";
-            e.target.content.value = "";
-            e.target.category.value = "";
-            e.target.category.value = "";
-            e.target.genre.value = "";
-            e.target["anime-character"].value = "";
-
-            if(error === null){
-                setPostEntry(true);
-            }
+          
         }
     }
     
@@ -82,15 +88,15 @@ function PostEntryPage() {
                     <ul>
                         <li>
                             <label htmlFor="title">Título:</label>
-                            <input type="text" name="title" id="title" placeholder='Escribe un título...' />
+                            <input  type="text" name="title" id="title" placeholder='Escribe un título...'  onChange={handleChange} required />
                         </li>
                         <li>
                             <label htmlFor="content">Contenido:</label>
-                            <textarea type="text" name="content" id="content" placeholder='Escribe el contenido...' />
+                            <textarea  type="text" name="content" id="content" placeholder='Escribe el contenido...' onChange={handleChange} required/>
                         </li>
                         <li>
                             <label htmlFor="category">Categoría:</label>
-                            <select name="category" id="category">
+                            <select  name="category" id="category" onChange={handleChange} required>
                                 <option value="recomendaciones">Recos</option>
                                 <option value="teorias">Teorías</option>
                                 <option value="fanArt">FanArts</option>
@@ -101,7 +107,7 @@ function PostEntryPage() {
                         </li>
                         <li>
                         <label htmlFor="genre">Género:</label>
-                            <select name="genre" id="genre">
+                            <select  name="genre" id="genre" onChange={handleChange} required>
                                 <option value="accion">Acción</option>
                                 <option value="aventura">Aventura</option>
                                 <option value="deportes">Deporte</option>
@@ -120,14 +126,26 @@ function PostEntryPage() {
                         </li>
                         <li>
                             <label htmlFor="anime-character">Personaje:</label>
-                            <input type="text" name="anime-character" id="anime-character" placeholder='Escribe el nombre del personaje...' />
+                            <input  type="text" name="anime-character" id="anime-character" placeholder='Escribe el nombre del personaje...' onChange={handleChange} />
                         </li>
+                        <label>
+                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*'/>
+                        </label>
+                        
+                        {img && <label>
+                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*'/>
+                        </label>}
+                        
+                        {img2 && <label>
+                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*'/> 
+                        </label>}
+                        
                         
                     </ul>
                 </fieldset>
                 {error ? <p>{error}</p> : null}
-                <button onClick={handlePhotoClick} type="submit">Añadir foto</button>
-                <button onClick= {handlePostClick} type='submit'>Publicar</button>
+        
+                <button>Publicar</button>
             </form>
         </section>
     )
