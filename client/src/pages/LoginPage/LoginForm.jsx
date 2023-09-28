@@ -8,7 +8,7 @@ function LoginForm() {
 
   const navigateTo = useNavigate();
   const { logged, handleLogin } = useContext(sessionContext);
- 
+
 
   async function handleAuthUser(evt) {
     evt.preventDefault();
@@ -16,7 +16,6 @@ function LoginForm() {
     const email = evt.target.email.value
     const pwd = evt.target.pwd.value
     const baseUrl = import.meta.env.VITE_API_URL;
-   
 
     const userData = {
       pwd: pwd,
@@ -38,7 +37,8 @@ function LoginForm() {
         email: jsonData.data.email,
         token: jsonData.data.token,
         id: jsonData.info.id,
-        auth: true
+        auth: true,
+        timestamp: new Date().getTime(),
       });
       navigateTo("/")
     } else setFeedbackMsg("Error al autenticarte");

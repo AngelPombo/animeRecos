@@ -5,21 +5,22 @@ import sessionContext from '../../context/sessionContext';
 
 function UserHeader () {
 
-    const { logged } = useContext(sessionContext);
+    const { logged, timeStamp, oneDayMs} = useContext(sessionContext);
     
-    
-    if(logged){
         return (
-            <section className='user-header'>
-                <UserHeaderProfile /> 
-                <PostEntryButton /> 
-            </section>
+            <>
+                {
+                    (logged && (new Date().getTime() < (timeStamp + oneDayMs)))
+                    &&
+                    <section className='user-header'>
+                        <UserHeaderProfile /> 
+                        <PostEntryButton /> 
+                    </section>
+                }
+            </>
+            
+            
         );
-    } else {
-        return <p>No estás logueado</p>
-    }
-    
-        
 }
 
 export {UserHeader};
