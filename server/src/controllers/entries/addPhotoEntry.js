@@ -6,8 +6,6 @@ async function addPhotoEntry (req, res){
     try {
         const {idEntry} = req.params;
         const connect = await getDB();
-
-        console.log(req)
         
         if(req.files && req.files.img){
             

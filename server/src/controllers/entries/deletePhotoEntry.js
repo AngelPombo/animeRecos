@@ -18,7 +18,10 @@ async function deletePhotoEntry(req,res) {
         if(current.length === 0){
             connect.release();
 
-            return res.status(404).send('La imagen no existe')
+            return res.status(404).send({
+                status: "Imagen no encontrada",
+                message: "La imagen seleccionada ya ha sido eliminada previamente"
+            })
         }
 
         
@@ -37,7 +40,7 @@ async function deletePhotoEntry(req,res) {
 
         res.status(200).send({
             status: 'OK',
-            message: 'Foto eliminada'
+            message: 'Imagen eliminada'
         });
         
     } catch (error) {
