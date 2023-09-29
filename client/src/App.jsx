@@ -18,7 +18,6 @@ import { RecoverPasswordPage } from './pages/RecoverPasswordPage/RecoverPassword
 import { NewPasswordWithCode } from './pages/NewPasswordWithCode/NewPasswordWithCode';
 import { PostEntryPage } from './pages/PostEntryPage/PostEntryPage';
 import { EditEntryPage } from './pages/EditEntryPage/EditEntryPage';
-import { DraftPage } from './pages/DraftPage/DraftPage';
 import { UserPage } from './pages/UserPage/UserPage';
 import { EditProfileForm } from './components/EditProfileForm/EditProfileForm';
 import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage';
@@ -47,7 +46,6 @@ function App() {
                 <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
                 <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                 <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
-                <Route path='/borrador/:idEntry' element={<DraftPage/>}/>
                 <Route path='/crear-entrada' element= {<PostEntryPage/>}/>
                 <Route path='/editar-entrada/:id' element={<EditEntryPage/>}/>
                 <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />

@@ -96,21 +96,12 @@ if (!response.ok){
 
 }
 
-
-
-
-  async function addPhotoService({token, entry_id, formData}){
-    
-    
-    for (const value of formData.values()) {
-      console.log(value);
-    } 
+  async function addPhotoService(token, entry_id, formData){
 
     const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry_id}/photos`,{
       method: "POST",
       body: formData,
       headers: {
-        "Content-Type": "multipart/form-data",
         auth: token
       },
 
@@ -123,12 +114,11 @@ if (!response.ok){
 
   }
 
-  async function editEntryService ({title, content, category, genre, animeCharacter, token, id}){
+  async function editEntryService (formData, token, id){
     const response = await fetch(`${import.meta.env.VITE_API_URL}/edit-entry/${id}`, {
       method: "PUT",
-      body: JSON.stringify({title, content, category, genre, animeCharacter}),
+      body: formData,
       headers: {
-          "Content-Type": "application/json",
           auth: token
       },
     });
@@ -233,5 +223,41 @@ async function editCommentService(idEntry, idComment, comment, token){
 
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService};
+async function deleteCommentService(idEntry, idComment, token){
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${idEntry}/delete-comment/${idComment}`,{
+    method: "DELETE",
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+async function deletePhotoService(idEntry, idPhoto, token){
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/entries/${idEntry}/photos/${idPhoto}`,{
+    method: "DELETE",
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService, deleteCommentService, deletePhotoService};
 

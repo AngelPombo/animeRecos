@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react';
 import { CommentCard } from '../EntriesCards/CommentCard/CommentCard';
-import { useParams } from 'react-router-dom';
-import sessionContext from '../../context/sessionContext';
-import { useEntries } from '../../hooks/useEntries';
+
 
 function CommentsList({error, isLoading, dataComments, setDataComments}) {
     

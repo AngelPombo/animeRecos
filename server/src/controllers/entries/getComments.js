@@ -6,7 +6,7 @@ async function getComments (req,res){
         const {idEntry} = req.params;
         
         const [comments] = await connect.query(
-            `SELECT c.id AS comment_id, c.comment_date, c.content AS comment_content, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
+            `SELECT c.id AS comment_id, c.comment_date, c.edited, c.content AS comment_content, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
                 FROM comments AS c
                 INNER JOIN users AS u ON c.user_id = u.id
                 WHERE c.entry_id = ?`, [idEntry]

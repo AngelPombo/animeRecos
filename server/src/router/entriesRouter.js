@@ -34,7 +34,8 @@ const {
     bannComment,
     getTotalReportsEntry,
     getTotalReportsComment,
-    getComments
+    getComments,
+    deleteComment
     
 } = require('../controllers/entries');
 
@@ -63,6 +64,7 @@ router.put('/entries/:idEntry/comments/:idComment/bann', isUser, isAdmin, isBann
 
 router.delete('/entries/:idEntry/photos/:idPhoto', isUser, entryExists, canEdit, deletePhotoEntry);
 router.delete('/entry/:idEntry', isUser, entryExists, canEdit, updateBadge, deleteEntry);
+router.delete('/entry/:idEntry/delete-comment/:idComment', entryExists, isBannedEntry, commentExists, isBannedComment, isUser, isBannedUser, deleteComment);
 
 
 

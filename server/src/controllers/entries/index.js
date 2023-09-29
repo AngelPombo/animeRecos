@@ -19,6 +19,7 @@ const bannComment = require('./bannComment');
 const getTotalReportsEntry = require('./getTotalReportsEntry');
 const getTotalReportsComment = require('./getTotalReportsComment');
 const getComments = require('./getComments');
+const deleteComment = require('./deleteComment');
 
 module.exports = {
     getLastEntries,
@@ -41,5 +42,6 @@ module.exports = {
     bannComment,
     getTotalReportsEntry,
     getTotalReportsComment,
-    getComments
+    getComments,
+    deleteComment
 }

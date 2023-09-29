@@ -1,27 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {editEntryService} from '../../services/index';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import {addPhotoService, deletePhotoService, editEntryService} from '../../services/index';
 import { useNavigate, useParams } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 import {useEntry} from '../../hooks/useEntry';
 
 function EditEntryPage() {
-    //nos traemos si el usuario está loggeado del contexto
+
     const { logged } = useContext(sessionContext);
-
-    //creamos un estado para saber si la edición de la entrada ha sido satisfactoria
+    const [editError, setEditError] = useState(null);
     const [editedEntry, setEditedEntry] = useState(false);
-
-    //creamos un estado que almacene los posibles errores que sucedan durante la edición
-    const [editError, seteditError] = useState(null);
-
-    //llamamos al hook useNavigate
-    const navigateTo = useNavigate();
-
-    //capturamos el id de los params con el hook
     let {id} = useParams();
-
-    //nos traemos del hook useEntry, al que le pasamos el id que nos viene por params, el post, errores y si está cargando
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
+    const [genre, setGenre] = useState('');
+    const [animeCharacter, setAnimeCharacter]  = useState('');
+    const [img, setImg] = useState();
+    const [img2, setImg2] = useState();
+    const [img3, setImg3] = useState();
     const {post, error, loading} = useEntry(id);
+    const navigateTo = useNavigate();
+    const formRef = useRef(null);
+
+    const [imgPreview, setImgPreview] = useState();
+    const [imgPreview2, setImgPreview2] = useState();
+    const [imgPreview3, setImgPreview3] = useState();
 
     //este hook se actualiza cada vez que el estado editedEntry cambia
     useEffect(() => {
@@ -32,72 +35,150 @@ function EditEntryPage() {
         }
     },[editedEntry])
 
+    if(loading){
+        return <p>Cargando...</p>
+    }
+
+    if(error){
+        return <p>Ha ocurrido un error cargando el contenido previo de la entrada</p>
+    }
+
+    function handleChange (e){
+        const {name}= e.target;
+        const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
+
+        if (name === 'title'){
+            setTitle(value)
+        }
+        if (name === 'content'){
+            setContent(value)
+        }
+        if (name === 'category'){
+            setCategory(value)
+        }
+        if (name === 'genre'){
+            setGenre(value)
+        }
+        if (name === 'animeCharacter'){
+            setAnimeCharacter(value)
+        }     
+                
+        if (name === 'img'){
+            setImg(value);
+            setImgPreview(URL.createObjectURL(value));
+            
+        }
+        if (name === 'img2'){
+            setImg2(value);
+            setImgPreview2(URL.createObjectURL(value));
+        }
+        if (name === 'img3'){
+            setImg3(value);
+            setImgPreview3(URL.createObjectURL(value));
+        }
+    }
+
+    async function handleDeleteImage (e){
+        e.preventDefault();
+
+        const {name}= e.target;
+
+        let token;
+
+        if(logged){
+            token = window.localStorage.getItem("jwt");
+        }
+
+        if (name === 'prevImg1'){
+            setImg(null);
+            setImgPreview(null);
+            formRef.current.reset();
+            
+            try{
+                
+                await deletePhotoService(id, post[2][0].photo_id, token);
+
+            }catch(e){
+                setEditError(e.message);
+            }
+            
+        }
+
+        if (name === 'prevImg2'){
+            setImg2(null);
+            setImgPreview2(null);
+            formRef.current.reset();
+            
+            try{
+                
+                await deletePhotoService(id, post[2][1].photo_id, token);
+                
+            }catch(e){
+                setEditError(e.message);
+            }
+        }
+
+        if (name === 'prevImg3'){
+            setImg3(null);
+            setImgPreview3(null);
+            formRef.current.reset();
+
+            
+            try{
+                
+                await deletePhotoService(id, post[2][0].photo_id, token);
+                
+            }catch(e){
+                setEditError(e.message);
+            }
+        }
+    }
+
     async function handleSubmit(e){
         e.preventDefault();
 
-        //capturamos los valores del form
-        let title = e.target.title.value;
-        let content = e.target.content.value;
-        let category = e.target.category.value;
-        let genre = e.target.genre.value;
-        let animeCharacter = e.target["anime-character"].value;
+        const data = new FormData (e.target); 
 
-        //creamos la variable que va a almacenar el token
         let token;
 
         try{
-            //si el usuario está loggeado, obtenemos el token del localStorage
             if(logged){
                 token = window.localStorage.getItem("jwt");
             }
 
-            //seteamos en el estado que la entrada aún no ha sido editada
-            setEditedEntry(false);
-
-            //seteamos en el estado que no hay errores
-            seteditError(null);
-
-            //función en la que se hace el fetch con los valores capturados del form
-            await editEntryService({title, content, category, genre, animeCharacter, token, id});
+            
+            setEditError(null);
+            
+            await editEntryService(data, token, id);
+            const {insertId} = await addPhotoService(token, id, data);
+            console.log(insertId);
+            
         }catch(e){
-            //seteamos que la entrada no ha sido editada, ya que ha saltado al catch
-            setEditedEntry(false);
-
-            //seteamos el mensaje de error
-            seteditError(e.message);
+            setEditError(e.message);
+            
         }finally{
-            //si el estado editError sigue siendo null, no ha entrado en el catch, no hay errores
             if(editError === null){
-                //entonces seteamos en el estado de editEntry que la entrada ha sido editada con éxito
                 setEditedEntry(true);
             }
         }
     }
 
-    //necesario para que pueda tener los valores por defecto el form
-    if(loading){
-        return <p>Cargando...</p>
-    }
-
-
-    //Form con valores por defecto de los datos que tenía el post
-    //esto igual hay que componetizarlo, porque es igual al de post-entry pero con valores por defecto
     return (
             <section className="edit-entry-page">
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
                 <fieldset>
                     <ul>
                         <li>
                             <label htmlFor="title">Título:</label>
-                            <input type="text" name="title" id="title" defaultValue={post[0][0].title} />
+                            <input  type="text" name="title" id="title" defaultValue={post[0][0].title}  onChange={handleChange} required />
                         </li>
                         <li>
                             <label htmlFor="content">Contenido:</label>
-                            <textarea type="text" name="content" id="content" defaultValue={post[0][0].content} />
+                            <textarea  type="text" name="content" id="content" defaultValue={post[0][0].content} onChange={handleChange} required/>
                         </li>
                         <li>
                             <label htmlFor="category">Categoría:</label>
-                            <select name="category" id="category" defaultValue={post[0][0].category}>
+                            <select  name="category" id="category" onChange={handleChange} required defaultValue={post[0][0].category}>
                                 <option value="recomendaciones">Recos</option>
                                 <option value="teorias">Teorías</option>
                                 <option value="fanArt">FanArts</option>
@@ -108,7 +189,7 @@ function EditEntryPage() {
                         </li>
                         <li>
                         <label htmlFor="genre">Género:</label>
-                            <select name="genre" id="genre" defaultValue={post[0][0].genre}>
+                            <select  name="genre" id="genre" onChange={handleChange} required defaultValue={post[0][0].genre}>
                                 <option value="accion">Acción</option>
                                 <option value="aventura">Aventura</option>
                                 <option value="deportes">Deporte</option>
@@ -127,12 +208,59 @@ function EditEntryPage() {
                         </li>
                         <li>
                             <label htmlFor="anime-character">Personaje:</label>
-                            <input type="text" name="anime-character" id="anime-character" defaultValue={post[0][0].anime_character} />
+                            <input  type="text" name="anime-character" id="anime-character" defaultValue={post[0][0].anime_character} onChange={handleChange} />
                         </li>
+                        <label className="upload-img-1">
+
+                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
+                            {
+                                post[2].length > 0 ?
+                                <img name="prevImg1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImage} alt={post[2][0].name_photo}/>
+                                :
+                                <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                </figure>
+                            }
+                            
+
+                        
+                        </label>
+                        
+                        {img && <label className="upload-img-2">
+                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
+                            {
+                                post[2].length > 0 ?
+                                <img name="prevImg2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImage} alt="Imagen previa a la edición"/>
+                                :
+                                <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                </figure>
+                            }
+                            
+                        </label>}
+                        
+                        {img2 && <label className="upload-img-3">
+                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                            {
+                                post[2].length > 0 ?
+                                <img name="prevImg3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`}  onClick={handleDeleteImage} alt={post[2][0].name_photo}/>
+                                :
+                                <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                </figure>
+                            }
+                            
+                        </label>}
+                        
+                        
                     </ul>
                 </fieldset>
-                {error ? <p>{error}</p> : null}
-                <button type="submit">Guardar cambios</button>
+                {editError ? <p>{editError}</p> : null}
+        
+                <button>Publicar</button>
             </form>
         </section>
     )
