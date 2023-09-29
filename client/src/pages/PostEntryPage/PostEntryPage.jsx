@@ -9,14 +9,14 @@ function PostEntryPage() {
     const [error, setError] = useState(null);
     const navigateTo = useNavigate();
   
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [category, setCategory] = useState('')
-    const [genre, setGenre] = useState('')
-    const [animeCharacter, setAnimeCharacter]  = useState('')
-    const [img, setImg] = useState()
-    const [img2, setImg2] = useState()
-    const [img3, setImg3] = useState()
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
+    const [genre, setGenre] = useState('');
+    const [animeCharacter, setAnimeCharacter]  = useState('');
+    const [img, setImg] = useState();
+    const [img2, setImg2] = useState();
+    const [img3, setImg3] = useState();
 
    
     function handleChange (e){

@@ -64,35 +64,35 @@ async function registerUserService ({ nick, email, pwd }){
       method: "POST",
       body: formData,
       headers: {
-          
           auth: token
       },
     });
         
     const json = await response.json();
 
-    
     if (!response.ok) {
         throw new Error(json.message);
     }
         return json.data;
   }
 
-async function postCommentService ({id, token, content}){
-  console.log(id)
+async function postCommentService (id, token, content){
+  
 const response = await fetch (`${import.meta.env.VITE_API_URL}/entry/${id}/comments`,{
   method: "POST",
-  body: JSON.stringify({content}),
+  body: JSON.stringify({comment: content}),
   headers:{
     "Content-Type": "application/json",
     auth: token
   },
 });
+
 const json = await response.json();
+
 if (!response.ok){
   throw new Error (json.message);
 }
-  return  json;
+  return json.data;
 
 }
 
@@ -213,5 +213,25 @@ async function deleteUserService(id, token){
   return json;
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService};
+async function editCommentService(idEntry, idComment, comment, token){
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${idEntry}/edit-comment/${idComment}`,{
+    method: "PUT",
+    body: JSON.stringify({comment: comment}),
+    headers:{
+      "Content-Type": "application/json",
+      auth: token,
+    }
+  });
+
+  const json = await res.json();
+
+  if(!res.ok){
+    throw new Error(json.message);
+  }
+
+  return json;
+
+}
+
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService};
 

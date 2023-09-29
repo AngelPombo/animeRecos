@@ -1,47 +1,58 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { postCommentService } from '../../services'
 import { useParams } from 'react-router-dom'
+import sessionContext from '../../context/sessionContext'
 
-function CommentForm() {
+function CommentForm({setDataComments, dataComments}) {
 
-    const {idEntry} = useParams()
-    const token = window.localStorage.getItem("jwt")
-    console.log(idEntry)
-    const [error, setError] = useState(null)
+    const {logged} = useContext(sessionContext);
+    const {idEntry} = useParams();
+    const [error, setError] = useState(null);
+    const [content, setContent] = useState("")
+    
+    function handleChange (e){
+        const {name}= e.target
+        const value = e.target.value
 
+        if (name === 'commentContent'){
+          setContent(value)
+        
+      }
+    }
 
     async function handleSubmit(e){
         e.preventDefault()
-        console.log(e.target.commentContent.value)
-        const comment = e.target.commentContent.value
+        
+        let token;
+        let infoNewComment;
+   
+        try{
+            if(logged){
+                token = window.localStorage.getItem("jwt");
+            }
 
-        try {
-            console.log(token)
-
-           await postCommentService({idEntry, token, comment})
+         
+            setError(null);
+         
+          infoNewComment = await postCommentService(idEntry, token, content);
+            
+        }catch(e){
+            setError(e.message);
           
-            
-        } catch (error) {
-            
-            setError(error.message)
-            
+        } finally{
+          if(error === null){
+            const newCommentList = [... dataComments, infoNewComment[0]];
+            setDataComments(newCommentList); 
+          }
         }
-
-
-
 
     }
 
-
-
-
-
-
-
   return (
     <form onSubmit={handleSubmit}>
-        <label htmlFor="commentContent"></label>
-        <textarea name="commentContent" id="commentContent" cols="30" rows="10"></textarea>
+        <label>
+          <textarea name="commentContent" id="commentContent" cols="30" rows="10" onChange={handleChange}></textarea>
+        </label>
         {error ? <p>{error}</p> : null}
         <button type='submit'> comentar </button>
 
