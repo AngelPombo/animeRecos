@@ -41,11 +41,21 @@ async function editComment (req,res) {
             [comment, idUser, idEntry, idComment] 
         );
 
+        const [newEditedComment] = await connect.query(
+            `
+            SELECT c.id AS comment_id, c.comment_date, c.content AS comment_content, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
+            FROM comments AS c
+            INNER JOIN users AS u ON c.user_id = u.id
+            WHERE c.entry_id = ? AND c.id=?
+            `, 
+            [idEntry, idComment]
+        )
+
         connect.release();
         
         res.status(200).send({
             status: "OK",
-            data: editedComment
+            data: newEditedComment
         });
 
     } catch(e){

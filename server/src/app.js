@@ -28,7 +28,9 @@ server.use(entryRouter);
 server.use((err, _req, res, _next) => {
     console.log("ERROR: " + err.message);
     res.status(err.code ?? 500);
-    res.send("Oops! Ha ocurrido un error: " + err.message);
+    res.send({
+        status: "Error",
+        message: `${err.message}`});
 });
 
 server.use((_req, res) => {
