@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import sessionContext from '../../../context/sessionContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { CommentsList } from '../../CommentsList/CommentsList';
 import { CommentForm } from '../../CommentForm/CommentForm';
+import { useEntries } from '../../../hooks/useEntries';
 
 function OneEntryCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
@@ -15,6 +16,29 @@ function OneEntryCard({post}) {
 
     //llamamos al hook useNavigate que vamos a utilizar en la función
     const navigateTo = useNavigate();
+
+    const {idEntry} = useParams();
+
+    let token;
+
+    if(logged){
+        token=window.localStorage.getItem("jwt");
+    }
+
+    const {data, error, isLoading} = useEntries(`${import.meta.env.VITE_API_URL}/comments/${idEntry}`, token);
+
+    const [dataComments, setDataComments] = useState([]);
+
+    useEffect(() => {
+
+        setDataComments(data.data);
+
+    }, [data])
+
+    useEffect(() =>{
+
+    },[dataComments])
+
 
     //función que maneja el click en el botón delete
     function handleClick(){
@@ -103,8 +127,8 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
-                    <CommentForm/>
-                    <CommentsList/>
+                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                    <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                 </section>
             </article>
         )
@@ -142,8 +166,8 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
-                    <CommentForm/>
-                    <CommentsList/>
+                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                    <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                 </section>
             </article>
         )
@@ -185,8 +209,8 @@ function OneEntryCard({post}) {
                 }
                 <section className="comments-section">
                     <h5>Comentarios</h5>
-                    <CommentForm/>
-                    <CommentsList/>
+                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                    <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                 </section>
             </article>
         )

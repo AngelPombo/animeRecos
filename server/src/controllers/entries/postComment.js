@@ -26,14 +26,27 @@ async function postComment (req,res) {
             `,
             [new Date(), comment, idUser,idEntry ]
         
-            );
+            ); 
+
+            const {insertId} = newComment
+        
+        const[infoComment] = await connect.query (
+            `
+            SELECT c.id AS comment_id, c.comment_date, c.content AS comment_content, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
+            FROM comments AS c
+            INNER JOIN users AS u ON c.user_id = u.id
+            WHERE c.entry_id = ? AND c.id=?
+            `, 
+            [idEntry, insertId]
+            
+            )
 
         connect.release();
 
         res.status(200).send({
             status: "OK",
             message: "Comentario creado correctamente",
-            data: newComment
+            data: infoComment
         });
     } catch (e){
         console.log(e)
