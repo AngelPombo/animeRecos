@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { addPhotoService, postEntryService } from '../../services';
+import React, { useContext,  useRef,  useState } from 'react';
+import { postEntryService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 
 function PostEntryPage() {
     
     const { logged } = useContext(sessionContext);
-    const [error, setError] = useState(null);
+    const [postError, setPostError] = useState(null);
     const navigateTo = useNavigate();
-  
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
@@ -17,15 +17,19 @@ function PostEntryPage() {
     const [img, setImg] = useState();
     const [img2, setImg2] = useState();
     const [img3, setImg3] = useState();
+    const formRef = useRef(null);
 
-   
+    const [imgPreview, setImgPreview] = useState();
+    const [imgPreview2, setImgPreview2] = useState();
+    const [imgPreview3, setImgPreview3] = useState();
+
     function handleChange (e){
-        const {name}= e.target
+        const {name}= e.target;
         const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
-              
+                
         if (name === 'title'){
             setTitle(value)
-          
+            
         }
         if (name === 'content'){
             setContent(value)
@@ -39,60 +43,85 @@ function PostEntryPage() {
         if (name === 'animeCharacter'){
             setAnimeCharacter(value)
         }     
-               
+                
         if (name === 'img'){
-            setImg(value)
+            setImg(value);
+            setImgPreview(URL.createObjectURL(value));
             
         }
         if (name === 'img2'){
-            setImg2(value)
+            setImg2(value);
+            setImgPreview2(URL.createObjectURL(value));
         }
         if (name === 'img3'){
-            setImg3(value)
+            setImg3(value);
+            setImgPreview3(URL.createObjectURL(value));
         }
     }
 
+    function handleDeleteImage (e){
+        e.preventDefault();
 
+        const {name}= e.target;
+
+        if (name === 'img'){
+            setImg(null);
+            setImgPreview(URL.createObjectURL(null));
+            formRef.current.reset();
+        }
+
+        if (name === 'img2'){
+            setImg2(null);
+            setImgPreview2(URL.createObjectURL(null));
+            formRef.current.reset();
+        }
+
+        if (name === 'img3'){
+            setImg3(null);
+            setImgPreview3(URL.createObjectURL(null));
+            formRef.current.reset();
+        }
+    }
 
     async function handleSubmit(e){
         e.preventDefault();
 
         const data = new FormData (e.target); 
-     
+        
         let token;
-   
+
         try{
             if(logged){
                 token = window.localStorage.getItem("jwt");
             }
 
-         
-            setError(null);
-         
+            
+            setPostError(null);
+            
             await postEntryService(data, token);
             
-      
         
-           navigateTo(`/novedades`)
+        
+            navigateTo(`/novedades`)
             
         }catch(e){
-            setError(e.message);
-          
+            setPostError(e.message);
+            
         }
     }
     
     return (
         <section className="post-entry-page">
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
                 <fieldset>
                     <ul>
                         <li>
                             <label htmlFor="title">Título:</label>
-                            <input  type="text" name="title" id="title" placeholder='Escribe un título...'  onChange={handleChange} required />
+                            <input  type="text" name="title" id="title" onChange={handleChange} required />
                         </li>
                         <li>
                             <label htmlFor="content">Contenido:</label>
-                            <textarea  type="text" name="content" id="content" placeholder='Escribe el contenido...' onChange={handleChange} required/>
+                            <textarea  type="text" name="content" id="content" onChange={handleChange} required/>
                         </li>
                         <li>
                             <label htmlFor="category">Categoría:</label>
@@ -107,7 +136,7 @@ function PostEntryPage() {
                         </li>
                         <li>
                         <label htmlFor="genre">Género:</label>
-                            <select  name="genre" id="genre" onChange={handleChange} required>
+                            <select  name="genre" id="genre" onChange={handleChange} required >
                                 <option value="accion">Acción</option>
                                 <option value="aventura">Aventura</option>
                                 <option value="deportes">Deporte</option>
@@ -126,24 +155,76 @@ function PostEntryPage() {
                         </li>
                         <li>
                             <label htmlFor="anime-character">Personaje:</label>
-                            <input  type="text" name="anime-character" id="anime-character" placeholder='Escribe el nombre del personaje...' onChange={handleChange} />
+                            <input  type="text" name="anime-character" id="anime-character" onChange={handleChange} />
                         </li>
-                        <label>
-                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*'/>
+                        <label className="upload-img-1">
+                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
+                            {
+                                !img ? (
+                                    <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                    </figure>
+                                ) : (
+                                    <figure>
+                                        <img
+                                            src={imgPreview}
+                                            alt="Previsualización"
+                                            onClick={handleDeleteImage}
+                                        />
+                                        <figcaption>Previsualización</figcaption>
+                                    </figure>
+                                )
+                            }
+                        
                         </label>
                         
-                        {img && <label>
-                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*'/>
+                        {img && <label className="upload-img-2">
+                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
+                            {
+                                !img2 ? (
+                                    <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                    </figure>
+                                ) : (
+                                    <figure>
+                                        <img
+                                            src={imgPreview2}
+                                            alt="Previsualización"
+                                            onClick={handleDeleteImage}
+                                        />
+                                        <figcaption>Previsualización</figcaption>
+                                    </figure>
+                                )
+                            }
                         </label>}
                         
-                        {img2 && <label>
-                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*'/> 
+                        {img2 && <label className="upload-img-3">
+                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                            {
+                                !img3 ? (
+                                    <figure>
+                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                    </figure>
+                                ) : (
+                                    <figure>
+                                        <img
+                                            src={imgPreview3}
+                                            alt="Previsualización"
+                                            onClick={handleDeleteImage}
+                                        />
+                                        <figcaption>Previsualización</figcaption>
+                                    </figure>
+                                )
+                            }
                         </label>}
                         
                         
                     </ul>
                 </fieldset>
-                {error ? <p>{error}</p> : null}
+                {postError ? <p>{postError}</p> : null}
         
                 <button>Publicar</button>
             </form>

@@ -25,14 +25,14 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments})
         
         let token;
         let infoEditedComment;
-   
+
         try{
             if(logged){
                 token = window.localStorage.getItem("jwt");
             }
 
             setError(null);
-         
+
           infoEditedComment = await editCommentService(idEntry, idComment, content, token);
             
         }catch(e){
@@ -40,10 +40,10 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments})
         } finally{
             if(error === null){
                 setEditar(false)
-                const findvariable = dataComments.find((comment) => comment.comment_id === idComment)
-                const indexEditedComment = dataComments.indexOf(findvariable)
+                const findvariable = dataComments.find((comment) => comment.comment_id === idComment);
+                const indexEditedComment = dataComments.indexOf(findvariable);
                 const newDataComments = [...dataComments];
-                newDataComments.splice(indexEditedComment, 1, infoEditedComment.data[0])
+                newDataComments.splice(indexEditedComment, 1, infoEditedComment.data[0]);
                 setDataComments(newDataComments); 
               }
         }
