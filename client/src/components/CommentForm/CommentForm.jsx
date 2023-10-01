@@ -56,14 +56,21 @@ function CommentForm({setDataComments, dataComments}) {
     }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
+      {
+      logged &&
+      <form onSubmit={handleSubmit}>
         <label>
           <textarea name="commentContent" id="commentContent" cols="30" rows="10" onChange={handleChange}></textarea>
         </label>
         {error ? <p>{error}</p> : null}
         <button type='submit'> comentar </button>
 
-    </form>
+      </form>
+      }
+    </>
+    
+    
 
   )
 }

@@ -78,7 +78,31 @@ function EditEntryPage() {
         }
     }
 
-    async function handleDeleteImage (e){
+    function handleDeletePreview (e){
+        e.preventDefault();
+
+        const {name}= e.target;
+
+        if (name === 'prevImg1'){
+            setImg(null);
+            setImgPreview(null);
+            formRef.current.reset();
+        }
+
+        if (name === 'prevImg2'){
+            setImg2(null);
+            setImgPreview2(null);
+            formRef.current.reset();
+        }
+
+        if (name === 'prevImg3'){
+            setImg3(null);
+            setImgPreview3(null);
+            formRef.current.reset();
+        }
+    }
+
+    async function handleDeleteImg(e){
         e.preventDefault();
 
         const {name}= e.target;
@@ -89,14 +113,16 @@ function EditEntryPage() {
             token = window.localStorage.getItem("jwt");
         }
 
-        if (name === 'prevImg1'){
-            setImg(null);
-            setImgPreview(null);
-            formRef.current.reset();
-            
+        if (name === 'imgPost1'){
+
             try{
                 
                 await deletePhotoService(id, post[2][0].photo_id, token);
+
+                setImg(null);
+                setImgPreview(null);
+                e.target.remove();
+                formRef.current.reset();
 
             }catch(e){
                 setEditError(e.message);
@@ -104,29 +130,32 @@ function EditEntryPage() {
             
         }
 
-        if (name === 'prevImg2'){
-            setImg2(null);
-            setImgPreview2(null);
-            formRef.current.reset();
+        if (name === 'imgPost2'){
             
             try{
                 
                 await deletePhotoService(id, post[2][1].photo_id, token);
+
+                setImg2(null);
+                setImgPreview2(null);
+                e.target.remove();
+                formRef.current.reset();
                 
             }catch(e){
                 setEditError(e.message);
             }
         }
 
-        if (name === 'prevImg3'){
-            setImg3(null);
-            setImgPreview3(null);
-            formRef.current.reset();
+        if (name === 'imgPost3'){
 
-            
             try{
                 
-                await deletePhotoService(id, post[2][0].photo_id, token);
+                await deletePhotoService(id, post[2][2].photo_id, token);
+
+                setImg3(null);
+                setImgPreview3(null);
+                e.target.remove();
+                formRef.current.reset();
                 
             }catch(e){
                 setEditError(e.message);
@@ -137,7 +166,7 @@ function EditEntryPage() {
     async function handleSubmit(e){
         e.preventDefault();
 
-        const data = new FormData (e.target); 
+        const data = new FormData(e.target);
 
         let token;
 
@@ -165,103 +194,133 @@ function EditEntryPage() {
 
     return (
             <section className="edit-entry-page">
-            <form ref={formRef} onSubmit={handleSubmit}>
-                <fieldset>
-                    <ul>
-                        <li>
-                            <label htmlFor="title">Título:</label>
-                            <input  type="text" name="title" id="title" defaultValue={post[0][0].title}  onChange={handleChange} required />
-                        </li>
-                        <li>
-                            <label htmlFor="content">Contenido:</label>
-                            <textarea  type="text" name="content" id="content" defaultValue={post[0][0].content} onChange={handleChange} required/>
-                        </li>
-                        <li>
-                            <label htmlFor="category">Categoría:</label>
-                            <select  name="category" id="category" onChange={handleChange} required defaultValue={post[0][0].category}>
-                                <option value="recomendaciones">Recos</option>
-                                <option value="teorias">Teorías</option>
-                                <option value="fanArt">FanArts</option>
-                                <option value="openings">Openings</option>
-                                <option value="cosplays">Cosplays</option>
-                                <option value="memes">Memes</option>
-                            </select>
-                        </li>
-                        <li>
-                        <label htmlFor="genre">Género:</label>
-                            <select  name="genre" id="genre" onChange={handleChange} required defaultValue={post[0][0].genre}>
-                                <option value="accion">Acción</option>
-                                <option value="aventura">Aventura</option>
-                                <option value="deportes">Deporte</option>
-                                <option value="comedia">Comedia</option>
-                                <option value="drama">Drama</option>
-                                <option value="fantasia">Fantasía</option>
-                                <option value="musical">Musical</option>
-                                <option value="romance">Romance</option>
-                                <option value="ciencia-ficcion">Ciencia-ficción</option>
-                                <option value="sobrenatural">Sobrenatural</option>
-                                <option value="thriller">Thriller</option>
-                                <option value="terror">Terror</option>
-                                <option value="psicologico">Psicológico</option>
-                                <option value="infantil">Infantil</option>
-                            </select>
-                        </li>
-                        <li>
-                            <label htmlFor="anime-character">Personaje:</label>
-                            <input  type="text" name="anime-character" id="anime-character" defaultValue={post[0][0].anime_character} onChange={handleChange} />
-                        </li>
-                        <label className="upload-img-1">
+                {
+                    !loading && 
+                    <form ref={formRef} onSubmit={handleSubmit}>
+                        <fieldset>
+                            <ul>
+                                <li>
+                                    <label htmlFor="title">Título:</label>
+                                    <input  type="text" name="title" id="title" defaultValue={post[0][0].title}  onChange={handleChange} required />
+                                </li>
+                                <li>
+                                    <label htmlFor="content">Contenido:</label>
+                                    <textarea  type="text" name="content" id="content" defaultValue={post[0][0].content} onChange={handleChange} required/>
+                                </li>
+                                <li>
+                                    <label htmlFor="category">Categoría:</label>
+                                    <select  name="category" id="category" onChange={handleChange} required defaultValue={post[0][0].category}>
+                                        <option value="recomendaciones">Recos</option>
+                                        <option value="teorias">Teorías</option>
+                                        <option value="fanArt">FanArts</option>
+                                        <option value="openings">Openings</option>
+                                        <option value="cosplays">Cosplays</option>
+                                        <option value="memes">Memes</option>
+                                    </select>
+                                </li>
+                                <li>
+                                <label htmlFor="genre">Género:</label>
+                                    <select  name="genre" id="genre" onChange={handleChange} required defaultValue={post[0][0].genre}>
+                                        <option value="accion">Acción</option>
+                                        <option value="aventura">Aventura</option>
+                                        <option value="deportes">Deporte</option>
+                                        <option value="comedia">Comedia</option>
+                                        <option value="drama">Drama</option>
+                                        <option value="fantasia">Fantasía</option>
+                                        <option value="musical">Musical</option>
+                                        <option value="romance">Romance</option>
+                                        <option value="ciencia-ficcion">Ciencia-ficción</option>
+                                        <option value="sobrenatural">Sobrenatural</option>
+                                        <option value="thriller">Thriller</option>
+                                        <option value="terror">Terror</option>
+                                        <option value="psicologico">Psicológico</option>
+                                        <option value="infantil">Infantil</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <label htmlFor="anime-character">Personaje:</label>
+                                    <input  type="text" name="anime-character" id="anime-character" defaultValue={post[0][0].anime_character} onChange={handleChange} />
+                                </li>
 
-                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
-                            {
-                                post[2].length > 0 ?
-                                <img name="prevImg1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImage} alt={post[2][0].name_photo}/>
-                                :
-                                <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                </figure>
-                            }
-                            
+                                <label className="upload-img-1">
+                                <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
+                                {
+                                    post[2].length > 0 ?
+                                    
+                                    <li><img name="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImg}></img></li>
+                                    :
+                                    <>
+                                        
+                                        {
+                                            img ?
+                                                <img name="prevImg1" src={imgPreview} onClick={handleDeletePreview}/>
+                                            :
+                                            <figure>
+                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                    <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                            </figure>
+                                        }
+                                    </>
+                                    
+                                }
 
-                        
-                        </label>
-                        
-                        {img && <label className="upload-img-2">
-                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
-                            {
-                                post[2].length > 0 ?
-                                <img name="prevImg2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImage} alt="Imagen previa a la edición"/>
-                                :
-                                <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                </figure>
-                            }
-                            
-                        </label>}
-                        
-                        {img2 && <label className="upload-img-3">
-                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
-                            {
-                                post[2].length > 0 ?
-                                <img name="prevImg3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`}  onClick={handleDeleteImage} alt={post[2][0].name_photo}/>
-                                :
-                                <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                </figure>
-                            }
-                            
-                        </label>}
-                        
-                        
-                    </ul>
-                </fieldset>
-                {editError ? <p>{editError}</p> : null}
-        
-                <button>Publicar</button>
-            </form>
+                                </label>
+                                
+                                <label className="upload-img-2">
+                                <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
+                                {
+                                    post[2].length > 1 ?
+                                    <li><img name="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
+                                    :
+                                    <>
+                                        {
+                                        img2 ?
+                                        <img name="prevImg2" src={imgPreview2} onClick={handleDeletePreview}/>
+                                        :
+                                        <figure>
+                                                <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                        </figure>
+                                        }
+                                    </>
+                                    
+                                    
+                                }
+                                    
+                                    
+                                </label>
+                                
+                                <label className="upload-img-3">
+                                <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                                {
+                                    post[2].length > 2 ?
+                                    <li><img name="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
+                                    :
+                                    <>
+                                        
+                                        {
+                                            img3 ?
+                                            <img name="prevImg3" src={imgPreview3}  onClick={handleDeletePreview}/>
+                                            :
+                                            <figure>
+                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                    <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                            </figure>
+                                        }
+                                    </>
+                                }
+                                    
+                                    
+                                </label>
+                                
+                                
+                            </ul>
+                        </fieldset>
+                        {editError ? <p>{editError}</p> : null}
+                
+                        <button>Publicar</button>
+                    </form>
+                }
         </section>
     )
 }

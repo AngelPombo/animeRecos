@@ -8,16 +8,20 @@ async function addPhotoEntry (req, res){
         const connect = await getDB();
         
         if(req.files && req.files.img){
-            
-            const photoEntry = await savePhoto(req.files.img,'/photoentries');
 
-            await connect.query(
-                `
-                    INSERT INTO photos (photo, entry_id)
-                    VALUES (?,?)
-                `,
-                [photoEntry,idEntry]
-            )
+            if(req.files && Object.keys(req.files).length > 0){
+                for(let photoData of Object.values(req.files).slice(0,3)){
+                    console.log(photoData)
+                    const photoName =  await savePhoto(photoData, "/photoentries");
+                    await connect.query(
+                        `
+                            INSERT INTO photos (photo, entry_id)
+                            VALUES (?,?)
+                        `,
+                        [photoName, idEntry]
+                    )
+                }
+            }
 
             connect.release();
 
@@ -29,7 +33,7 @@ async function addPhotoEntry (req, res){
             connect.release();
 
             return res.status(401).send({
-                status:"faltan datos",
+                status:"Faltan datos",
                 message: 'El envío de la imagen es obligatorio'
             });
         }
