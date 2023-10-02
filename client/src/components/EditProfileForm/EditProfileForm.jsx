@@ -110,11 +110,6 @@ function EditProfileForm() {
         navigateTo(`/cambiar-password/${id}`);
     }
 
-    function handleClickLogin(){
-        navigateTo("/login");
-        handleLogout();
-    }
-
     if(loading){
         return <p>Cargando...</p>
     }
