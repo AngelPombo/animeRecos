@@ -1,6 +1,6 @@
 .section-cosplays-list{
     grid-column: 3/4;
-    grid-row: 4/5;  
+    grid-row: 4/-1;  
    
    }
    .cosplays-list{

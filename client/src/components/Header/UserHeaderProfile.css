@@ -1,0 +1,42 @@
+
+.user-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.profile-image{
+    border-radius: 50%;
+    width: 70px;
+    grid-area: a;
+    box-shadow: 2px 2px 5px rgb(151, 149, 149);
+    margin-left: 3rem;
+}
+
+.profile-header{
+    
+    display: grid;
+    grid-template-columns: auto, 1fr;
+    grid-template-rows: repeat(2,1fr);
+    grid-gap: 0.3rem;
+    grid-template-areas: 
+    "a b"
+    "a c";
+    justify-content:center;
+}
+
+.profile-nick{
+    grid-area: b;
+    text-align:start;
+    align-self: flex-end;
+    
+}
+
+.profile-badge{
+    grid-area: c;
+    font-size: 0.7rem;
+    font-style: italic;
+    align-self: flex-start;
+}
+
+

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import loginIcon from "/login.png"
 import logoutIcon from "/logout.png"
 import sessionContext from '../../context/sessionContext';
-
+import './Header.css'
 
 function TopHeader() {
 
