@@ -1,19 +1,15 @@
 .top-header{
     background-color: var(--marron-oscuro);
-    margin: 1rem 1rem 0 1rem;
-    border-radius: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.nav-header{
-    padding: 2rem;
+    padding: 0 2rem;
 }
 
 .ul-header{
     display: flex;
     justify-content: space-evenly;
+    gap:4rem;
 }
 
 .header-btn {
@@ -23,32 +19,33 @@
     font-weight: bold;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
-    color: var(--verde-claro);
-    transition: all 1000ms;
-    font-size: 0.8rem;
+    color: var(--crema);
+    /* transition: all 1000ms; */
+    font-size: 1rem;
     position: relative;
     overflow: hidden;
-    outline: 2px solid var(--verde-claro);
+    /* outline: 2px solid var(--crema); */
+    background-color: transparent;
 }
 
 .header-btn:hover {
-color: #ffffff;
-transform: scale(1.1);
-outline: 2px solid var(--verde-claro);
-box-shadow: 4px 5px 17px -4px var(--verde-claro);
+    color: var(--verde-claro);
+    transform: scale(1.1);
+    /* outline: 2px solid var(--verde-claro); */
+    /*box-shadow: 4px 5px 17px -4px var(--verde-claro); */
 }
 
 .header-btn::before {
-content: "";
-position: absolute;
-left: -50px;
-top: 0;
-width: 0;
-height: 100%;
-background-color: var(--verde-claro);
-transform: skewX(45deg);
-z-index: -1;
-transition: width 1000ms;
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    color: var(--crema); 
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
 }
 
 .header-btn:hover::before {
@@ -62,4 +59,17 @@ width: 250%;
 .login-cta{
     width: 4rem;
     margin-right: 2rem;
+    fill:var(--crema);
 }
+
+.login-cta:hover{
+    fill:var(--verde-claro);
+    transition-duration: .3s;
+}
+
+.top-header-button{
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+}
+
