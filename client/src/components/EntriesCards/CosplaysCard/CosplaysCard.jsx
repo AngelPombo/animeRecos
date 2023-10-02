@@ -30,13 +30,6 @@ function CosplaysCard({post}) {
                     null
                 )
             }
-            
-            {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-            }
-            {/* {post.edited && <p>"Editado"</p>}
-            {post.video_url && <div>{post.video_url}</div>} */}
             <CardButton id={post.id}/>
 
         </article>

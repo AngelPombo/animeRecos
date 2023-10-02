@@ -19,7 +19,10 @@ async function voteEntry(req,res) {
         if(entry[0].user_id === idUser){
             connect.release();
 
-            return res.status(403).send('No puedes votar tu propia entrada');
+            return res.status(403).send({
+                status: "Acción no permitida",
+                message: 'No puedes votar tu propia entrada'
+            });
         }
 
         const [existingVote] = await connect.query(
@@ -34,7 +37,10 @@ async function voteEntry(req,res) {
         if(existingVote.length > 0){
             connect.release();
 
-            return res.status(403).send('Ya votaste esta entrada');
+            return res.status(403).send({
+                status: "Acción no permitida",
+                message: "Ya votaste esta entrada. No es posible votar la misma entrada más de una vez"
+            });
         } 
 
         await connect.query(

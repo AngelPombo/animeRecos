@@ -19,13 +19,7 @@ function TeoriasCard({post}) {
             <h3>{post.title}</h3>
             <div className='genre'>{post.genre}</div>
             <h5>{post.create_date}</h5>
-            {/* {post.edited && <p>"Editado"</p>}
-            {post.video_url && <div>{post.video_url}</div>} */}
             <p>{post.content}</p>
-            {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-            }
             <CardButton id={post.id}/>
         </article>
     )
