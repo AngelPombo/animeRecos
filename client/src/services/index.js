@@ -146,12 +146,11 @@ async function getUserInfoService (id, token){
   return json.data; 
 }
 
-async function newUserProfile ({id, token, email,  nick, bio, linkTwitter, linkYoutube, linkInsta, linkTtv, avatar}){
+async function newUserProfile (id, data, token){
   const res = await fetch(`${import.meta.env.VITE_API_URL}/edit-profile/${id}`,{
     method: "PUT",
-    body: JSON.stringify({email,  nick, bio, linkTwitter, linkYoutube, linkInsta, linkTtv, avatar}),
+    body: data,
     headers:{
-      "Content-Type": "application/json",
       auth: token,
     }
   });
@@ -259,5 +258,20 @@ async function deletePhotoService(idEntry, idPhoto, token){
   return json;
 }
 
-export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService, deleteCommentService, deletePhotoService};
+async function voteEntryService(idEntry, idUser, token){
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${idEntry}/votes`,{
+    method: "POST",
+    headers: {
+      auth: token
+    },
+
+  });
+  const json = await response.json();
+  
+  if (!response.ok) {
+      throw new Error(json.message);
+  }
+}
+
+export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService, deleteCommentService, deletePhotoService, voteEntryService};
 

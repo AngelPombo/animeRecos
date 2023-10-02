@@ -25,11 +25,6 @@ function OpeningsCard({post}) {
                 :
                 null
             }
-            {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-            }
-            {/* {post.edited && <p>"Editado"</p>}*/}
             <CardButton id={post.id}/>
         </article>
     )

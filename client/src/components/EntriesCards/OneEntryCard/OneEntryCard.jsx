@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { CommentsList } from '../../CommentsList/CommentsList';
 import { CommentForm } from '../../CommentForm/CommentForm';
 import { useEntries } from '../../../hooks/useEntries';
+import { VoteButton } from '../../Buttons/VoteButton';
 
 function OneEntryCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
@@ -38,8 +39,7 @@ function OneEntryCard({post}) {
     useEffect(() =>{
 
     },[dataComments])
-
-
+    
     //función que maneja el click en el botón delete
     function handleClick(){
 
@@ -106,13 +106,16 @@ function OneEntryCard({post}) {
                 <h3>{post[0][0].title}</h3>
                 <div className='genre'>{post[0][0].genre}</div>
                 <h5>{post[0][0].create_date}</h5>
-                {/* {post.edited && <p>"Editado"</p>}
-                {post.video_url && <div>{post.video_url}</div>} */}
+                {post[0][0].edited !== 0 && <p>"Editado"</p>}
                 <p>{post[0][0].content}</p>
-                {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-                }
+                <div>
+                    {
+                    post[3] ? <p>{post[3][0].votos_entrada}</p>
+                    : <p>0</p>
+                    }
+                    <VoteButton/>
+                </div>
+                
                 {
                     //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
@@ -145,12 +148,16 @@ function OneEntryCard({post}) {
                 <div>{post[0][0].user_badge}</div>
                 <h3>{post[0][0].title}</h3>
                 <h5>{post[0][0].create_date}</h5>
+                {post[0][0].edited !== 0 && <p>"Editado"</p>}
                 <p>{post[0][0].content}</p>
                 <ReactPlayer url={post[0][0].video_url}/>
-                {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-                }
+                <div>
+                    {
+                    post[3] ? <p>{post[3][0].votos_entrada}</p>
+                    : <p>0</p>
+                    }
+                    <VoteButton/>
+                </div>
                 {/* {post.edited && <p>"Editado"</p>}*/}
                 {
                     //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
@@ -184,17 +191,19 @@ function OneEntryCard({post}) {
                 <div>{post[0][0].user_badge}</div>
                 <h3>{post[0][0].title}</h3>
                 <h5>{post[0][0].create_date}</h5>
+                {post[0][0].edited !== 0 && <p>"Editado"</p>}
                 <p>{post[0][0].content}</p>
-                {
-                post.votes ? <p>{post.votes[0].votos_entrada}</p>
-                : <p>0</p>
-                }
                 <img 
                 src={`${baseUrl}/photoentries/${post[2][0].name_photo}`} 
                 alt={post[2][0].name_photo} 
                 />
-                {/* {post.edited && <p>"Editado"</p>}
-                {post.video_url && <div>{post.video_url}</div>} */}
+                <div>
+                    {
+                    post[3] ? <p>{post[3][0].votos_entrada}</p>
+                    : <p>0</p>
+                    }
+                    <VoteButton/>
+                </div>
                 {
                     //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada

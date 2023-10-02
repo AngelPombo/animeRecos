@@ -21,16 +21,15 @@ function EditEntryPage() {
     const {post, error, loading} = useEntry(id);
     const navigateTo = useNavigate();
     const formRef = useRef(null);
-
     const [imgPreview, setImgPreview] = useState();
     const [imgPreview2, setImgPreview2] = useState();
     const [imgPreview3, setImgPreview3] = useState();
+    const [deletedImg1, setDeletedImg1] = useState(false);
+    const [deletedImg2, setDeletedImg2] = useState(false);
+    const [deletedImg3, setDeletedImg3] = useState(false);
 
-    //este hook se actualiza cada vez que el estado editedEntry cambia
     useEffect(() => {
-        //si editedEntry es true, es decir, se ha completado la edición de la entrada correctamente
         if(editedEntry){
-            //navegamos a la ruta de OneEntry con el id que obtenemos por params
             navigateTo(`/entrada/${id}`);
         }
     },[editedEntry])
@@ -123,7 +122,7 @@ function EditEntryPage() {
                 setImgPreview(null);
                 e.target.remove();
                 formRef.current.reset();
-
+                setDeletedImg1(true);
             }catch(e){
                 setEditError(e.message);
             }
@@ -140,9 +139,11 @@ function EditEntryPage() {
                 setImgPreview2(null);
                 e.target.remove();
                 formRef.current.reset();
+                setDeletedImg2(true);
                 
             }catch(e){
                 setEditError(e.message);
+                setDeletedImg2(false);
             }
         }
 
@@ -156,9 +157,11 @@ function EditEntryPage() {
                 setImgPreview3(null);
                 e.target.remove();
                 formRef.current.reset();
+                setDeletedImg3(true);
                 
             }catch(e){
                 setEditError(e.message);
+                setDeletedImg3(false);
             }
         }
     }
@@ -245,8 +248,7 @@ function EditEntryPage() {
                                 <label className="upload-img-1">
                                 <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
                                 {
-                                    post[2].length > 0 ?
-                                    
+                                    post[2].length > 0 && !deletedImg1 ?
                                     <li><img name="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImg}></img></li>
                                     :
                                     <>
@@ -269,7 +271,7 @@ function EditEntryPage() {
                                 <label className="upload-img-2">
                                 <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
                                 {
-                                    post[2].length > 1 ?
+                                    post[2].length > 1 && !deletedImg2 ?
                                     <li><img name="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
                                     :
                                     <>
@@ -293,7 +295,7 @@ function EditEntryPage() {
                                 <label className="upload-img-3">
                                 <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
                                 {
-                                    post[2].length > 2 ?
+                                    post[2].length > 2 && !deletedImg3 ?
                                     <li><img name="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
                                     :
                                     <>
