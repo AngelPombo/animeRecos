@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 1rem;
 }
 .profile-image{
     border-radius: 50%;
@@ -13,7 +14,6 @@
 }
 
 .profile-header{
-    
     display: grid;
     grid-template-columns: auto, 1fr;
     grid-template-rows: repeat(2,1fr);
