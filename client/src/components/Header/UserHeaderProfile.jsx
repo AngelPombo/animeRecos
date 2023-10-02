@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import sessionContext from '../../context/sessionContext';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
+import './UserHeaderProfile.css'
+
+
 
 function UserHeaderProfile () {
 
@@ -15,11 +18,11 @@ function UserHeaderProfile () {
             {
                 !loading
                 ?
-                <>
-                    <img src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
-                    <Link to={`/perfil-usuario/${user[0].id}`}><h4>@{user[0].user_name}</h4></Link>
-                    <p>{user[0].user_badge}</p>
-                </>
+                <div className='profile-header'>
+                    <img  className= "profile-image" src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                    <Link className='profile-nick' to={`/perfil-usuario/${user[0].id}`}><h4>@{user[0].user_name}</h4></Link>
+                    <p className='profile-badge'>{user[0].user_badge}</p>
+                </div>
                 :
                 <p>Cargando...</p>
             }

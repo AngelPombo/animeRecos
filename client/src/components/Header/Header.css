@@ -2,6 +2,9 @@
     background-color: var(--marron-oscuro);
     margin: 1rem 1rem 0 1rem;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-header{
@@ -54,4 +57,9 @@ width: 250%;
 
 .logo{
     max-width: 10rem;
+}
+
+.login-cta{
+    width: 4rem;
+    margin-right: 2rem;
 }

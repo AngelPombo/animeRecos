@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { CardButton } from '../../Buttons/CardButton';
+import './OpeningsCard.css'
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -20,7 +21,7 @@ function OpeningsCard({post}) {
             <h5>{new Date(post.create_date).toDateString()}</h5>
             {
                 post.video_url ?
-                <ReactPlayer url={post.video_url}/>
+                <ReactPlayer  width= {320} height={180} url={post.video_url}/>
                 :
                 null
             }
