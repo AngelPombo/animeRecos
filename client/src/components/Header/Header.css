@@ -4,52 +4,30 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    box-shadow: 0px 5px 10px gray;
 }
 
 .ul-header{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-    gap:4rem;
+    /* gap:4rem; */
 }
 
 .header-btn {
     padding: 1em 2em;
     border: none;
-    border-radius: 14px;
     font-weight: bold;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     color: var(--crema);
-    /* transition: all 1000ms; */
     font-size: 1rem;
-    position: relative;
-    overflow: hidden;
-    /* outline: 2px solid var(--crema); */
     background-color: transparent;
 }
 
 .header-btn:hover {
     color: var(--verde-claro);
     transform: scale(1.1);
-    /* outline: 2px solid var(--verde-claro); */
-    /*box-shadow: 4px 5px 17px -4px var(--verde-claro); */
-}
-
-.header-btn::before {
-    content: "";
-    position: absolute;
-    left: -50px;
-    top: 0;
-    width: 0;
-    height: 100%;
-    color: var(--crema); 
-    transform: skewX(45deg);
-    z-index: -1;
-    transition: width 1000ms;
-}
-
-.header-btn:hover::before {
-width: 250%;
 }
 
 .logo{

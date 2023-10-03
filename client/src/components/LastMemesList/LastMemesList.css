@@ -1,10 +1,6 @@
-.section-memes-list{
-    grid-column: 3/4;
-    grid-row: 1/2;  
-   
-   }
-   .memes-list{
-       display: flex;
-       flex-direction: column;
-       gap: 2rem;
-   }
+.memes-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}

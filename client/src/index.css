@@ -10,15 +10,18 @@
     --marron-oscuro: #712c27;
     --marron-oscuro-sombra: #ac5f59;
     --crema: #faeed4;
+    --crema-background: #faeed45d;
     --verde-claro: #9da63d;
     --verde-oscuro: #5d6d2c;
+    --verde-claro-transparente: #9da63d7b; 
 }
 
 div.app {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
+    background-color: var(--crema-background);
+    color: #5b231f;
 }
 
 main{
@@ -38,17 +41,18 @@ a:link, a:active{
 }
 
 a:visited{
-    color: var(--marron-oscuro);
+    color: var(--verde-oscuro);
 }
 
 /*QUITAR ESTE CSS DE IMG*/
 img {
     max-width: 300px;
 }
-.avatar{
+
+/* .avatar{
     max-width: 100px;
     border-radius: 50%;
-}
+} */
 
 img{
     max-width: 300px;

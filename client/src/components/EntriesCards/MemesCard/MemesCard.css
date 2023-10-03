@@ -1,0 +1,18 @@
+.memes-card{
+    background-color: rgba(255, 255, 255, 0.603);
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 1px 1px 5px grey;
+}
+
+.memes-card-div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.meme-img-div{
+    display: flex;
+    justify-content: center;
+}
