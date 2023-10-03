@@ -1,10 +1,6 @@
-.section-teorias-list{
-    grid-column: 1/2;
-    grid-row: 3/-1;  
-   
-   }
-   .teorias-list{
+.teorias-list{
        display: flex;
        flex-direction: column;
        gap: 2rem;
-   }
+       margin-bottom: 2rem;
+}

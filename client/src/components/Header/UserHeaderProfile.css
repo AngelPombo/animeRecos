@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1rem;
+    max-width: 95%;
+    margin: 2.5rem auto;
 }
 .profile-image{
     border-radius: 50%;
     width: 70px;
     grid-area: a;
     box-shadow: 2px 2px 5px rgb(151, 149, 149);
-    margin-left: 3rem;
 }
 
 .profile-header{

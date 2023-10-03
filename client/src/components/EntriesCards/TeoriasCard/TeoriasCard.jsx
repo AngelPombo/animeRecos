@@ -8,19 +8,31 @@ function TeoriasCard({post}) {
 
     return (
         <article className='teorias-card'>
-            <h4>{post.user_name}</h4>
-            {
-                post.avatar ?
-                <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
-                :
-                null
-            }
-            <div className='badge'>{post.user_badge}</div>
-            <h3>{post.title}</h3>
-            <div className='genre'>{post.genre}</div>
-            <h5>{post.create_date}</h5>
-            <p>{post.content}</p>
-            <CardButton id={post.id}/>
+            <div className='teorias-card-div'>
+                <header className='top-card-header'>
+                    <section className='user-info'>
+                        {
+                            post.avatar ?
+                            <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+                            :
+                            null
+                        }
+                        <div className='username-badge-card'>
+                            <h4>{post.user_name}</h4>
+                            <div className='badge'>{post.user_badge}</div>
+                        </div>
+                    </section>
+                    <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
+                </header>
+                <div className='title-genre-card'>
+                    <h3>{post.title}</h3>
+                    <div className='genre'>{post.genre}</div>
+                </div>
+                <p className='card-content'>{post.content}</p>
+                <div className='card-button-div'>
+                    <CardButton id={post.id}/>
+                </div>           
+            </div>     
         </article>
     )
 }

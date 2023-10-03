@@ -1,0 +1,20 @@
+.openings-card{
+    background-color: rgba(255, 255, 255, 0.603);
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 1px 1px 5px grey;
+}
+
+.openings-card-div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.openings-video-div{
+    display: flex;
+    justify-content: center;
+    box-shadow: 1px 1px 5px gray;
+}
+

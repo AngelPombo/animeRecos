@@ -1,10 +1,6 @@
-.section-cosplays-list{
-    grid-column: 3/4;
-    grid-row: 4/-1;  
-   
-   }
-   .cosplays-list{
+.cosplays-list{
        display: flex;
        flex-direction: column;
        gap: 2rem;
-   }
+       margin-bottom: 2rem;
+}

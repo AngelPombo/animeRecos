@@ -16,12 +16,18 @@ function HomePage() {
 
     return (
         <main className="home-page">
-            <LastMemesList endpoint={`${baseUrl}/entries/memes`}/>
-            <LastRecosList endpoint={`${baseUrl}/entries/recomendaciones`}/>
-            <LastFanartList endpoint={`${baseUrl}/entries/fanArt`}/>
-            <LastCosplaysList endpoint={`${baseUrl}/entries/cosplays`}/>
-            <LastOpeningsList endpoint={`${baseUrl}/entries/openings`}/>
-            <LastTeoriasList endpoint={`${baseUrl}/entries/teorias`} />
+            <section className='column1'>
+                <LastMemesList endpoint={`${baseUrl}/entries/memes`}/>
+                <LastFanartList endpoint={`${baseUrl}/entries/fanArt`}/>
+                <LastCosplaysList endpoint={`${baseUrl}/entries/cosplays`}/>
+            </section>
+            <section className='column2'>
+                <LastRecosList endpoint={`${baseUrl}/entries/recomendaciones`}/>
+            </section>
+            <section className='column3'>
+                <LastOpeningsList endpoint={`${baseUrl}/entries/openings`}/>
+                <LastTeoriasList endpoint={`${baseUrl}/entries/teorias`} />
+            </section>
         </main>
     )
 }

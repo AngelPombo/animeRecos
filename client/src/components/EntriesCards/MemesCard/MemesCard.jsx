@@ -1,5 +1,6 @@
 import React from 'react';
 import { CardButton } from '../../Buttons/CardButton';
+import "./MemesCard.css";
 
 function MemesCard({post}) {
 
@@ -7,32 +8,43 @@ function MemesCard({post}) {
     const baseUrl = import.meta.env.VITE_API_URL;
 
     return (
-        <article>
-            <h4>{post.user_name}</h4>
-            {
-                post.avatar ?
-                <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
-                :
-                null
-            }
-            <div>{post.user_badge}</div>
-            <h3>{post.title}</h3>
-            <h5>{new Date(post.create_date).toDateString()}</h5>
-            {
-                post.photos_info ? 
-                (
-                    <img 
-                        src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
-                        alt={post.photos_info[0].photo} 
-                    />
-                )
-                :
-                (
-                    null
-                )
-            }
-            <CardButton id={post.id}/>
-
+        <article className='memes-card'>
+            <div className='memes-card-div'>
+                <header className='top-card-header'>
+                    <section className='user-info'>
+                        {
+                            post.avatar ?
+                            <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
+                            :
+                            null
+                        }
+                        <div className='username-badge-card'>
+                            <h4>{post.user_name}</h4>
+                            <div className='badge'>{post.user_badge}</div>
+                        </div>
+                    </section>
+                    <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
+                </header>
+                <h3 className='title-card'>{post.title}</h3>
+                <div className='meme-img-div'>
+                    {
+                        post.photos_info ? 
+                        (
+                            <img className='meme-img'
+                                src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
+                                alt={post.photos_info[0].photo} 
+                            />
+                        )
+                        :
+                        (
+                            null
+                        )
+                    }
+                </div>
+                <div className='card-button-div'>
+                    <CardButton id={post.id}/>
+                </div>
+            </div>
         </article>
     )
 }

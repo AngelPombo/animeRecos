@@ -1,8 +1,35 @@
 .home-page{
-    display: grid;
-    grid-template-columns: 1fr 40% 1fr;
-    grid-template-rows: repeat(6, auto);
+    display: flex;
+    gap: 5rem;
+    max-width: 95%;
     margin: 2rem auto;
-    padding: 2rem;
-    gap: 2rem;
 }
+
+.column1>section>h2{
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--marron-oscuro);
+    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+} 
+
+
+.column2>section>h2{
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--marron-oscuro);
+    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+} 
+
+.column3>section>h2{
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--marron-oscuro);
+    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+} 
+
+.column3{
+    max-width: 25rem;
+}  

@@ -1,10 +1,6 @@
-.section-fanart-list{
-    grid-column: 3/4;
-    grid-row: 2/4;  
-   
-   }
-   .fanart-list{
+.fanart-list{
        display: flex;
        flex-direction: column;
        gap: 2rem;
-   }
+       margin-bottom: 2rem;
+}
