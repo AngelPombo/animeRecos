@@ -14,6 +14,7 @@ function PostEntryPage() {
     const [category, setCategory] = useState('');
     const [genre, setGenre] = useState('');
     const [animeCharacter, setAnimeCharacter]  = useState('');
+    const [video, setVideo] = useState('');
     const [img, setImg] = useState();
     const [img2, setImg2] = useState();
     const [img3, setImg3] = useState();
@@ -28,31 +29,40 @@ function PostEntryPage() {
         const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
                 
         if (name === 'title'){
-            setTitle(value)
-            
+            setTitle(value);
         }
+        
         if (name === 'content'){
-            setContent(value)
+            setContent(value);
         }
+
         if (name === 'category'){
-            setCategory(value)
+            setCategory(value);
         }
+
         if (name === 'genre'){
-            setGenre(value)
+            setGenre(value);
         }
+
         if (name === 'animeCharacter'){
-            setAnimeCharacter(value)
-        }     
-                
+            setAnimeCharacter(value);
+        }
+        
+        if(name === 'video'){
+            setVideo(value);
+        }
+        
         if (name === 'img'){
             setImg(value);
             setImgPreview(URL.createObjectURL(value));
             
         }
+
         if (name === 'img2'){
             setImg2(value);
             setImgPreview2(URL.createObjectURL(value));
         }
+
         if (name === 'img3'){
             setImg3(value);
             setImgPreview3(URL.createObjectURL(value));
@@ -157,71 +167,83 @@ function PostEntryPage() {
                             <label htmlFor="anime-character">Personaje:</label>
                             <input  type="text" name="anime-character" id="anime-character" onChange={handleChange} />
                         </li>
-                        <label className="upload-img-1">
-                            <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
-                            {
-                                !img ? (
-                                    <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                    </figure>
-                                ) : (
-                                    <figure>
-                                        <img
-                                            src={imgPreview}
-                                            alt="Previsualización"
-                                            onClick={handleDeleteImage}
-                                        />
-                                        <figcaption>Previsualización</figcaption>
-                                    </figure>
-                                )
-                            }
-                        
-                        </label>
-                        
-                        {img && <label className="upload-img-2">
-                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
-                            {
-                                !img2 ? (
-                                    <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                    </figure>
-                                ) : (
-                                    <figure>
-                                        <img
-                                            src={imgPreview2}
-                                            alt="Previsualización"
-                                            onClick={handleDeleteImage}
-                                        />
-                                        <figcaption>Previsualización</figcaption>
-                                    </figure>
-                                )
-                            }
-                        </label>}
-                        
-                        {img2 && <label className="upload-img-3">
-                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
-                            {
-                                !img3 ? (
-                                    <figure>
-                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                    </figure>
-                                ) : (
-                                    <figure>
-                                        <img
-                                            src={imgPreview3}
-                                            alt="Previsualización"
-                                            onClick={handleDeleteImage}
-                                        />
-                                        <figcaption>Previsualización</figcaption>
-                                    </figure>
-                                )
-                            }
-                        </label>}
-                        
-                        
+                        {
+                            category === "openings" && 
+                            <label>Video URL:
+                                <input type="text" name="video" id="video" required onChange={handleChange}></input>
+                            </label>
+                        }
+                        {
+                            category !== "openings" &&
+                            <>
+                                <label className="upload-img-1">
+                                <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
+                                    {
+                                        !img ? (
+                                            <figure>
+                                                <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                            </figure>
+                                        ) : (
+                                            <figure>
+                                                <img
+                                                    src={imgPreview}
+                                                    alt="Previsualización"
+                                                    onClick={handleDeleteImage}
+                                                />
+                                                <figcaption>Previsualización</figcaption>
+                                            </figure>
+                                        )
+                                    }
+                                </label>
+                
+                                {
+                                    img && <label className="upload-img-2">
+                                        <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
+                                        {
+                                            !img2 ? (
+                                                <figure>
+                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                    <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                                </figure>
+                                            ) : (
+                                                <figure>
+                                                    <img
+                                                        src={imgPreview2}
+                                                        alt="Previsualización"
+                                                        onClick={handleDeleteImage}
+                                                    />
+                                                    <figcaption>Previsualización</figcaption>
+                                                </figure>
+                                            )
+                                        }
+                                    </label>
+                                }
+                
+                                {
+                                    img2 && <label className="upload-img-3">
+                                        <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                                            {
+                                                !img3 ? (
+                                                    <figure>
+                                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                                    </figure>
+                                                ) : (
+                                                    <figure>
+                                                        <img
+                                                            src={imgPreview3}
+                                                            alt="Previsualización"
+                                                            onClick={handleDeleteImage}
+                                                        />
+                                                        <figcaption>Previsualización</figcaption>
+                                                    </figure>
+                                                )
+                                            }
+                                    </label>
+                                }
+                            </>
+                        }
                     </ul>
                 </fieldset>
                 {postError ? <p>{postError}</p> : null}

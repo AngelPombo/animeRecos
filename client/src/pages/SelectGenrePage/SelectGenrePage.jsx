@@ -9,7 +9,7 @@ function SelectGenrePage({category}) {
 
     return (
         <section className="select-genre-page">
-            <ul>
+            <ul className="btns-genre-list">
                 {genres.map((genre) => {
                     return  <li key={genre}><GenreButton category={category} genre={genre}/></li>
                 })}

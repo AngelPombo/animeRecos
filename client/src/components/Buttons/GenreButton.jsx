@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./GenreButton.css";
 
 function GenreButton({category, genre, img}) {
     return (
-        <div>
+        <>
             <Link to={`/${category}/${genre}`} >
-                <button className="genre-btn">
+                <button className={`genre-btn ${category}-genre-btn ${genre}-img-btn`}>
                     {genre}
                 </button>
-                {/* <img src={img} alt={genre} /> */}
             </Link> 
-        </div>
+        </>
         
     )
 }
