@@ -1,0 +1,48 @@
+.novedades-card{
+    background-color: rgba(255, 255, 255, 0.603);
+    background-image: url(../../../../public/animeRecosIconosepiagirado.png);
+    background-position-x: -190%;
+    background-position-y: 155%;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    
+    
+    padding: 1rem;
+    border-radius: 14px;
+    box-shadow: 1px 1px 5px grey;
+    width: 25rem;
+    height: 35rem;
+    position: relative;
+}
+
+.novedades-card-div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+}
+.content-opening-div{
+    display: flex;
+    flex-direction: column;
+    
+}
+.content-image-div{
+    display: flex;
+    flex-direction: column;
+    
+}
+.novedades-div{
+    margin: 1rem auto;
+    
+}
+
+.img-card{
+    box-shadow: 2px 2px 5px grey;
+    border-radius: 14px;
+}
+
+.novedades-button-div{
+position: absolute;
+top: 500px;
+left:330px
+}

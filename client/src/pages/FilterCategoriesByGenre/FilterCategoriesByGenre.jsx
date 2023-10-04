@@ -3,7 +3,7 @@ import {useEntries} from '../../hooks/useEntries';
 import { useParams } from 'react-router-dom';
 import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-
+import './FilterCategoriesByGenre.css'
 
 function FilterCategoriesByGenre() {
     const baseUrl = import.meta.env.VITE_API_URL;
@@ -26,10 +26,10 @@ function FilterCategoriesByGenre() {
     }
 
     return (
-        <section>
+        <section className='section-filter'>
             {
                 dataPosts ?
-                <ul>
+                <ul className='list-filter'>
                     {dataPosts.map((post) => {
                         return <li key={post.id}>
                             <NovedadesCard post={post}/>

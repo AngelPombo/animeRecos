@@ -1,0 +1,11 @@
+.novedades-page{
+
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: space-evenly;
+gap: 1.5rem;
+padding: 2rem;
+
+}
+

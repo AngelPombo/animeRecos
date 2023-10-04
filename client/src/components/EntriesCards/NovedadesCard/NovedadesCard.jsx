@@ -3,6 +3,7 @@ import "./NovedadesCard.css"
 import ReactPlayer from 'react-player';
 import { CardButton } from '../../Buttons/CardButton';
 
+
 function NovedadesCard({post}) {
 
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
@@ -11,43 +12,83 @@ function NovedadesCard({post}) {
     if(!post.photos_info && !post.video_url){
         return (
             <article className='novedades-card'>
-                <h4>{post.user_name}</h4>
-                {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
-                <div className='badge'>{post.user_badge}</div>
-                <h3>{post.title}</h3>
-                <div className='genre'>{post.genre}</div>
-                <h5>{post.create_date}</h5>
-                <p>{post.content}</p>
-                <CardButton id={post.id}/>
+                <div className='novedades-card-div'>
+                    <header className='top-card-header'>
+                        <section className='user-info'>
+                            {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
+                            <div className='username-badge-card'>
+                                <h4>{post.user_name}</h4>
+                                <div className='badge'>{post.user_badge}</div>
+                            </div>
+                        </section>
+                        <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
+                    </header>
+                    <div className='title-genre-card'>
+                        <h3>{post.title}</h3>
+                        <div className='genre'>{post.genre}</div>
+                    </div>
+                    <p className='card-content'>{post.content}</p>
+                    <div className='novedades-button-div'>
+                        <CardButton id={post.id}/>
+                    </div>
+                </div>
             </article>
         )
     } else if(post.video_url){
         return(
-            <article>
-                <h4>{post.user_name}</h4>
-                {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
-                <div>{post.user_badge}</div>
-                <h3>{post.title}</h3>
-                <h5>{new Date(post.create_date).toDateString()}</h5>
-                <p>{post.content}</p>
-                <ReactPlayer url={post.video_url}/>
-                <CardButton id={post.id}/>
+            <article className='novedades-card'>
+                <div className='novedades-card-div'>
+                    <header className='top-card-header'>
+                        <section className='user-info'>
+                            {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
+                            <div className='username-badge-card'>
+                                <h4>{post.user_name}</h4>
+                                <div className='badge'>{post.user_badge}</div>
+                            </div>
+                        </section>
+                        <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
+                    </header>
+                    <h3 className='title-card'>{post.title}</h3>
+                    <div className='content-opening-div'>
+                        <p>{post.content}</p>
+                        <div className='novedades-div img-card' >
+                            <ReactPlayer  width= {370} height={180}  url={post.video_url}/>
+                        </div>
+                    </div>
+                    <div className='novedades-button-div'>
+                        <CardButton id={post.id}/>
+                    </div>
+                </div>
             </article>
         )
     } else {
         return(
-            <article>
-                <h4>{post.user_name}</h4>
-                {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
-                <div>{post.user_badge}</div>
-                <h3>{post.title}</h3>
-                <h5>{new Date(post.create_date).toDateString()}</h5>
-                <p>{post.content}</p>
-                <img 
-                src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
-                alt={post.photos_info[0].photo} 
-                />
-                <CardButton id={post.id}/>
+            <article className='novedades-card'>
+                <div className='novedades-card-div'>
+                    <header className='top-card-header'>
+                        <section className='user-info'>
+                            {post.avatar ? <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img> }
+                            <div className='username-badge-card'>
+                                <h4>{post.user_name}</h4>
+                                <div className='badge'>{post.user_badge}</div>
+                            </div>               
+                        </section>
+                        <h5>{new Date(post.create_date).toLocaleDateString()}</h5> 
+                    </header>
+                    <h3 className='title-card'>{post.title}</h3>
+                    <div className='content-image-div'>
+                        <p>{post.content}</p>
+                        <div className='novedades-div'>
+                            <img className='img-card' 
+                            src={`${baseUrl}/photoentries/${post.photos_info[0].photo}`} 
+                            alt={post.photos_info[0].photo} 
+                            />
+                        </div>
+                    </div>
+                    <div className='novedades-button-div'>
+                        <CardButton id={post.id}/>
+                    </div>
+                </div> 
             </article>
         )
     }
