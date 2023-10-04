@@ -29,13 +29,19 @@ async function deleteEntry (req,res){
             [idEntry]
         );
 
+        await connect.query(
+            `
+                DELETE FROM comments WHERE entry_id=?
+            `,[idEntry]
+        );
+
         await connect.query(`DELETE FROM entries WHERE id=?`,[idEntry]);
 
         connect.release();
 
         res.status(200).send({
             status: 'OK',
-            message: `La entrada con id ${idEntry} y todos sus elementos fueron eliminados`
+            message: `La entrada ha sido eliminada`
         });
 
     } catch (error) {

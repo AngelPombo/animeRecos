@@ -1,0 +1,22 @@
+.genre-btn{
+    min-width: 20rem;
+    min-height: 10rem;
+    padding: 2rem;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    color: rgba(255, 255, 255, 0.555);
+    text-transform: uppercase;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+.genre-btn:hover{
+    box-shadow: 0 0 10px 3px var(--verde-claro-transparente);
+}
+
+.accion-img-btn{
+    background-image: url("../../../public/accionImg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
