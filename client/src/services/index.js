@@ -267,10 +267,12 @@ async function voteEntryService(idEntry, idUser, token){
 
   });
   const json = await response.json();
+
   
   if (!response.ok) {
       throw new Error(json.message);
   }
+  return json.data
 }
 
 export {getOneEntryService, registerUserService, recoverPasswordService, resetPasswordService, postEntryService, postCommentService, getUserInfoService, editEntryService, addPhotoService, newUserProfile, changePwdService, deleteUserService, editCommentService, deleteCommentService, deletePhotoService, voteEntryService};

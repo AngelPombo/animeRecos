@@ -1,0 +1,101 @@
+.one-entry-card{
+    background-color: rgba(255, 255, 255, 0.603);
+    padding: 2rem;
+    border-radius: 14px;
+    box-shadow: 1px 1px 5px grey;
+    margin: 3rem;
+}
+
+.one-entry-header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.one-entry-user-info{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+}
+
+.one-entry-avatar{
+    border-radius: 50%;
+    width: 6rem;
+    box-shadow: 2px 2px 5px rgb(151, 149, 149);
+
+}
+
+.one-entry-username-badge{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.one-entry-badge{
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.one-entry-genre{
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.one-entry-title-genre{
+    margin-bottom: 0.5rem;
+}
+.one-entry-content{
+    text-align: justify;
+}
+.one-entry-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-image{
+    width: 3rem;
+    
+}
+
+.btn-image:hover{
+    
+    filter: drop-shadow(0 0 0.5rem var(--marron-oscuro));
+}
+.btn-image.activo{
+    
+    animation-name: meGusta;
+    animation-duration: 600ms;
+    animation-timing-function: ease-in-out;
+
+}
+
+
+@keyframes meGusta {
+    0% {
+       
+        transform: scale(0);
+    }
+
+    25% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    75% {
+
+        transform: scale(1.2);
+    }
+
+    100% {
+        
+        transform: scale(1)
+    }
+}
+.like-btn{
+    border: none;
+    background-color: transparent;
+}

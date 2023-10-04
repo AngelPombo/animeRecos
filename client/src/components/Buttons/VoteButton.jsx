@@ -1,12 +1,19 @@
-import React, { useContext, useState } from 'react'
-import botonVotar from '/animeRecosIcono.png'
+import React, { useContext, useEffect, useState } from 'react'
+import botonSinPintar from '/animeRecosIconotrazo.png'
+import botonPintado from '/animeRecosIcono.png'
 import { voteEntryService } from '../../services';
 import { useParams } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
-function VoteButton() {
+
+
+function VoteButton({ setVotos, liked}) {
     const {idEntry} = useParams();
     const {logged} = useContext(sessionContext);
     const [error, setError] = useState(null);
+    const [votado, setVotado] = useState(liked)
+ 
+    
+
     let idUser;
     let token;
 
@@ -17,15 +24,30 @@ function VoteButton() {
 
     async function handleClick(){
         try{
-            await voteEntryService(idEntry, idUser, token);
+          const newValueVote = await voteEntryService(idEntry, idUser, token);
+          setVotado(newValueVote.votado)
+          setVotos(newValueVote.votos_totales)
+          
         }catch(e){
             setError(e.message);
         }
     }
+
+    
     
     return (
         <>
-            <button onClick={handleClick}><img src={botonVotar} alt="Votar entrada"/></button>
+            <button  className="like-btn" onClick={handleClick}> 
+
+                    {
+                    parseInt(votado) ===1 ? <img className='btn-image activo' src={botonPintado} alt="Borrar voto"/>
+                    :
+                    <img className='btn-image' src={botonSinPintar} alt="Votar entrada"/>
+                    }
+     
+            </button>
+            
+            
             {error && <p>{error}</p>}
         </>
     )
