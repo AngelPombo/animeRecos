@@ -7,77 +7,95 @@ async function voteEntry(req,res) {
         const {idEntry} = req.params;
         const idUser = req.userInfo.id;
 
-        const [entry] = await connect.query(
+        const [currentUserVote] = await connect.query(
             `
-                SELECT user_id
-                FROM entries
-                WHERE id=?
-            `,
-            [idEntry]
-        );
-
-        if(entry[0].user_id === idUser){
-            connect.release();
-
-            return res.status(403).send({
-                status: "Acción no permitida",
-                message: 'No puedes votar tu propia entrada'
-            });
-        }
-
-        const [liked] = await connect.query(
-            `
-                SELECT v.vote_entry
-                FROM entries e
-                INNER JOIN votes v ON v.entry_id = e.id
-                WHERE e.id=?
-              
-            `,
-            [idEntry]
-        );
-
-        const [existingVote] = await connect.query(
-            `
-                SELECT id
+                SELECT id AS "id_vote", vote_entry AS "votado"
                 FROM votes
                 WHERE user_id=? AND entry_id=?
-            `,
-            [idUser,idEntry]
+
+            `,[idUser, idEntry]
         );
-       
 
-        if(existingVote.length > 0){
 
-            if( liked[0].vote_entry === 1){
+        if(currentUserVote.length > 0){
+            if(currentUserVote[0].votado === 1){
                 await connect.query(
                     `
                         UPDATE votes 
-                        SET vote_date =?, vote_entry =? ,  user_id =?, entry_id =?
+                        SET vote_date=?, vote_entry=?, user_id=?, entry_id=?
                         WHERE id = ?
                     `,
-                    [new Date(),0,idUser,idEntry, existingVote[0].id ]
+                    [new Date(),0,idUser,idEntry,currentUserVote[0].id_vote]
                 );
 
-            }else{
+                const [suma] = await connect.query(
+                    `
+                        SELECT SUM(v.vote_entry) AS "votos_totales"
+                        FROM entries e
+                        INNER JOIN votes v ON v.entry_id = e.id
+                        WHERE e.id=?
+                    `,
+                    [idEntry]
+                );
+
+                connect.release();
+
+                return res.status(200).send({
+                    status: 'OK',
+                    message: 'Se ha eliminado el voto de la entrada correctamente',
+                    data: {
+                        id_vote: currentUserVote[0].id_vote,
+                        user: idUser,
+                        votado: 0,
+                        votos_totales_entrada: suma[0].votos_totales,
+                        
+                    }
+                });
+
+            }else if(currentUserVote[0].votado === 0){
                 await connect.query(
                     `
                         UPDATE votes 
-                        SET vote_date =?, vote_entry =? ,  user_id =?, entry_id =?
+                        SET vote_date=?, vote_entry=?, user_id=?, entry_id=?
                         WHERE id = ?
                     `,
-                    [new Date(),1,idUser,idEntry, existingVote[0].id ]
+                    [new Date(),1,idUser,idEntry,currentUserVote[0].id_vote]
                 );
+
+                const [suma] = await connect.query(
+                    `
+                        SELECT SUM(v.vote_entry) AS "votos_totales"
+                        FROM entries e
+                        INNER JOIN votes v ON (v.entry_id = e.id)
+                        WHERE e.id=?
+                    `,
+                    [idEntry]
+                );
+
+                connect.release();
+
+                return res.status(200).send({
+                    status: 'OK',
+                    message: 'Se ha votado la entrada correctamente',
+                    data: {
+                        id_vote: currentUserVote[0].id_vote,
+                        user: idUser,
+                        votado: 1,
+                        votos_totales_entrada: suma[0].votos_totales,
+                    }
+                });
             }
-            
-        } else {  
-            await connect.query(
-                `
-                    INSERT INTO votes (vote_date, vote_entry ,  user_id, entry_id)
-                    VALUES (?,?,?,?)
-                `,
-                [new Date(),1,idUser,idEntry]
-            );
         }
+
+        const [newVote] = await connect.query(
+            `
+                INSERT INTO votes (vote_date, vote_entry, user_id, entry_id)
+                VALUES (?,?,?,?)
+            `,[new Date(),1,idUser,idEntry]
+        );
+
+        const {insertId} = newVote;
+
 
         const [suma] = await connect.query(
             `
@@ -85,22 +103,9 @@ async function voteEntry(req,res) {
                 FROM entries e
                 INNER JOIN votes v ON (v.entry_id = e.id)
                 WHERE e.id=?
-              
             `,
             [idEntry]
         );
-        const [votado] = await connect.query(
-            `
-                SELECT v.vote_entry
-                FROM entries e
-                INNER JOIN votes v ON v.entry_id = e.id
-                WHERE e.id=?
-              
-            `,
-            [idEntry]
-        );
-
-
 
         connect.release();
     
@@ -108,8 +113,11 @@ async function voteEntry(req,res) {
             status: 'OK',
             message: 'Entrada votada correctamente',
             data: {
-                votos_totales: suma[0].votos_totales,
-                votado: votado[0].vote_entry
+                id_vote: insertId,
+                user: idUser,
+                votado: 1,
+                votos_totales_entrada: suma[0].votos_totales
+                
             }
         });
 

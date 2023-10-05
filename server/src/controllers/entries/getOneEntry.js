@@ -4,6 +4,7 @@ async function getOneEntry (req,res) {
     try{
 
         const {idEntry} = req.params;
+        const id = req.headers['id'];
 
         const connect = await getDB();
 
@@ -16,6 +17,7 @@ async function getOneEntry (req,res) {
             `,
             [idEntry]
         );
+
 
         if(!entry.length){
             connect.release();
@@ -55,14 +57,26 @@ async function getOneEntry (req,res) {
             `,
             [idEntry]
         );
-        const[likedEntry] = await connect.query(
-            ` 
-            SELECT vo.vote_entry 
-            FROM votes vo
-            WHERE vo.entry_id=?
-            `,
-            [idEntry]
-        )
+
+        let likedByUser;
+
+        if(id){
+            const [resLiked] = await connect.query(
+                `
+                    SELECT vote_entry AS "vote_user"
+                    FROM votes
+                    WHERE user_id=? AND entry_id=?
+                `,[id, idEntry]
+            );
+
+            if(resLiked.length > 0){
+                likedByUser = resLiked[0].vote_user;
+            }else{
+                likedByUser = 0;
+            }
+
+            
+        }
 
         const [votesComent] = await connect.query(
             `
@@ -79,7 +93,7 @@ async function getOneEntry (req,res) {
 
         res.status(200).send({
             status: "OK",
-            data: [entry, comments, photos, votesEntry, votesComent, likedEntry]
+            data: [entry, comments, photos, votesEntry, votesComent, likedByUser]
         });
     } catch(e){
         console.log(e);
