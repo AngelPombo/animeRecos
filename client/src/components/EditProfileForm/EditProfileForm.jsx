@@ -121,11 +121,11 @@ function EditProfileForm() {
                 <ul>
                     <li>
                         <label htmlFor="nick">Nombre de usuario</label>
-                        <input type="text" name="nick" id="nick" defaultValue={user[0].user_name} onChange={handleChange}></input>
+                        <input type="text" name="nick" id="nick" maxLength="40" defaultValue={user[0].user_name} onChange={handleChange}></input>
                     </li>
                     <li>
                         <label htmlFor="email">Email</label>
-                        <input type="email" name="email" id="email" defaultValue={user[0].email} onChange={handleChange}></input>
+                        <input type="email" name="email" id="email" maxLength="256" defaultValue={user[0].email} onChange={handleChange}></input>
                     </li>
                     <li>
                         <label htmlFor="avatar">
@@ -152,7 +152,7 @@ function EditProfileForm() {
                     </li>
                     <li>
                         <label htmlFor="bio">Biografía</label>
-                        <textarea name="bio" id="bio" defaultValue={user[0].biography} onChange={handleChange}></textarea>
+                        <textarea name="bio" id="bio" maxLength="3000" defaultValue={user[0].biography} onChange={handleChange}></textarea>
                     </li>
                     <li>
                         <fieldset>
@@ -160,19 +160,19 @@ function EditProfileForm() {
                             <ul>
                                 <li>
                                     <label htmlFor="linkInsta">Instagram</label>
-                                    <input type="text" name="linkInsta" id="linkInsta" defaultValue={user[0].link_insta} onChange={handleChange}></input>
+                                    <input type="text" name="linkInsta" id="linkInsta" maxLength="200" defaultValue={user[0].link_insta} onChange={handleChange}></input>
                                 </li>
                                 <li>
                                     <label htmlFor="linkYoutube">YouTube</label>
-                                    <input type="text" name="linkYoutube" id="linkYoutube" defaultValue={user[0].link_youtube} onChange={handleChange}></input>
+                                    <input type="text" name="linkYoutube" id="linkYoutube" maxLength="200" defaultValue={user[0].link_youtube} onChange={handleChange}></input>
                                 </li>
                                 <li>
                                     <label htmlFor="linkTtv">Twitch</label>
-                                    <input type="text" name="linkTtv" id="linkTtv" defaultValue={user[0].link_ttv} onChange={handleChange}></input>
+                                    <input type="text" name="linkTtv" id="linkTtv" maxLength="200" defaultValue={user[0].link_ttv} onChange={handleChange}></input>
                                 </li>
                                 <li>
                                     <label htmlFor="linkTwitter">Twitter</label>
-                                    <input type="text" name="linkTwitter" id="linkTwitter" defaultValue={user[0].link_twitter} onChange={handleChange}></input>
+                                    <input type="text" name="linkTwitter" id="linkTwitter" maxLength="200" defaultValue={user[0].link_twitter} onChange={handleChange}></input>
                                 </li>
                             </ul>
                         </fieldset>

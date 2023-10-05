@@ -1,0 +1,86 @@
+.comment-card{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    font-size: 0.8em;
+    border-bottom: 1px solid #712c2734;
+}
+
+.comment-card-header{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    gap: 1rem;
+}
+
+.user-info-comment-div{
+    display: flex;
+    gap:0.5rem;
+}
+
+.user-badge-comment{
+    font-size: smaller;
+    font-style: italic;
+}
+
+.avatar-comment{
+    max-height: 2.5rem;
+    border-radius: 50%;
+}
+
+.comment-content-p{
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+.comment-card-footer{
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 1rem 1rem 0;
+}
+
+.comment-card-footer-div{
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.btn-comment-editar{
+    background-color: #712c27c9;
+    padding: 0.5rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    color: var(--crema);
+    font-size: smaller;
+    max-width: 5em;
+}
+
+.btn-comment-editar:hover{
+    background-color: var(--crema);
+    color: var(--marron-oscuro);
+    border: 0.05px solid #712c2759;;
+}
+
+.btn-comment-borrar{
+    background-color: #712c27c9;
+    padding: 0.5rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    color: var(--crema);
+    font-size: smaller;
+    max-width: 5.5em;
+}
+
+.btn-comment-borrar:hover{
+    background-color: var(--crema);
+    color: var(--marron-oscuro);
+    border: 0.05px solid #712c2759;;
+}
+
+.comment-deleted-msg{
+    display: none;
+}
+
+.edited-comment{
+    opacity: 30%;
+}

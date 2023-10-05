@@ -45,27 +45,27 @@ function CommentForm({setDataComments, dataComments}) {
           if(error === null){
             if(dataComments){
               const newCommentList = [... dataComments, infoNewComment[0]];
-              setDataComments(newCommentList); 
+              setDataComments(newCommentList);
+              e.target.commentContent.value = "";
             }else{
-              setDataComments([infoNewComment[0]])
+              setDataComments([infoNewComment[0]]);
+              e.target.commentContent.value = "";
             }
           }
           
         }
-
     }
 
   return (
     <>
       {
       logged &&
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="comment-form">
         <label>
-          <textarea name="commentContent" id="commentContent" cols="30" rows="10" onChange={handleChange}></textarea>
+          <textarea className="comment-content-area" name="commentContent" id="commentContent" cols="100" rows="10" maxLength="5000" onChange={handleChange}></textarea>
         </label>
         {error ? <p>{error}</p> : null}
-        <button type='submit'> comentar </button>
-
+        <button className="btn-comment" type='submit'> Comentar </button>
       </form>
       }
     </>

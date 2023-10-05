@@ -52,15 +52,15 @@ function ChangePasswordPage() {
                 <ul>
                     <li>
                         <label htmlFor="currentPwd">Contraseña</label>
-                        <input name="currentPwd" id="currentPwd" type="password"></input>
+                        <input name="currentPwd" id="currentPwd" type="password" maxLength="20"></input>
                     </li>
                     <li>
                         <label htmlFor="newPwd">Nueva contraseña</label>
-                        <input name="newPwd" id="newPwd" type="password"></input>
+                        <input name="newPwd" id="newPwd" type="password" maxLength="20"></input>
                     </li>
                     <li>
                         <label htmlFor="confirmPwd">Repite la nueva contraseña</label>
-                        <input name="confirmPwd" id="confirmPwd" type="password"></input>
+                        <input name="confirmPwd" id="confirmPwd" type="password" maxLength="20"></input>
                     </li>
                 </ul>
                 {error ? <p>{error}</p> : null}

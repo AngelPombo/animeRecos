@@ -55,25 +55,21 @@
 
 .btn-image{
     width: 3rem;
-    
 }
 
 .btn-image:hover{
     
-    filter: drop-shadow(0 0 0.5rem var(--marron-oscuro));
+    filter: drop-shadow(0 0 0.2rem var(--marron-oscuro));
 }
 .btn-image.activo{
-    
     animation-name: meGusta;
     animation-duration: 600ms;
     animation-timing-function: ease-in-out;
 
 }
 
-
 @keyframes meGusta {
     0% {
-       
         transform: scale(0);
     }
 
@@ -99,3 +95,58 @@
     border: none;
     background-color: transparent;
 }
+
+.comments-section{
+    display: flex;
+    flex-direction: column;
+    margin: 0 3rem 3rem 3rem;
+}
+
+.comments-title{
+    font-size: 1em;
+    border-bottom: 1px solid;
+    margin-bottom: 1rem;
+}
+
+.comment-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-content-area{
+    width: 50%;
+    min-width: 50%;
+    resize: none;
+    background-color: #712c271a;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    outline: 0px none transparent;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9em;
+    text-align: justify;
+    color: var(--marron-oscuro);
+}
+
+.comment-content-area:focus{
+    background-color: #712c272d;
+    border: 1px solid #712c2759;
+    color: #712c27de;
+}
+
+.btn-comment{
+    background-color: #712c27c9;
+    padding: 0.5rem 1rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    color: var(--crema);
+    max-width: 8em;
+    margin-bottom: 2rem;
+}
+
+.btn-comment:hover{
+    background-color: var(--crema);
+    color: var(--marron-oscuro);
+    border: 0.05px solid #712c2759;;
+}
+

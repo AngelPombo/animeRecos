@@ -8,13 +8,12 @@ function useEntries(endpoint, token){
     useEffect(() =>{
         
         async function getData(endpoint, token){
-            
             try{
                 setIsLoading(true);
                 const res = await fetch(endpoint, {
                     headers: {
-                        auth: token
-                    } 
+                        auth: token,
+                    }
                 });
                 const dataJSON = await res.json();
 

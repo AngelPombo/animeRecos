@@ -1,5 +1,6 @@
 import React from 'react';
 import { CommentCard } from '../EntriesCards/CommentCard/CommentCard';
+import "./CommentList.css";
 
 
 function CommentsList({error, isLoading, dataComments, setDataComments}) {
@@ -10,7 +11,7 @@ function CommentsList({error, isLoading, dataComments, setDataComments}) {
 
     if(!dataComments){
         return(
-            <p>¡Todavía no hay comentarios en esta publicación!</p>
+            <p className="sin-comentarios">¡Todavía no hay comentarios en esta publicación!</p>
         )
     }
 
@@ -23,10 +24,10 @@ function CommentsList({error, isLoading, dataComments, setDataComments}) {
                 )
                 :
                 (
-                    <ul className="comments-list">
+                    <ul className="comments-list" id="comments-list-id">
                         {
                             dataComments.map((comment) => {
-                                return <li key={comment.comment_id}><CommentCard comment={comment} setDataComments={setDataComments} dataComments={dataComments}/></li>
+                                return <li className="li-comment-card" key={comment.comment_id}><CommentCard comment={comment} setDataComments={setDataComments} dataComments={dataComments}/></li>
                             })
                         }
                     </ul>

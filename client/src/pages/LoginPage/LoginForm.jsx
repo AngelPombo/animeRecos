@@ -55,6 +55,7 @@ function LoginForm() {
             type="email"
             name="email"
             placeholder="Nombre de usuario..."
+            maxLength="256"
           ></input>
         </label>
 
@@ -64,6 +65,7 @@ function LoginForm() {
             type="password"
             name="pwd"
             placeholder="Introduce tu contraseña..."
+            maxLength="20"
           ></input>
         </label>
 
