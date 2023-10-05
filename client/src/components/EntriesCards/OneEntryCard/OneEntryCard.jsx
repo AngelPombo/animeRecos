@@ -22,26 +22,26 @@ function OneEntryCard({post}) {
     const {idEntry} = useParams();
 
     let token;
-   
 
 
     if(logged){
         token=window.localStorage.getItem("jwt");
     }
-
-    const {data, error, isLoading} = useEntries(`${import.meta.env.VITE_API_URL}/comments/${idEntry}`, token);
+    
+    const {data, error, isLoading} = useEntries(`${import.meta.env.VITE_API_URL}/comments/${idEntry}`, token, userId);
 
     const [dataComments, setDataComments] = useState([]);
 
-    console.log(post[3][0].votos_entrada)
     let valorInicialVotos;
     if(post[3][0].votos_entrada === null){
         valorInicialVotos = 0
-    }else{valorInicialVotos= post[3][0].votos_entrada}
+    }else{
+        valorInicialVotos = post[3][0].votos_entrada
+    }
 
-    console.log(valorInicialVotos)
 
-    const [votos, setVotos] = useState(valorInicialVotos)
+    const [votos, setVotos] = useState(valorInicialVotos);
+    const [votado, setVotado] = useState(post[5]);
     
 
     useEffect(() => {
@@ -51,7 +51,12 @@ function OneEntryCard({post}) {
     }, [data])
 
     useEffect(() =>{
+        if(!isLoading){
+            let commentsListUl=document.getElementById("comments-list-id");
+            let lastChildList = commentsListUl.lastElementChild;
 
+            commentsListUl.scrollTo(0,(commentsListUl.scrollHeight + lastChildList.offsetHeight));
+        }
     },[dataComments])
     
     //función que maneja el click en el botón delete
@@ -133,9 +138,8 @@ function OneEntryCard({post}) {
                         <footer className='one-entry-footer'>
                             <div>
                                 <p>{votos}</p>
-                      
                                 {
-                                    logged && <VoteButton setVotos={setVotos} liked = {votos}/>
+                                    logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
                                 }
                                 
                                 {
@@ -151,108 +155,133 @@ function OneEntryCard({post}) {
                                     null
                                 }
                             </div>
-                            {post[0][0].edited !== 0 && <p>"Editado"</p>}
+                            {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
                         </footer>
-                    
-
                 </article>
                 <section className="comments-section">
-                        <h5>Comentarios</h5>
-                        <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                        <h5 className="comments-title">Comentarios</h5>
                         <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
+                        <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                 </section>
             </>
-            
-           
-           
         )
     } else if(post[0][0].video_url){
         return(
-            <article>
-                {
-                    logged ?
-                    <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
-                    :
-                    <h4>{post[0][0].user_name}</h4>
-                }
-                {post[0][0].avatar ? <img className="one-entry-avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
-                <div>{post[0][0].user_badge}</div>
-                <h3>{post[0][0].title}</h3>
-                <h5>{post[0][0].create_date}</h5>
-                {post[0][0].edited !== 0 && <p>"Editado"</p>}
-                <p>{post[0][0].content}</p>
-                <ReactPlayer url={post[0][0].video_url}/>
-                <div>
-                    <p>{votos}</p>
-                    {
-                        logged && <VoteButton setVotos={setVotos} liked = {votos}/>
-                    }
-                </div>
-                {/* {post.edited && <p>"Editado"</p>}*/}
-                {
-                    //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
-                    //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
-                    logged && parseInt(userId) === post[0][0].user_id
-                    ?
-                    <div>
-                        <button onClick={handleClick}>Eliminar</button>
-                        <button onClick={handleEdit}>Editar</button>
+            <>
+                <article className='one-entry-card'>
+                    <header className='one-entry-header'>
+                        <section className='one-entry-user-info'>
+                            {post[0][0].avatar ? <img className="one-entry-avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
+                            <div className="one-entry-username-badge">
+                                {
+                                    logged ?
+                                    <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
+                                    :
+                                    <h4>{post[0][0].user_name}</h4>
+                                }
+                                <div className="one-entry-badge">{post[0][0].user_badge}</div>
+                            </div>
+                        </section>
+                        <h5>{new Date(post[0][0].create_date).toLocaleDateString()}</h5>
+                    </header>
+                    <div className='one-entry-title-genre'>
+                        <h3>{post[0][0].title}</h3>
+                        <div className='one-entry-genre'>{post[0][0].category === "recomendaciones" ? "recos": post[0][0].category } - {post[0][0].genre}</div>
                     </div>
-                    :
-                    null
-                }
+                    <div className='one-entry-opening-div'>
+                        <p className='one-entry-content'>{post[0][0].content}</p>
+                        <div>
+                            <ReactPlayer url={post[0][0].video_url}/>
+                        </div>
+                    </div>
+                    <footer className='one-entry-footer'>
+                                <div>
+                                    <p>{votos}</p>
+                                    {
+                                        logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
+                                    }
+                                    
+                                    {
+                                        //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
+                                        //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
+                                        logged && parseInt(userId) === post[0][0].user_id
+                                        ?
+                                        <div>
+                                            <button onClick={handleClick}>Eliminar</button>
+                                            <button onClick={handleEdit}>Editar</button>
+                                        </div>
+                                        :
+                                        null
+                                    }
+                                </div>
+                                {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
+                    </footer>
+                </article>
                 <section className="comments-section">
-                    <h5>Comentarios</h5>
-                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                    <h5 className="comments-title">Comentarios</h5>
                     <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
+                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                 </section>
-            </article>
+            </>
+            
         )
     } else {
         return(
-            <article>
-                {
-                    logged ?
-                    <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
-                    :
-                    <h4>{post[0][0].user_name}</h4>
-                }
-                {post[0][0].avatar ? <img className="one-entry-avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
-                <div>{post[0][0].user_badge}</div>
-                <h3>{post[0][0].title}</h3>
-                <h5>{post[0][0].create_date}</h5>
-                {post[0][0].edited !== 0 && <p>"Editado"</p>}
-                <p>{post[0][0].content}</p>
-                <img 
-                src={`${baseUrl}/photoentries/${post[2][0].name_photo}`} 
-                alt={post[2][0].name_photo} 
-                />
-                <div>
-                    <p>{votos}</p>
-                    {
-                        logged &&  <VoteButton setVotos={setVotos} liked = {votos}/>
-                    }
-
-      
-                </div>
-                {
-                    //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
-                    //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
-                    logged && parseInt(userId) === post[0][0].user_id
-                    ?
-                    <div>
-                        <button onClick={handleClick}>Eliminar</button>
-                        <button onClick={handleEdit}>Editar</button>
+            <>
+                <article className='one-entry-card'>
+                    <header className='one-entry-header'>
+                        <section className='one-entry-user-info'>
+                            {post[0][0].avatar ? <img className="one-entry-avatar" src={`${baseUrl}/avataruser/${post[0][0].avatar}`} alt={post[0][0].user_name}></img> : <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post[0][0].user_name}></img> }
+                            <div className="one-entry-username-badge">
+                                {
+                                    logged ?
+                                    <Link to={`/perfil-usuario/${post[0][0].user_id}`}><h4>{post[0][0].user_name}</h4></Link>
+                                    :
+                                    <h4>{post[0][0].user_name}</h4>
+                                }
+                                <div className="one-entry-badge">{post[0][0].user_badge}</div>
+                            </div>
+                        </section>
+                        <h5>{new Date(post[0][0].create_date).toLocaleDateString()}</h5>
+                    </header>
+                    <div className='one-entry-title-genre'>
+                        <h3>{post[0][0].title}</h3>
+                        <div className='one-entry-genre'>{post[0][0].category === "recomendaciones" ? "recos": post[0][0].category } - {post[0][0].genre}</div>
                     </div>
-                    :
-                    null
-                }
+                    <div className='one-entry-content-image-div'>
+                        <p>{post[0][0].content}</p>
+                        <div className="one-entry-image-div">
+                            <img 
+                                src={`${baseUrl}/photoentries/${post[2][0].name_photo}`} 
+                                alt={post[2][0].name_photo} 
+                            />
+                        </div>
+                    </div>
+                    <footer className='one-entry-footer'>
+                        <div>
+                            <p>{votos}</p>
+                            {
+                                logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
+                            }
+                            
+                            {
+                                logged && parseInt(userId) === post[0][0].user_id &&
+                                <div>
+                                    <button onClick={handleClick}>Eliminar</button>
+                                    <button onClick={handleEdit}>Editar</button>
+                                </div>
+                            }
+                        </div>
+                        {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
+                    </footer>
+                </article>
                 <section className="comments-section">
-                    <h5>Comentarios</h5>
-                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
+                    <h5 className="comments-title">Comentarios</h5>
                     <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
+                    <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                 </section>
-            </article>
+            </>
+            
         )
     }
 }

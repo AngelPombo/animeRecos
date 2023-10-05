@@ -150,19 +150,19 @@ async function createDB() {
 
     console.log(`Si no existía una base de datos con el mismo nombre, se ha creado ${dbName} y sus correspondientes tablas`);
 
-  }catch(e){
+    }catch(e){
 
-    console.log(e);
+        console.log(e);
 
-  }finally{
+    }finally{
 
-    if (connection){
-      connection.release();
+        if (connection){
+            connection.release();
+        }
+
+        process.exit();
+
     }
-
-    process.exit();
-
-  }
 
 }
 

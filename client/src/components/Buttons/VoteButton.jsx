@@ -6,13 +6,11 @@ import { useParams } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 
 
-function VoteButton({ setVotos, liked}) {
+function VoteButton({ setVotos, setVotado, votado}) {
     const {idEntry} = useParams();
     const {logged} = useContext(sessionContext);
     const [error, setError] = useState(null);
-    const [votado, setVotado] = useState(liked)
- 
-    
+    const [click, setClick] = useState("");
 
     let idUser;
     let token;
@@ -24,30 +22,24 @@ function VoteButton({ setVotos, liked}) {
 
     async function handleClick(){
         try{
-          const newValueVote = await voteEntryService(idEntry, idUser, token);
-          setVotado(newValueVote.votado)
-          setVotos(newValueVote.votos_totales)
-          
+            const newValueVote = await voteEntryService(idEntry, idUser, token);
+            setVotado(newValueVote.votado);
+            setVotos(newValueVote.votos_totales_entrada);
+            setClick("activo");
         }catch(e){
             setError(e.message);
         }
     }
-
-    
     
     return (
         <>
-            <button  className="like-btn" onClick={handleClick}> 
-
-                    {
-                    parseInt(votado) ===1 ? <img className='btn-image activo' src={botonPintado} alt="Borrar voto"/>
+            <button  className="like-btn" onClick={handleClick}>
+                {
+                    parseInt(votado) === 1 ? <img className={`btn-image ${click}`} src={botonPintado} alt="Borrar voto"/>
                     :
                     <img className='btn-image' src={botonSinPintar} alt="Votar entrada"/>
-                    }
-     
+                }
             </button>
-            
-            
             {error && <p>{error}</p>}
         </>
     )

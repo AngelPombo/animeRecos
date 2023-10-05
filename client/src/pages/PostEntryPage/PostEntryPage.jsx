@@ -127,11 +127,11 @@ function PostEntryPage() {
                     <ul>
                         <li>
                             <label htmlFor="title">Título:</label>
-                            <input  type="text" name="title" id="title" onChange={handleChange} required />
+                            <input  type="text" name="title" id="title" maxLength="100" onChange={handleChange} required />
                         </li>
                         <li>
                             <label htmlFor="content">Contenido:</label>
-                            <textarea  type="text" name="content" id="content" onChange={handleChange} required/>
+                            <textarea  type="text" name="content" id="content" maxLength="10000" onChange={handleChange} required/>
                         </li>
                         <li>
                             <label htmlFor="category">Categoría:</label>
@@ -165,12 +165,12 @@ function PostEntryPage() {
                         </li>
                         <li>
                             <label htmlFor="anime-character">Personaje:</label>
-                            <input  type="text" name="anime-character" id="anime-character" onChange={handleChange} />
+                            <input  type="text" name="anime-character" id="anime-character" maxLength="100" onChange={handleChange} />
                         </li>
                         {
                             category === "openings" && 
                             <label>Video URL:
-                                <input type="text" name="video" id="video" required onChange={handleChange}></input>
+                                <input type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
                             </label>
                         }
                         {

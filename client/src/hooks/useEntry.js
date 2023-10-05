@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOneEntryService } from "../services";
 
-function useEntry (id){
+function useEntry (id, userId){
     const [post, setPost] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -10,7 +10,7 @@ function useEntry (id){
         async function loadPost (){
             try{
                 setLoading(true);
-                const data = await getOneEntryService(id);
+                const data = await getOneEntryService(id, userId);
 
                 setPost(data);
             }catch(e){

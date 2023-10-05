@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EditCommentForm } from '../../EditCommentForm/EditCommentForm';
 import { deleteCommentService } from '../../../services';
 import { useParams } from 'react-router-dom';
+import "./CommentCard.css";
 
 function CommentCard({comment, setDataComments, dataComments}) {
     const baseUrl = import.meta.env.VITE_API_URL;
@@ -11,6 +12,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
     const [editar, setEditar] = useState(false);
     const [deleteComment, setDeleteComment] = useState(false);
     const [error, setError] = useState(null);
+    let removedDataComments;
 
     function handleClick(){
         setEditar(true);
@@ -22,7 +24,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
         try{
             const {idComment} = await deleteCommentService(idEntry, comment.comment_id, token);
 
-            const removedDataComments = [...dataComments];
+            removedDataComments = [...dataComments];
 
             removedDataComments.forEach((comment) => {
                 if (comment.comment_id === idComment) {
@@ -50,31 +52,40 @@ function CommentCard({comment, setDataComments, dataComments}) {
                     {
                         editar ? <EditCommentForm idComment={comment.comment_id} setEditar={setEditar} setDataComments={setDataComments} dataComments={dataComments}/>
                         :
-                        <article>
-                            {
-                                comment.avatar ?
-                                <img className="avatar-comment" src={`${baseUrl}/avataruser/${comment.avatar}`} alt={comment.user_name}></img>
-                                :
-                                null
-                            }
-                            <h4>{comment.user_name}</h4>
-                            <p>{comment.user_badge}</p>
-                            <p>{comment.comment_date}</p>
-                            <p>{comment.comment_content}</p>
-                            {
-                                parseInt(comment.edited) === 1 && <p>Editado</p>
-                            }
-                            {
-                                parseInt(idUser) === comment.user_id
-                                &&
-                                <>
-                                    <button onClick={handleClick}>Editar</button>
-                                    <button onClick={handleDelete}>Eliminar</button>
-                                    <p>{error === null ? null : error}</p>
-                                </>
-                                
-                            }
-                            
+                        <article className="comment-card">
+                            <header className="comment-card-header">
+                                <div className="user-info-comment-div">
+                                    {
+                                        comment.avatar ?
+                                        <img className="avatar-comment" src={`${baseUrl}/avataruser/${comment.avatar}`} alt={comment.user_name}></img>
+                                        :
+                                        null
+                                    }
+                                    <div className="username-badge-card">
+                                        <h4>{comment.user_name}</h4>
+                                        <div className='user-badge-comment'>{comment.user_badge}</div>
+                                    </div>
+                                </div>
+                                <p>{new Date(comment.comment_date).toLocaleDateString()}</p>
+                            </header>
+                            <p className="comment-content-p">{comment.comment_content}</p>
+                            <footer className="comment-card-footer">
+                                {
+                                    parseInt(idUser) === comment.user_id
+                                    &&
+                                    <>
+                                        <div className="comment-card-footer-div">
+                                            <button className="btn-comment-editar" onClick={handleClick}>Editar</button>
+                                            <button className="btn-comment-borrar" onClick={handleDelete}>Eliminar</button>
+                                        </div>
+                                        <p>{error === null ? null : error}</p>
+                                    </>
+                                    
+                                }
+                                {
+                                    parseInt(comment.edited) === 1 && <p className="edited-comment">Editado</p>
+                                }
+                            </footer>
                         </article>
                     }
                 </>

@@ -1,7 +1,11 @@
 import { json } from "react-router-dom";
 
-async function getOneEntryService (id){
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${id}`);
+async function getOneEntryService (id, userId){
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/entry/${id}`,{
+      headers:{
+        id: userId
+      }
+    });
     const json = await res.json();
 
     if(!res.ok){

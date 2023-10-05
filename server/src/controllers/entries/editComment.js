@@ -35,7 +35,7 @@ async function editComment (req,res) {
         const [editedComment] = await connect.query(
             `
                 UPDATE comments 
-                SET edited = true , content = ?, user_id = ?
+                SET edited = 1 , content = ?, user_id = ?
                 WHERE entry_id = ? AND id=?
             `,
             [comment, idUser, idEntry, idComment] 
@@ -43,7 +43,7 @@ async function editComment (req,res) {
 
         const [newEditedComment] = await connect.query(
             `
-            SELECT c.id AS comment_id, c.comment_date, c.content AS comment_content, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
+            SELECT c.id AS comment_id, c.comment_date, c.content AS comment_content, c.edited, c.banned AS comment_banned, u.id AS user_id, u.user_name, u.avatar, u.user_badge
             FROM comments AS c
             INNER JOIN users AS u ON c.user_id = u.id
             WHERE c.entry_id = ? AND c.id=?

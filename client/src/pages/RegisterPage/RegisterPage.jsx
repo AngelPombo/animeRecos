@@ -36,6 +36,7 @@ export const RegisterPage = () => {
             id="nick"
             name="nick"
             value={nick}
+            maxLength="40"
             required
             onChange={(e) => setNick(e.target.value)}
           />
@@ -47,6 +48,7 @@ export const RegisterPage = () => {
             id="email"
             name="email"
             value={email}
+            maxLength="256"
             required
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -58,6 +60,7 @@ export const RegisterPage = () => {
             id="pwd1"
             name="pwd1"
             value={pwd1}
+            maxLength="20"
             required
             onChange={(e) => setPwd1(e.target.value)}
           />
@@ -69,6 +72,7 @@ export const RegisterPage = () => {
             id="pwd2"
             name="pwd2"
             value={pwd2}
+            maxLength="20"
             required
             onChange={(e) => setPwd2(e.target.value)}
           />
