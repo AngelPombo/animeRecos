@@ -47,10 +47,24 @@
 }
 .one-entry-content{
     text-align: justify;
+    word-wrap: break-word;
 }
 .one-entry-footer{
     display: flex;
     justify-content: space-between;
+    margin: 0;
+}
+
+.one-entry-votes-section{
+    display: flex;
+}
+
+.one-entry-num-votos{
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem 0 1.5rem 0;
+    font-size: smaller;
+    opacity: 70%;
 }
 
 .btn-image{
@@ -96,6 +110,47 @@
     background-color: transparent;
 }
 
+.one-entry-div-btn{
+    display: flex;
+    gap: 1rem;
+}
+
+.one-entry-btn-eliminar{
+    background-color: var(--verde-claro);
+    padding: 0.5rem 1rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    color: var(--crema);
+    max-width: 8em;
+}
+
+.one-entry-btn-eliminar:hover{
+    background-color: #faeed45d;
+    border: 0.05px solid #5d6d2c6c;
+    color: var(--verde-claro);
+}
+
+.one-entry-btn-editar{
+    background-color: var(--verde-claro);
+    padding: 0.5rem 1.5rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    color: var(--crema);
+    max-width: 8em;
+}
+
+.one-entry-btn-editar:hover{
+    background-color: #faeed45d;
+    border: 0.05px solid #5d6d2c6c;
+    color: var(--verde-claro);
+}
+
+.edited-date{
+    font-size: smaller;
+    opacity: 30%;
+    padding-top: 5rem;
+}
+
 .comments-section{
     display: flex;
     flex-direction: column;
@@ -114,8 +169,9 @@
 }
 
 .comment-content-area{
-    width: 50%;
-    min-width: 50%;
+    width: 80vw;
+    min-width: 15rem;
+    max-width: 50rem;
     resize: none;
     background-color: #712c271a;
     border: 1px solid transparent;
@@ -132,6 +188,14 @@
     background-color: #712c272d;
     border: 1px solid #712c2759;
     color: #712c27de;
+}
+
+.btn-comment-div{
+    display: flex;
+    justify-content: right;
+    width: 80vw;
+    min-width: 15rem;
+    max-width: 50rem;
 }
 
 .btn-comment{

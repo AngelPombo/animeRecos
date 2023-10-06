@@ -137,25 +137,27 @@ function OneEntryCard({post}) {
                         <p className='one-entry-content'>{post[0][0].content}</p>
                         <footer className='one-entry-footer'>
                             <div>
-                                <p>{votos}</p>
-                                {
-                                    logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
-                                }
+                                <section className="one-entry-votes-section">
+                                    {
+                                        logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
+                                    }
+                                    <p className="one-entry-num-votos">{votos} votos</p>
+                                </section>
                                 
                                 {
                                     //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                                     //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                                     logged && parseInt(userId) === post[0][0].user_id
                                     ?
-                                    <div>
-                                        <button onClick={handleClick}>Eliminar</button>
-                                        <button onClick={handleEdit}>Editar</button>
+                                    <div className="one-entry-div-btn">
+                                        <button className="one-entry-btn-eliminar" onClick={handleClick}>Eliminar</button>
+                                        <button className="one-entry-btn-editar" onClick={handleEdit}>Editar</button>
                                     </div>
                                     :
                                     null
                                 }
                             </div>
-                            {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
+                            {post[0][0].edited !== 0 && <p className="edited-date">{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
                         </footer>
                 </article>
                 <section className="comments-section">
@@ -196,25 +198,27 @@ function OneEntryCard({post}) {
                     </div>
                     <footer className='one-entry-footer'>
                                 <div>
-                                    <p>{votos}</p>
-                                    {
-                                        logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
-                                    }
+                                    <section className="one-entry-votes-section">
+                                        {
+                                            logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
+                                        }
+                                        <p className="one-entry-num-votos">{votos} votos</p>
+                                    </section>
                                     
                                     {
                                         //Lógica para que los botones eliminar y editar salgan en la publicación ampliada
                                         //Sólo si estás logueado y tu id coincide con el id del user que publicó la entrada
                                         logged && parseInt(userId) === post[0][0].user_id
                                         ?
-                                        <div>
-                                            <button onClick={handleClick}>Eliminar</button>
-                                            <button onClick={handleEdit}>Editar</button>
+                                        <div className="one-entry-div-btn">
+                                            <button className="one-entry-btn-eliminar" onClick={handleClick}>Eliminar</button>
+                                            <button className="one-entry-btn-editar" onClick={handleEdit}>Editar</button>
                                         </div>
                                         :
                                         null
                                     }
                                 </div>
-                                {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
+                                {post[0][0].edited !== 0 && <p className="edited-date">{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
                     </footer>
                 </article>
                 <section className="comments-section">
@@ -259,20 +263,21 @@ function OneEntryCard({post}) {
                     </div>
                     <footer className='one-entry-footer'>
                         <div>
-                            <p>{votos}</p>
-                            {
-                                logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
-                            }
-                            
+                            <section className="one-entry-votes-section">
+                                {
+                                    logged && <VoteButton setVotos={setVotos} setVotado={setVotado} votado={votado} />
+                                }
+                                <p className="one-entry-num-votos">{votos} votos</p>
+                            </section>
                             {
                                 logged && parseInt(userId) === post[0][0].user_id &&
-                                <div>
-                                    <button onClick={handleClick}>Eliminar</button>
-                                    <button onClick={handleEdit}>Editar</button>
+                                <div className="one-entry-div-btn">
+                                    <button className="one-entry-btn-eliminar" onClick={handleClick}>Eliminar</button>
+                                    <button className="one-entry-btn-editar" onClick={handleEdit}>Editar</button>
                                 </div>
                             }
                         </div>
-                        {post[0][0].edited !== 0 && <p>{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
+                        {post[0][0].edited !== 0 && <p className="edited-date">{`Editada: ${new Date(post[0][0].last_update).toLocaleDateString()}`}</p>}
                     </footer>
                 </article>
                 <section className="comments-section">
