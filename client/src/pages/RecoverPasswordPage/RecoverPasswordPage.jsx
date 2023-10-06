@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { recoverPasswordService } from '../../services';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./RecoverPasswordPage.css";
 
 function RecoverPasswordPage () {
 
@@ -38,16 +39,20 @@ function RecoverPasswordPage () {
     }
 
     return (
-        <section>
-            <h2>Recuperación de contraseña</h2>
-            <p>Introduce a continuación el email con el que has registrado tu cuenta y enviaremos el código de recuperación</p>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor='email'>Email</label>
-                <input name="email" id="email" type='email' placeholder='tuemail@ejemplo.com'></input>
-                {error ? <p>{error}</p> : null}
-                <button type='submit'>Enviar</button>
-            </form>
-        </section>
+        <main>
+            <section className='recover-password-section'>
+                <h2>Recuperación de contraseña</h2>
+                <p>Introduce a continuación el email con el que has registrado tu cuenta y enviaremos el código de recuperación</p>
+                <form className="recover-password-form" onSubmit={handleSubmit}>
+                    <label className='recover-password-label' htmlFor='email'>Email</label>
+                    <input className="recover-password-input" name="email" id="email" type='email' placeholder='tuemail@ejemplo.com' maxLength="256"></input>
+                    {error ? <p>{error}</p> : null}
+                    <div>
+                        <button className='recover-password-btn' type='submit'>Enviar</button>
+                    </div>
+                </form>
+            </section>
+        </main>
     );
 }
 

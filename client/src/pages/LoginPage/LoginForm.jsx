@@ -41,42 +41,48 @@ function LoginForm() {
         timestamp: new Date().getTime(),
       });
       navigateTo("/")
-    } else setFeedbackMsg("Error al autenticarte");
+    } else setFeedbackMsg("Usuario y/o contraseña incorrectas");
   }
 
   if (logged) return <h2>{feedbackMsg}</h2>;
 
   return (
-    <>
-      <form onSubmit={handleAuthUser}>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="Nombre de usuario..."
-            maxLength="256"
-          ></input>
-        </label>
-
-        <label>
-          Contraseña
-          <input
-            type="password"
-            name="pwd"
-            placeholder="Introduce tu contraseña..."
-            maxLength="20"
-          ></input>
-        </label>
-
-        <button type="submit">Login</button>
-        <button type="reset">Cancelar</button>
-        {feedbackMsg ? <small>{feedbackMsg}</small> : <></>}
-      </form>
-      <Link to='/recuperar-password'>¿Has olvidado tu contraseña?</Link>
-      <p>¿Todavía no tienes cuenta?</p>
-      <Link to="/registro">Regístrate aquí</Link>
-    </>
+      <div className="login-main-div">
+        <form className="login-form" onSubmit={handleAuthUser}>
+          <div className="label-input-div">
+            <label className="login-form-label" htmlFor="email">
+              Email
+            </label>
+            <input className="login-form-input"
+                type="email"
+                name="email"
+                placeholder="Nombre de usuario..."
+                maxLength="256"
+            ></input>
+          </div>
+          <div className="label-input-div">
+            <label className="login-form-label">
+              Contraseña   
+            </label>
+            <input className="login-form-input"
+                type="password"
+                name="pwd"
+                placeholder="Introduce tu contraseña..."
+                maxLength="20"
+            ></input>
+            <small><Link to='/recuperar-password' className="recuperar-password-hover">¿Has olvidado tu contraseña?</Link></small>
+          </div>
+          <div className="div-buttons">
+            <button className="login-btn" type="submit">Login</button>
+            <button  className= "login-btn" type="reset">Borrar</button>
+            {feedbackMsg ? <small>{feedbackMsg}</small> : <></>}
+          </div>
+        </form>
+        <div className="register-div">
+          <p>¿Todavía no tienes cuenta?</p>
+          <Link to="/registro" className="recuperar-password-hover">Regístrate aquí</Link>
+        </div>
+      </div>
   );
 }
 

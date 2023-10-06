@@ -3,6 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { useEntries } from '../../hooks/useEntries';
 import { NovedadesCard } from '../EntriesCards/NovedadesCard/NovedadesCard';
+import "./UserProfile.css"
+import imgTwitterLogo from "/twitterSvgIcon.svg"
+import imgYoutubeLogo from "/youtubeSvgIcon.svg"
+import imgTwitchLogo from "/ttvSvgIcon.svg"
+import imgInstagramLogo from "/instaSvgIcon.svg"
 
 
 function UserProfile ({user}) {
@@ -35,68 +40,84 @@ function UserProfile ({user}) {
 
     return (
         <article className='user-profile'>
-            {
-                currentId === id
-                ?
-                <div>
-                    <button onClick={handleEditProfile}>Editar perfil</button>
-                    <button onClick={handleDeleteUser}>Eliminar cuenta</button>
-                </div>
-                :
-                null
-            }
-            <h3>{user[0].user_name}</h3>
-            <p>{user[0].user_badge}</p>
-            <img src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
-            <p>Miembro desde: {user[0].created_date}</p>
-            <h4>Biografía</h4>
-            <p>{user[0].biography}</p>
-            {
-                user[0].link_twitter ?
-                <a href={user[0].link_twitter} target='_blank'><img src='https://graffica.ams3.digitaloceanspaces.com/2023/07/rQYXqS5v-F1ySdm9WYAIbjHo-1024x1024.jpeg' alt='Link twitter' className='logo-link'/></a>
-                :
-                null
-            }
-            {
-                user[0].link_youtube ?
-                <a href={user[0].link_youtube} target='_blank'><img src='https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png' className='logo-link' alt='Link Youtube'/></a>
-                :
-                null
-            }
-            {
-                user[0].link_ttv ?
-                <a href={user[0].link_ttv} target='_blank'><img src='https://assets.stickpng.com/images/580b57fcd9996e24bc43c540.png' className='logo-link' alt='Link Twitch'/></a>
-                :
-                null
-            }
-            {
-                user[0].link_insta ?
-                <a href={user[0].link_insta} target='_blank'><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png' alt='Link Instagram' className='logo-link'/></a>
-                :
-                null
-            }
-            <h4>Últimas publicaciones</h4>
-            {
-                isLoading ?
-                (
-                    <div>Cargando...</div>
-                )
-                :(
-                    <section className='section-entradas-perfil'>
+            <header className='user-profile-header'>
+                <div className='user-profile-body'>
+                    <div className='user-profile-info-btns'>
+                        <img className='user-avatar' src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                        <h2>{user[0].user_name}</h2>
+                        <p>{user[0].user_badge}</p>
                         {
-                            dataPosts
-                            ?
-                            <ul className='lista-entradas-perfil'>
-                            {dataPosts.map((post) => {
-                            return <li key={post.id}><NovedadesCard post={post}/></li>
-                            })}
-                            </ul>
+                        currentId === id
+                        ?
+                            <div className='user-profile-btn-div'>
+                                <button className='user-profile-btn' onClick={handleEditProfile}>Editar perfil</button>
+                                <button className='user-profile-btn' onClick={handleDeleteUser}>Eliminar cuenta</button>
+                            </div>
+                        :
+                        null
+                        }
+                    </div>
+                    <section className='user-rrss-section'>
+                        {
+                            user[0].link_twitter ?
+                            <a href={`https://${user[0].link_twitter}`} target='_blank'><img src={imgTwitterLogo} alt='Link twitter' className='logo-link'/></a>
                             :
-                            <p>¡Todavía no hay publicaciones!</p>
+                            null
+                        }
+                        {
+                            user[0].link_youtube ?
+                            <a href={`https://${user[0].link_youtube}`} target='_blank'><img src={imgYoutubeLogo} className='logo-link' alt='Link Youtube'/></a>
+                            :
+                            null
+                        }
+                        {
+                            user[0].link_ttv ?
+                            <a href={`https://${user[0].link_ttv}`} target='_blank'><img src={imgTwitchLogo} className='logo-link' alt='Link Twitch'/></a>
+                            :
+                            null
+                        }
+                        {
+                            user[0].link_insta ?
+                            <a href={`https://${user[0].link_insta}`} target='_blank'><img src={imgInstagramLogo} alt='Link Instagram' className='logo-link'/></a>
+                            :
+                            null
                         }
                     </section>
-                )
-            }
+                </div>
+                <section className='user-bio-section'>
+                    <div className='user-bio-header'>
+                        <h3>Biografía</h3>
+                        <p>Miembro desde {new Date(user[0].created_date).toLocaleDateString()}</p>
+                    </div>
+                    <p className='user-bio-bio'>{user[0].biography}</p>
+                </section>  
+            </header>
+            <section className='user-profile-section'>
+                <h3>Publicaciones</h3>
+                <div className='user-profile-section-div'>       
+                    {
+                        isLoading ?
+                        (
+                            <div>Cargando...</div>
+                        )
+                        :(
+                            <section className='section-entradas-perfil'>
+                                {
+                                    dataPosts
+                                    ?
+                                    <ul className='lista-entradas-perfil'>
+                                    {dataPosts.map((post) => {
+                                    return <li key={post.id}><NovedadesCard post={post}/></li>
+                                    })}
+                                    </ul>
+                                    :
+                                    <p>¡Todavía no hay publicaciones!</p>
+                                }
+                            </section>
+                        )
+                    }
+                </div>
+            </section>
         </article>
     );
 }

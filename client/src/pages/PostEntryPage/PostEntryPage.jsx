@@ -121,21 +121,17 @@ function PostEntryPage() {
     }
     
     return (
-        <section className="post-entry-page">
-            <form ref={formRef} onSubmit={handleSubmit}>
-                <fieldset>
-                    <ul>
-                        <li>
-                            <label htmlFor="title">Título:</label>
-                            <input  type="text" name="title" id="title" maxLength="100" onChange={handleChange} required />
+        <section className="edit-entry-page">
+            <form ref={formRef} onSubmit={handleSubmit} className="edit-entry-form">
+                <fieldset className="edit-entry-fieldset">
+                    <ul className="edit-entry-ul">
+                        <li className="container-label-input">
+                            <label className="edit-entry-label" htmlFor="title">Título</label>
+                            <input className="input-title"  type="text" name="title" id="title" maxLength="100" onChange={handleChange} required />
                         </li>
-                        <li>
-                            <label htmlFor="content">Contenido:</label>
-                            <textarea  type="text" name="content" id="content" maxLength="10000" onChange={handleChange} required/>
-                        </li>
-                        <li>
-                            <label htmlFor="category">Categoría:</label>
-                            <select  name="category" id="category" onChange={handleChange} required>
+                        <li className="container-label-input">
+                            <label className="edit-entry-label" htmlFor="category">Categoría</label>
+                            <select  className="select-category" name="category" id="category" onChange={handleChange} required>
                                 <option value="recomendaciones">Recos</option>
                                 <option value="teorias">Teorías</option>
                                 <option value="fanArt">FanArts</option>
@@ -144,9 +140,9 @@ function PostEntryPage() {
                                 <option value="memes">Memes</option>
                             </select>
                         </li>
-                        <li>
-                        <label htmlFor="genre">Género:</label>
-                            <select  name="genre" id="genre" onChange={handleChange} required >
+                        <li className="container-label-input">
+                        <label className="edit-entry-label" htmlFor="genre">Género</label>
+                            <select className="select-genre" name="genre" id="genre" onChange={handleChange} required >
                                 <option value="accion">Acción</option>
                                 <option value="aventura">Aventura</option>
                                 <option value="deportes">Deporte</option>
@@ -163,92 +159,101 @@ function PostEntryPage() {
                                 <option value="infantil">Infantil</option>
                             </select>
                         </li>
-                        <li>
-                            <label htmlFor="anime-character">Personaje:</label>
-                            <input  type="text" name="anime-character" id="anime-character" maxLength="100" onChange={handleChange} />
+                        <li className="container-label-input">
+                            <label htmlFor="anime-character" className="edit-entry-label">Personaje <small>(opcional)</small></label>
+                            <input className="input-character" type="text" name="anime-character" id="anime-character" maxLength="100" onChange={handleChange} />
                         </li>
+                        <li className="container-label-input">
+                            <label htmlFor="content" className="edit-entry-label">Contenido</label>
+                            <textarea className="edit-entry-textarea" type="text" name="content" id="content" maxLength="10000" cols="100" rows="15" onChange={handleChange} required/>
+                        </li>
+                        
                         {
                             category === "openings" && 
-                            <label>Video URL:
+                            <label>Video URL
                                 <input type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
                             </label>
                         }
                         {
                             category !== "openings" &&
-                            <>
-                                <label className="upload-img-1">
-                                <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
-                                    {
-                                        !img ? (
-                                            <figure>
-                                                <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                                <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                            </figure>
-                                        ) : (
-                                            <figure>
-                                                <img
-                                                    src={imgPreview}
-                                                    alt="Previsualización"
-                                                    onClick={handleDeleteImage}
-                                                />
-                                                <figcaption>Previsualización</figcaption>
-                                            </figure>
-                                        )
-                                    }
-                                </label>
-                
-                                {
-                                    img && <label className="upload-img-2">
-                                        <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
+                            <section className="section-select-photos">
+                                <h4 className="edit-entry-label">Fotos <small>(opcional)</small></h4>
+                                <ul className="ul-select-photos">
+                                    <label className="upload-img-1">
+                                    <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
                                         {
-                                            !img2 ? (
+                                            !img ? (
                                                 <figure>
-                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                                    <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                    <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                 </figure>
                                             ) : (
                                                 <figure>
-                                                    <img
-                                                        src={imgPreview2}
+                                                    <img className='preview-img'
+                                                        src={imgPreview}
                                                         alt="Previsualización"
                                                         onClick={handleDeleteImage}
                                                     />
-                                                    <figcaption>Previsualización</figcaption>
+                                                    <figcaption className="figcaption">Previsualización</figcaption>
                                                 </figure>
                                             )
                                         }
                                     </label>
-                                }
-                
-                                {
-                                    img2 && <label className="upload-img-3">
-                                        <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                    
+                                    {
+                                        img && <label className="upload-img-2">
+                                            <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
                                             {
-                                                !img3 ? (
+                                                !img2 ? (
                                                     <figure>
-                                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                                        <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                        <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                     </figure>
                                                 ) : (
                                                     <figure>
-                                                        <img
-                                                            src={imgPreview3}
+                                                        <img className='preview-img'
+                                                            src={imgPreview2}
                                                             alt="Previsualización"
                                                             onClick={handleDeleteImage}
                                                         />
-                                                        <figcaption>Previsualización</figcaption>
+                                                        <figcaption className="figcaption">Previsualización</figcaption>
                                                     </figure>
                                                 )
                                             }
-                                    </label>
-                                }
-                            </>
+                                        </label>
+                                    }
+                    
+                                    {
+                                        img2 && <label className="upload-img-3">
+                                            <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
+                                                {
+                                                    !img3 ? (
+                                                        <figure>
+                                                            <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                            <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
+                                                        </figure>
+                                                    ) : (
+                                                        <figure>
+                                                            <img className='preview-img'
+                                                                src={imgPreview3}
+                                                                alt="Previsualización"
+                                                                onClick={handleDeleteImage}
+                                                            />
+                                                            <figcaption className="figcaption">Previsualización</figcaption>
+                                                        </figure>
+                                                    )
+                                                }
+                                        </label>
+                                    }
+                                </ul>
+                            </section>
                         }
                     </ul>
                 </fieldset>
                 {postError ? <p>{postError}</p> : null}
-        
-                <button>Publicar</button>
+                <div className="edit-entry-btn-div">
+                    <button className="edit-entry-btn">Publicar</button>
+                </div>
             </form>
         </section>
     )

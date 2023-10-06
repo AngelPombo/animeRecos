@@ -26,25 +26,24 @@ function FilterCategoriesByGenre() {
     }
 
     return (
-        <section className='section-filter'>
-            {
-                dataPosts ?
-                <ul className='list-filter'>
-                    {dataPosts.map((post) => {
-                        return <li key={post.id}>
-                            <NovedadesCard post={post}/>
-                        </li>
-                    })}
-                </ul>
-                :
-                <>
-                    <h2>{category.toUpperCase()}</h2>
-                    <h3>{genre.toUpperCase()}</h3>
-                    <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
-                </>
-            }
-            
-        </section>
+            <section className='section-filter'>
+                {
+                    dataPosts ?
+                    <ul className='list-filter'>
+                        {dataPosts.map((post) => {
+                            return <li key={post.id}>
+                                <NovedadesCard post={post}/>
+                            </li>
+                        })}
+                    </ul>
+                    :
+                    <>
+                        <h2>{category.toUpperCase()}</h2>
+                        <h3>{genre.toUpperCase()}</h3>
+                        <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+                    </>
+                }
+            </section>
     )
 }
 

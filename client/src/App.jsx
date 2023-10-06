@@ -29,31 +29,33 @@ function App() {
   return (
       <div className="app">
           <Header />
-          <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/registro" element={<RegisterPage/>} />
-                <Route path='/validar' element= {<RegisterValidate/>}/>
-                <Route path="/login" element={<LoginForm/>} />
-                <Route path='/editar-perfil/:id' element= {<EditProfileForm/>}/>
-                <Route path='/perfil-usuario/:id' element={<UserPage/>}/> 
-                <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>
-                <Route path='/memes'element={<SelectGenrePage category="memes"/>}/>
-                <Route path='/teorias'element={<SelectGenrePage category="teorias"/>}/>
-                <Route path='/cosplays'element={<SelectGenrePage category="cosplays"/>}/>
-                <Route path='/openings'element={<SelectGenrePage category="openings"/>}/>
-                <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
-                <Route path='/novedades' element={<NovedadesPage />}/>
-                <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
-                <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
-                <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
-                <Route path='/crear-entrada' element= {<PostEntryPage/>}/>
-                <Route path='/editar-entrada/:id' element={<EditEntryPage/>}/>
-                <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
-                <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
-                <Route path='/cambiar-password/:id' element={<ChangePasswordPage/>}/>
-                <Route path='/users/:id' element={<DeleteUserPage/>} />
-                <Route path="*" element={<NotFound/>} />
-          </Routes> 
+          <main>
+            <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/registro" element={<RegisterPage/>} />
+                  <Route path='/validar' element= {<RegisterValidate/>}/>
+                  <Route path="/login" element={<LoginForm/>} />
+                  <Route path='/editar-perfil/:id' element= {<EditProfileForm/>}/>
+                  <Route path='/perfil-usuario/:id' element={<UserPage/>}/> 
+                  <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>
+                  <Route path='/memes'element={<SelectGenrePage category="memes"/>}/>
+                  <Route path='/teorias'element={<SelectGenrePage category="teorias"/>}/>
+                  <Route path='/cosplays'element={<SelectGenrePage category="cosplays"/>}/>
+                  <Route path='/openings'element={<SelectGenrePage category="openings"/>}/>
+                  <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
+                  <Route path='/novedades' element={<NovedadesPage />}/>
+                  <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
+                  <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
+                  <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
+                  <Route path='/crear-entrada' element= {<PostEntryPage/>}/>
+                  <Route path='/editar-entrada/:id' element={<EditEntryPage/>}/>
+                  <Route path='/recuperar-password' element= {<RecoverPasswordPage />} />
+                  <Route path='/nueva-password' element={<NewPasswordWithCode/>}/>
+                  <Route path='/cambiar-password/:id' element={<ChangePasswordPage/>}/>
+                  <Route path='/users/:id' element={<DeleteUserPage/>} />
+                  <Route path="*" element={<NotFound/>} />
+            </Routes> 
+          </main>
           <Footer />
       </div>
   );

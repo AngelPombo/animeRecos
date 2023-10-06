@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { deleteUserService } from '../../services';
 import sessionContext from '../../context/sessionContext';
+import "./DeleteUserPage.css";
 
 function DeleteUserPage() {
     const navigateTo = useNavigate();
@@ -48,12 +49,14 @@ function DeleteUserPage() {
     }
 
     return (
-        <section>
-            <h4>¿Quieres eliminar tu cuenta?</h4>
-            <button onClick={handleDelete}>Sí</button>
-            <button onClick={handleBack}>No, volver al perfil</button>
-            {error ? <p>{error}</p> : null}
-        </section>
+            <section className='delete-user-section'>
+                <h2>¿Estás segurx de que quieres eliminar tu cuenta?</h2>
+                <div>
+                    <button className='delete-user-btn' onClick={handleDelete}>Sí, estoy segurx</button>
+                    <button className='delete-user-btn' onClick={handleBack}>No, volver al perfil</button>
+                </div>
+                {error ? <p>{error}</p> : null}
+            </section>
     )
 }
 

@@ -25,13 +25,13 @@ function NovedadesPage() {
                     
                 )
                 :(
-                <section className='section-novedades-page'> 
-                    <ul className='novedades-page'>
-                    {dataPosts.map((post) => {
-                    return <li  key={post.id}><NovedadesCard post={post}/></li>
-                    })}
-                    </ul>
-                </section>
+                    <section className='section-novedades-page'> 
+                        <ul className='novedades-page'>
+                        {dataPosts.map((post) => {
+                        return <li  key={post.id}><NovedadesCard post={post}/></li>
+                        })}
+                        </ul>
+                    </section>
                 )
     );
 }

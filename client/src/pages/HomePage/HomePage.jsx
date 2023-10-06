@@ -15,7 +15,7 @@ function HomePage() {
     const baseUrl = import.meta.env.VITE_API_URL;
 
     return (
-        <main className="home-page">
+        <div className="home-page">
             <section className='column1'>
                 <LastMemesList endpoint={`${baseUrl}/entries/memes`}/>
                 <LastFanartList endpoint={`${baseUrl}/entries/fanArt`}/>
@@ -28,7 +28,7 @@ function HomePage() {
                 <LastOpeningsList endpoint={`${baseUrl}/entries/openings`}/>
                 <LastTeoriasList endpoint={`${baseUrl}/entries/teorias`} />
             </section>
-        </main>
+        </div>
     )
 }
 
