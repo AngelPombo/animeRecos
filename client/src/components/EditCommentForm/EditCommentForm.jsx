@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import sessionContext from '../../context/sessionContext';
 import { editCommentService } from '../../services';
 import { useParams } from 'react-router';
+import "./EditCommentForm.css";
 
-function EditCommentForm ({idComment, setEditar, setDataComments, dataComments}) {
+function EditCommentForm ({idComment, setEditar, setDataComments, dataComments, contentEdit, setContentEdit}) {
 
     const {logged} = useContext(sessionContext);
-    const [content, setContent] = useState("");
     const [error, setError] = useState(null);
     const {idEntry} = useParams();
 
@@ -15,7 +15,7 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments})
         const value = e.target.value
 
         if (name === 'commentContent'){
-          setContent(value)
+          setContentEdit(value)
         
       }
     }
@@ -33,7 +33,7 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments})
 
             setError(null);
 
-          infoEditedComment = await editCommentService(idEntry, idComment, content, token);
+          infoEditedComment = await editCommentService(idEntry, idComment, contentEdit, token);
             
         }catch(e){
             setError(e.message);
@@ -51,12 +51,12 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments})
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-              <textarea name="commentContent" id="commentContent" cols="30" rows="10" onChange={handleChange}></textarea>
+        <form onSubmit={handleSubmit} className="edit-comment-form">
+            <label className="edit-comment-label">
+              <textarea className="edit-comment-textarea" name="commentContent" id="commentContent" cols="50" rows="5" maxLength="5000" onChange={handleChange} defaultValue={contentEdit}></textarea>
             </label>
             {error ? <p>{error}</p> : null}
-            <button type='submit'> Editar comentario </button>
+            <button className="edit-comment-button" type='submit'> Publicar </button>
     
         </form>
       )

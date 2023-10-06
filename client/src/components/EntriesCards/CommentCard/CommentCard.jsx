@@ -12,6 +12,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
     const [editar, setEditar] = useState(false);
     const [deleteComment, setDeleteComment] = useState(false);
     const [error, setError] = useState(null);
+    const [contentEdit, setContentEdit] = useState(comment.content);
     let removedDataComments;
 
     function handleClick(){
@@ -50,7 +51,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
                 :
                 <>
                     {
-                        editar ? <EditCommentForm idComment={comment.comment_id} setEditar={setEditar} setDataComments={setDataComments} dataComments={dataComments}/>
+                        editar ? <EditCommentForm idComment={comment.comment_id} setEditar={setEditar} setDataComments={setDataComments} dataComments={dataComments} contentEdit={contentEdit} setContentEdit={setContentEdit}/>
                         :
                         <article className="comment-card">
                             <header className="comment-card-header">

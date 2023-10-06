@@ -65,7 +65,10 @@ function CommentForm({setDataComments, dataComments}) {
           <textarea className="comment-content-area" name="commentContent" id="commentContent" cols="100" rows="10" maxLength="5000" onChange={handleChange}></textarea>
         </label>
         {error ? <p>{error}</p> : null}
-        <button className="btn-comment" type='submit'> Comentar </button>
+        <div className="btn-comment-div">
+          <button className="btn-comment" type='submit'> Comentar </button>
+        </div>
+        
       </form>
       }
     </>

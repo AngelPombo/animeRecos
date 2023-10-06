@@ -1,0 +1,42 @@
+.edit-comment-form{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-bottom: 1px solid #712c2734;
+    width: 90%;
+}
+
+.edit-comment-textarea{
+    resize: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9em;
+    text-align: justify;
+    color: var(--marron-oscuro);
+    padding: 2.5rem 2rem 2rem 2rem;
+    width: 100%;
+    background-color: #712c271a;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    outline: 0px none transparent;
+}
+
+.edit-comment-textarea:focus{
+    background-color: #712c272d;
+    border: 1px solid #712c2759;
+    color: #712c27de;
+}
+
+.edit-comment-button{
+    max-width: 5rem;
+    text-align: center;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    background-color: #712c27c9;
+    color: var(--crema);
+    font-size: smaller;
+    max-width: 5em;
+    padding: 0.5rem;
+}
+/* edit-comment-label
+edit-comment-textarea
+edit-comment-button */
