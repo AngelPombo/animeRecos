@@ -14,7 +14,7 @@ function OneEntryPage() {
     if(error) return <p>Error</p>;
 
     return (
-        <OneEntryCard post={post}/>
+            <OneEntryCard post={post}/>
     )
 }
 

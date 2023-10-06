@@ -35,24 +35,24 @@ function NewPasswordWithCode() {
     }
     
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <ul>
-                        <li>
-                            <label htmlFor="regcode">Código de recuperación:</label>
-                            <input type="text" name="regcode" id="regcode" placeholder='Copia y pega aquí el código enviado a tu correo...'/>
-                        </li>
-                        <li>
-                            <label htmlFor="newpwd">Nueva contraseña:</label>
-                            <input type="password" name="newpwd" id="newpwd" placeholder='Nueva constraseña...'/>
-                        </li>
-                    </ul>
-                    {error ? <p>{error}</p> : null}
-                </fieldset>
-                <button type="submit">Enviar</button>
-            </form>
-        </section>
+            <section>
+                <form onSubmit={handleSubmit}>
+                    <fieldset>
+                        <ul>
+                            <li>
+                                <label htmlFor="regcode">Código de recuperación:</label>
+                                <input type="text" name="regcode" id="regcode" placeholder='Copia y pega aquí el código enviado a tu correo...'/>
+                            </li>
+                            <li>
+                                <label htmlFor="newpwd">Nueva contraseña:</label>
+                                <input type="password" name="newpwd" id="newpwd" placeholder='Nueva constraseña...'/>
+                            </li>
+                        </ul>
+                        {error ? <p>{error}</p> : null}
+                    </fieldset>
+                    <button type="submit">Enviar</button>
+                </form>
+            </section>
     )
 }
 
