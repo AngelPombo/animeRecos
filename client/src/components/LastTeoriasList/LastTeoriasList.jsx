@@ -20,7 +20,7 @@ function LastTeoriasList({endpoint}) {
         return(
         <section>
             <h2>Teorías</h2>
-            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+            <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )
@@ -35,7 +35,7 @@ function LastTeoriasList({endpoint}) {
                 <section className='section-teorias-list'>
                     <h2>Teorias</h2>
                     <ul className='recos-list'>
-                    {dataPosts.slice(0,5).map((post) => {
+                    {dataPosts.slice(0,6).map((post) => {
                     return <li key={post.id}><TeoriasCard post={post}/></li>
                     })}
                     </ul>

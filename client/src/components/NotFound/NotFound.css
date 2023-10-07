@@ -1,0 +1,12 @@
+.not-found-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.not-found-img{
+    min-width:  600px;
+    min-height: 600px;
+    filter: drop-shadow(2px 2px 5px grey);
+}

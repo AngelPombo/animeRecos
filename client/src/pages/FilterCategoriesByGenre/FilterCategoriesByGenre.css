@@ -7,4 +7,17 @@
     gap: 1.5rem;
     padding: 2rem;
     
-    }
+}
+
+.sin-entradas-by-genre-section{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 4rem;
+}
+
+.sin-entradas-by-genre-section>h2{
+    border-bottom: 1px solid var(--marron-oscuro);
+    margin-bottom: 1.5rem;
+    padding: 0.3rem;
+}

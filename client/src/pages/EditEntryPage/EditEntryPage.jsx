@@ -3,12 +3,15 @@ import {addPhotoService, deletePhotoService, editEntryService} from '../../servi
 import { useNavigate, useParams } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 import "./EditEntryPage.css";
-import { useEntry } from '../../hooks/useEntry';
+import uploadIcon from "/upload.svg"
+
 
 function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
     const { logged } = useContext(sessionContext);
     const [editError, setEditError] = useState(null);
     const [editedEntry, setEditedEntry] = useState(false);
+
+    /*fallo de subir y guardar fotos aqui? */
     const [img, setImg] = useState();
     const [img2, setImg2] = useState();
     const [img3, setImg3] = useState();
@@ -234,31 +237,31 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                     <li className="container-label-input">
                                         <label htmlFor="category" className="edit-entry-label">Categoría</label>
                                         <select className="select-category" name="category" id="category" onChange={handleChange} required defaultValue={category}>
-                                            <option value="recomendaciones">Recos</option>
-                                            <option value="teorias">Teorías</option>
-                                            <option value="fanArt">FanArts</option>
-                                            <option value="openings">Openings</option>
-                                            <option value="cosplays">Cosplays</option>
-                                            <option value="memes">Memes</option>
+                                            <option value="Recomendaciones">Recos</option>
+                                            <option value="Teorias">Teorías</option>
+                                            <option value="FanArt">FanArts</option>
+                                            <option value="Openings">Openings</option>
+                                            <option value="Cosplays">Cosplays</option>
+                                            <option value="Memes">Memes</option>
                                         </select>
                                     </li>
                                     <li className="container-label-input">
                                     <label htmlFor="genre" className="edit-entry-label">Género</label>
                                         <select className="select-genre" name="genre" id="genre" onChange={handleChange} required defaultValue={genre}>
-                                            <option value="accion">Acción</option>
-                                            <option value="aventura">Aventura</option>
-                                            <option value="deportes">Deporte</option>
-                                            <option value="comedia">Comedia</option>
-                                            <option value="drama">Drama</option>
-                                            <option value="fantasia">Fantasía</option>
-                                            <option value="musical">Musical</option>
-                                            <option value="romance">Romance</option>
-                                            <option value="ciencia-ficcion">Ciencia-ficción</option>
-                                            <option value="sobrenatural">Sobrenatural</option>
-                                            <option value="thriller">Thriller</option>
-                                            <option value="terror">Terror</option>
-                                            <option value="psicologico">Psicológico</option>
-                                            <option value="infantil">Infantil</option>
+                                            <option value="Acción">Acción</option>
+                                            <option value="Aventura">Aventura</option>
+                                            <option value="Deportes">Deporte</option>
+                                            <option value="Comedia">Comedia</option>
+                                            <option value="Drama">Drama</option>
+                                            <option value="Fantasía">Fantasía</option>
+                                            <option value="Musical">Musical</option>
+                                            <option value="Romance">Romance</option>
+                                            <option value="Ciencia-ficción">Ciencia-ficción</option>
+                                            <option value="Sobrenatural">Sobrenatural</option>
+                                            <option value="Thriller">Thriller</option>
+                                            <option value="Terror">Terror</option>
+                                            <option value="Psicológico">Psicológico</option>
+                                            <option value="Infantil">Infantil</option>
                                         </select>
                                     </li>
                                     <li className="container-label-input">
@@ -286,7 +289,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 0 && !deletedImg1 ?
-                                                    <li><img name="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         
@@ -295,7 +298,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                                 <img className="preview-img" name="prevImg1" src={imgPreview} onClick={handleDeletePreview}/>
                                                             :
                                                             <figure>
-                                                                    <img className="upload-img-icon" src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                                    <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
                                                                     <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                             </figure>
                                                         }
@@ -309,7 +312,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 1 && !deletedImg2 ?
-                                                    <li><img name="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         {
@@ -317,7 +320,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                         <img className="preview-img" name="prevImg2" src={imgPreview2} onClick={handleDeletePreview}/>
                                                         :
                                                         <figure>
-                                                                <img className="upload-img-icon" src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                                <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
                                                                 <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                         </figure>
                                                         }
@@ -333,7 +336,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 2 && !deletedImg3 ?
-                                                    <li><img name="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         
@@ -342,7 +345,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                             <img className="preview-img" name="prevImg3" src={imgPreview3}  onClick={handleDeletePreview}/>
                                                             :
                                                             <figure>
-                                                                    <img className="upload-img-icon" src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                                    <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
                                                                     <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                             </figure>
                                                         }

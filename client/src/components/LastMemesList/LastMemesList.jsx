@@ -11,14 +11,15 @@ function LastMemesList({endpoint}) {
     
 
     const dataPosts = data.data;
+ 
     if(error){
         return <ErrorMessage message= {error}/>
     }
     if(!dataPosts){
         return(
-        <section>
+        <section >
             <h2>Memes</h2>
-            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+            <p className='sin-entradas' >Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )

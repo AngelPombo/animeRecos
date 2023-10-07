@@ -23,9 +23,10 @@
 }
 .content-opening-div{
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;  
 }
+
+
 .content-image-div{
     display: flex;
     flex-direction: column;
@@ -38,7 +39,7 @@
 
 .img-card{
     box-shadow: 2px 2px 5px grey;
-    border-radius: 14px;
+    max-height: 15rem;
 }
 
 .novedades-button-div{

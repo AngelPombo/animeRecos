@@ -5,6 +5,7 @@ import { CardButton } from '../../Buttons/CardButton';
 
 
 function NovedadesCard({post}) {
+   
 
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
@@ -25,7 +26,7 @@ function NovedadesCard({post}) {
                     </header>
                     <div className='title-genre-card'>
                         <h3>{post.title}</h3>
-                        <div className='genre'>{post.genre}</div>
+                        <p className='genre'>{`${post.category} - ${post.genre}`}</p>
                     </div>
                     <p className='card-content'>{post.content}</p>
                     <div className='novedades-button-div'>
@@ -48,7 +49,10 @@ function NovedadesCard({post}) {
                         </section>
                         <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
                     </header>
-                    <h3 className='title-card'>{post.title}</h3>
+                    <div className='title-genre-card'>
+                        <h3>{post.title}</h3>
+                        <p className='genre'>{`${post.category} - ${post.genre}`}</p>
+                    </div>
                     <div className='content-opening-div'>
                         <p>{post.content}</p>
                         <div className='novedades-div img-card' >
@@ -75,7 +79,10 @@ function NovedadesCard({post}) {
                         </section>
                         <h5>{new Date(post.create_date).toLocaleDateString()}</h5> 
                     </header>
-                    <h3 className='title-card'>{post.title}</h3>
+                    <div className='title-genre-card'>
+                        <h3>{post.title}</h3>
+                        <p className='genre'>{`${post.category} - ${post.genre}`}</p>
+                    </div>
                     <div className='content-image-div'>
                         <p>{post.content}</p>
                         <div className='novedades-div'>

@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
 import { newUserProfile } from '../../services';
 import sessionContext from '../../context/sessionContext';
+import uploadIcon from "/upload.svg"
+import "./EditProfileForm.css"
 
 function EditProfileForm() {
 
@@ -116,76 +118,80 @@ function EditProfileForm() {
 
     return (
         
-        <section>
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    <li>
-                        <label htmlFor="nick">Nombre de usuario</label>
-                        <input type="text" name="nick" id="nick" maxLength="40" defaultValue={user[0].user_name} onChange={handleChange}></input>
-                    </li>
-                    <li>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="email" id="email" maxLength="256" defaultValue={user[0].email} onChange={handleChange}></input>
-                    </li>
-                    <li>
+        <section className='edit-profile-section'>
+            <form className= "edit-profile-form"  onSubmit={handleSubmit}>
+                <ul className='edit-profile-ul'>
+                    <li className='edit-profile-li' >
                         <label htmlFor="avatar">
-                        <input type="file" name="avatar" id="avatar" filename={user[0].avatar} accept='image/*' onChange={handleChange}></input>
-                            {
-                                    !avatar ? (
-                                        <figure>
-                                            <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen"/>
-                                            <figcaption>¡Sube una imagen a tu entrada (opcional)!</figcaption>
-                                        </figure>
-                                    ) : (
-                                        <figure>
-                                            <img
-                                                src={imgPreview}
-                                                alt="Previsualización"
-                                                onClick={handleDeletePreview}
-                                            />
-                                            <figcaption>Previsualización</figcaption>
-                                        </figure>
-                                    )
-                            }
+                            <input  className='input-edit-foto' type="file" name="avatar" id="avatar" filename={user[0].avatar} accept='image/*' onChange={handleChange}></input>
+                                {
+                                        !avatar ? (
+                                            <figure className='figure-edit-foto'>
+                                                <img className='upload-icon' src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                <figcaption className='input-edit-foto' >¡Cambia tu foto de perfil!</figcaption>
+                                            </figure>
+                                        ) : (
+                                            <figure className='figure-edit-foto'>
+                                                <img
+                                                    className='edit-profile-foto'
+                                                    src={imgPreview}
+                                                    alt="Previsualización"
+                                                    onClick={handleDeletePreview}
+                                                />
+                                                <figcaption className='input-edit-foto' >Previsualización</figcaption>
+                                            </figure>
+                                        )
+                                }
                         </label>
                         
                     </li>
-                    <li>
-                        <label htmlFor="bio">Biografía</label>
-                        <textarea name="bio" id="bio" maxLength="3000" defaultValue={user[0].biography} onChange={handleChange}></textarea>
+                    <li className='edit-profile-li'>
+                        <label htmlFor="nick">Nombre de usuario</label>
+                        <input className='input-edit-profile' type="text" name="nick" id="nick" maxLength="40" defaultValue={user[0].user_name} onChange={handleChange}></input>
                     </li>
-                    <li>
-                        <fieldset>
-                            <legend>Redes</legend>
-                            <ul>
-                                <li>
+                    <li className='edit-profile-li'>
+                        <label htmlFor="email">Email</label>
+                        <input className='input-edit-profile'  type="email" name="email" id="email" maxLength="256" defaultValue={user[0].email} onChange={handleChange}></input>
+                    </li>
+                   
+                    <li className='edit-profile-li' >
+                        <label htmlFor="bio">Biografía</label>
+                        <textarea className='edit-profile-textarea' name="bio" id="bio" maxLength="3000" defaultValue={user[0].biography} onChange={handleChange}></textarea>
+                    </li>
+                    <li className='edit-profile-li' >
+                        <fieldset className='edit-profile-fieldset'>
+                            <h4 className='edit-profile-h4'>Redes</h4>
+                            <ul className='edit-profile-ul' >
+                                <li className='edit-profile-li' >
                                     <label htmlFor="linkInsta">Instagram</label>
-                                    <input type="text" name="linkInsta" id="linkInsta" maxLength="200" defaultValue={user[0].link_insta} onChange={handleChange}></input>
+                                    <input className='input-edit-profile' type="text" name="linkInsta" id="linkInsta" maxLength="200" defaultValue={user[0].link_insta} onChange={handleChange}></input>
                                 </li>
-                                <li>
+                                <li className='edit-profile-li' >
                                     <label htmlFor="linkYoutube">YouTube</label>
-                                    <input type="text" name="linkYoutube" id="linkYoutube" maxLength="200" defaultValue={user[0].link_youtube} onChange={handleChange}></input>
+                                    <input className='input-edit-profile' type="text" name="linkYoutube" id="linkYoutube" maxLength="200" defaultValue={user[0].link_youtube} onChange={handleChange}></input>
                                 </li>
-                                <li>
+                                <li className='edit-profile-li' >
                                     <label htmlFor="linkTtv">Twitch</label>
-                                    <input type="text" name="linkTtv" id="linkTtv" maxLength="200" defaultValue={user[0].link_ttv} onChange={handleChange}></input>
+                                    <input className='input-edit-profile' type="text" name="linkTtv" id="linkTtv" maxLength="200" defaultValue={user[0].link_ttv} onChange={handleChange}></input>
                                 </li>
-                                <li>
+                                <li className='edit-profile-li' > 
                                     <label htmlFor="linkTwitter">Twitter</label>
-                                    <input type="text" name="linkTwitter" id="linkTwitter" maxLength="200" defaultValue={user[0].link_twitter} onChange={handleChange}></input>
+                                    <input className='input-edit-profile' type="text" name="linkTwitter" id="linkTwitter" maxLength="200" defaultValue={user[0].link_twitter} onChange={handleChange}></input>
                                 </li>
                             </ul>
                         </fieldset>
                     </li>
                 </ul>
                 {error ? <p>{error}</p> : null}
-                <button>Guardar cambios</button>
-                <button onClick={handleClick}>Solicitar cambio de contraseña</button>
-            </form>
-            <div>
-                <p>Los cambios serán efectivos la próxima vez que inices sesión.</p>
+                <div className='edit-profile-btn-div'>
+                    <button className='edit-profile-btn'>Guardar cambios</button>
+                    <button className='edit-profile-btn' onClick={handleClick}>Cambiar contraseña</button>
+                </div>
                 
-            </div>
+            </form>
+            <footer className='footer-edit-profile'>
+                <p>Los cambios serán efectivos la próxima vez que inices sesión.</p>   
+            </footer>
         </section>
     )
 }

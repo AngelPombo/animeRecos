@@ -2,6 +2,7 @@ import React, { useContext,  useRef,  useState } from 'react';
 import { postEntryService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
+import uploadIcon from "/upload.svg"
 
 function PostEntryPage() {
     
@@ -132,31 +133,31 @@ function PostEntryPage() {
                         <li className="container-label-input">
                             <label className="edit-entry-label" htmlFor="category">Categoría</label>
                             <select  className="select-category" name="category" id="category" onChange={handleChange} required>
-                                <option value="recomendaciones">Recos</option>
-                                <option value="teorias">Teorías</option>
-                                <option value="fanArt">FanArts</option>
-                                <option value="openings">Openings</option>
-                                <option value="cosplays">Cosplays</option>
-                                <option value="memes">Memes</option>
+                                <option value="Recomendaciones">Recos</option>
+                                <option value="Teorías">Teorías</option>
+                                <option value="FanArt">FanArts</option>
+                                <option value="Openings">Openings</option>
+                                <option value="Cosplays">Cosplays</option>
+                                <option value="Memes">Memes</option>
                             </select>
                         </li>
                         <li className="container-label-input">
                         <label className="edit-entry-label" htmlFor="genre">Género</label>
                             <select className="select-genre" name="genre" id="genre" onChange={handleChange} required >
-                                <option value="accion">Acción</option>
-                                <option value="aventura">Aventura</option>
-                                <option value="deportes">Deporte</option>
-                                <option value="comedia">Comedia</option>
-                                <option value="drama">Drama</option>
-                                <option value="fantasia">Fantasía</option>
-                                <option value="musical">Musical</option>
-                                <option value="romance">Romance</option>
-                                <option value="ciencia-ficcion">Ciencia-ficción</option>
-                                <option value="sobrenatural">Sobrenatural</option>
-                                <option value="thriller">Thriller</option>
-                                <option value="terror">Terror</option>
-                                <option value="psicologico">Psicológico</option>
-                                <option value="infantil">Infantil</option>
+                                <option value="Acción">Acción</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Deportes">Deporte</option>
+                                <option value="Comedia">Comedia</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Fantasía">Fantasía</option>
+                                <option value="Musical">Musical</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Ciencia-ficción">Ciencia-ficción</option>
+                                <option value="Sobrenatural">Sobrenatural</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Psicológico">Psicológico</option>
+                                <option value="Infantil">Infantil</option>
                             </select>
                         </li>
                         <li className="container-label-input">
@@ -182,7 +183,7 @@ function PostEntryPage() {
                                         {
                                             !img ? (
                                                 <figure>
-                                                    <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                    <img src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
                                                     <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                 </figure>
                                             ) : (
@@ -204,7 +205,7 @@ function PostEntryPage() {
                                             {
                                                 !img2 ? (
                                                     <figure>
-                                                        <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                        <img src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
                                                         <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                     </figure>
                                                 ) : (
@@ -227,7 +228,7 @@ function PostEntryPage() {
                                                 {
                                                     !img3 ? (
                                                         <figure>
-                                                            <img src="https://cdn.icon-icons.com/icons2/1182/PNG/512/1490129350-rounded06_82174.png" alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
+                                                            <img src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen" className='upload-img-icon'/>
                                                             <figcaption className="figcaption">¡Sube una imagen a tu entrada (opcional)!</figcaption>
                                                         </figure>
                                                     ) : (

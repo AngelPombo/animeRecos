@@ -25,7 +25,10 @@ function OpeningsCard({post}) {
                     </section>
                     <h5>{new Date(post.create_date).toLocaleDateString()}</h5>
                 </header>
-                <h3 className='title-card'>{post.title}</h3>
+                <div>
+                    <h3 className='title-card'>{post.title}</h3>
+                    <p className='genre-card'>{post.genre}</p>
+                </div>
                 <div className='openings-video-div'>
                     {
                         post.video_url ?

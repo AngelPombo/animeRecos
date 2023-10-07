@@ -20,7 +20,7 @@ function LastRecosList({endpoint}) {
         return(
         <section>
             <h2>Recos</h2>
-            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+            <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )
@@ -36,7 +36,7 @@ function LastRecosList({endpoint}) {
                 <section className='section-recos-list'>
                     <h2>Recos</h2>
                     <ul className='recos-list'>
-                    {dataPosts.slice(0,10).map((post) => {
+                    {dataPosts.slice(0,12).map((post) => {
                     return <li key={post.id}><RecosCard post={post}/></li>
                     })}
                     </ul>

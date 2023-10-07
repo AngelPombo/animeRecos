@@ -12,7 +12,12 @@
     margin: 0 auto;
 }
 
+
 .fanart-img-div{
     display: flex;
     justify-content: center;
+}
+
+.fanart-img-div>img{
+    box-shadow: 1px 1px 5px grey;
 }
