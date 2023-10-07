@@ -58,15 +58,15 @@ async function createDB() {
             content VARCHAR(10000) NOT NULL,
             anime_character VARCHAR (100),
             category ENUM(
-                "recomendaciones", "teorias", "fanArt",
-                "openings", "cosplays", "memes"
+                "Recomendaciones", "Teorías", "FanArt",
+                "Openings", "Cosplays", "Memes"
             ) NOT NULL,
             genre ENUM(
-                "accion", "aventura", "deportes",
-                "comedia", "drama", "fantasia",
-                "musical","romance", "ciencia-ficcion",
-                "sobrenatural", "thriller", "terror",
-                "psicologico", "infantil", "otros"
+                "Acción", "Aventura", "Deportes",
+                "Comedia", "Drama", "Fantasía",
+                "Musical","Romance", "Ciencia-ficción",
+                "Sobrenatural", "Thriller", "Terror",
+                "Psicológico", "Infantil"
             ) NOT NULL,
             video_url VARCHAR(3000),
             user_id INT UNSIGNED NOT NULL,
