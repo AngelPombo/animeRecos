@@ -2,23 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import {addPhotoService, deletePhotoService, editEntryService} from '../../services/index';
 import { useNavigate, useParams } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
-import {useEntry} from '../../hooks/useEntry';
 import "./EditEntryPage.css";
+import { useEntry } from '../../hooks/useEntry';
 
-function EditEntryPage() {
+function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
     const { logged } = useContext(sessionContext);
     const [editError, setEditError] = useState(null);
     const [editedEntry, setEditedEntry] = useState(false);
-    let {id} = useParams();
     const [img, setImg] = useState();
     const [img2, setImg2] = useState();
     const [img3, setImg3] = useState();
-    const {post, error, loading} = useEntry(id);
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [category, setCategory] = useState("");
-    const [genre, setGenre] = useState("");
-    const [animeCharacter, setAnimeCharacter]  = useState("");
+    /* const {post, error, loading} = useEntry(id); */
+    
     const navigateTo = useNavigate();
     const formRef = useRef(null);
     const [imgPreview, setImgPreview] = useState();
@@ -27,40 +22,45 @@ function EditEntryPage() {
     const [deletedImg1, setDeletedImg1] = useState(false);
     const [deletedImg2, setDeletedImg2] = useState(false);
     const [deletedImg3, setDeletedImg3] = useState(false);
+    const [title, setTitle] = useState(post[0][0].title);
+    const [content, setContent] = useState(post[0][0].content);
+    const [category, setCategory] = useState(post[0][0].category);
+    const [genre, setGenre] = useState(post[0][0].genre);
+    const [animeCharacter, setAnimeCharacter]  = useState(post[0][0].anime_character);
+    const [video, setVideo] = useState(post[0][0].video_url);
+    const updatedPostString = JSON.stringify(post);
+    let updatedPost = JSON.parse(updatedPostString);
+
 
     useEffect(() => {
         if(editedEntry){
-            navigateTo(`/entrada/${id}`);
+            navigateTo(`/entrada/${post[0][0].entry_id}`);
         }
-    },[editedEntry])
-
-    if(loading){
-        return <p>Cargando...</p>
-    }
-
-    if(error){
-        return <p>Ha ocurrido un error cargando el contenido previo de la entrada</p>
-    }
+    },[editedEntry]);
 
     function handleChange (e){
         const {name}= e.target;
         const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
 
         if (name === 'title'){
-            setTitle(value)
+            setTitle(value);
         }
         if (name === 'content'){
-            setContent(value)
+            setContent(value);
         }
         if (name === 'category'){
-            setCategory(value)
+            setCategory(value);
         }
         if (name === 'genre'){
-            setGenre(value)
+            setGenre(value);
         }
         if (name === 'animeCharacter'){
-            setAnimeCharacter(value)
-        }     
+            setAnimeCharacter(value);
+        }
+        
+        if(name === 'video'){
+            setVideo(value);
+        }
                 
         if (name === 'img'){
             setImg(value);
@@ -116,7 +116,7 @@ function EditEntryPage() {
 
             try{
                 
-                await deletePhotoService(id, post[2][0].photo_id, token);
+                await deletePhotoService(post[0][0].entry_id, post[2][0].photo_id, token);
 
                 setImg(null);
                 setImgPreview(null);
@@ -125,6 +125,12 @@ function EditEntryPage() {
                 setDeletedImg1(true);
             }catch(e){
                 setEditError(e.message);
+            }finally{
+                if(editError === null){
+                    const eliminarFoto = updatedPost[2];
+                    eliminarFoto.splice(0,1)
+                    setOneEntryPosts(updatedPost);
+                }
             }
             
         }
@@ -133,7 +139,7 @@ function EditEntryPage() {
             
             try{
                 
-                await deletePhotoService(id, post[2][1].photo_id, token);
+                await deletePhotoService(post[0][0].entry_id, post[2][1].photo_id, token);
 
                 setImg2(null);
                 setImgPreview2(null);
@@ -145,13 +151,20 @@ function EditEntryPage() {
                 setEditError(e.message);
                 setDeletedImg2(false);
             }
+            finally{
+                if(editError === null){
+                    const eliminarFoto = updatedPost[2];
+                    eliminarFoto.splice(1, 1);
+                    setOneEntryPosts(updatedPost);
+                }
+            }
         }
 
         if (name === 'imgPost3'){
 
             try{
                 
-                await deletePhotoService(id, post[2][2].photo_id, token);
+                await deletePhotoService(post[0][0].entry_id, post[2][2].photo_id, token);
 
                 setImg3(null);
                 setImgPreview3(null);
@@ -162,6 +175,12 @@ function EditEntryPage() {
             }catch(e){
                 setEditError(e.message);
                 setDeletedImg3(false);
+            }finally{
+                if(editError === null){
+                    const eliminarFoto = updatedPost[2];
+                    eliminarFoto.splice(2, 1);
+                    setOneEntryPosts(updatedPost);
+                }
             }
         }
     }
@@ -181,30 +200,36 @@ function EditEntryPage() {
             
             setEditError(null);
             
-            await editEntryService(data, token, id);
-            const {insertId} = await addPhotoService(token, id, data);
-            console.log(insertId);
-            
+            const {update} = await editEntryService(data, token, post[0][0].entry_id);
+
+            updatedPost[0] = update;
+
+            if(updatedPost[2]){
+                const {newPhotos} = await addPhotoService(token, post[0][0].entry_id, data);
+
+                updatedPost[2] = newPhotos;
+            }
+
         }catch(e){
             setEditError(e.message);
             
         }finally{
             if(editError === null){
                 setEditedEntry(true);
+                setWantEdit(false);
+                setOneEntryPosts(updatedPost)
             }
         }
     }
 
     return (
                 <section className="edit-entry-page">
-                    {
-                        !loading &&
                         <form ref={formRef} onSubmit={handleSubmit} className="edit-entry-form">
                             <fieldset className="edit-entry-fieldset">
                                 <ul className="edit-entry-ul">
                                     <li className="container-label-input">
                                         <label className="edit-entry-label" htmlFor="title" >Título</label>
-                                        <input className="input-title" type="text" name="title" id="title" defaultValue={post[0][0].title}  onChange={handleChange} required />
+                                        <input className="input-title" type="text" name="title" id="title" defaultValue={title}  onChange={handleChange} required />
                                     </li>
                                     <li className="container-label-input">
                                         <label htmlFor="category" className="edit-entry-label">Categoría</label>
@@ -219,7 +244,7 @@ function EditEntryPage() {
                                     </li>
                                     <li className="container-label-input">
                                     <label htmlFor="genre" className="edit-entry-label">Género</label>
-                                        <select className="select-genre" name="genre" id="genre" onChange={handleChange} required defaultValue={post[0][0].genre}>
+                                        <select className="select-genre" name="genre" id="genre" onChange={handleChange} required defaultValue={genre}>
                                             <option value="accion">Acción</option>
                                             <option value="aventura">Aventura</option>
                                             <option value="deportes">Deporte</option>
@@ -238,23 +263,23 @@ function EditEntryPage() {
                                     </li>
                                     <li className="container-label-input">
                                         <label htmlFor="anime-character" className="edit-entry-label">Personaje <small>(opcional)</small></label>
-                                        <input  className="input-character" type="text" name="anime-character" id="anime-character" defaultValue={post[0][0].anime_character} onChange={handleChange} />
+                                        <input  className="input-character" type="text" name="anime-character" id="anime-character" defaultValue={animeCharacter} onChange={handleChange} />
                                     </li>
                                     <li className="container-label-input">
                                         <label htmlFor="content" className="edit-entry-label">Contenido</label>
-                                        <textarea className="edit-entry-textarea" type="text" name="content" id="content" cols="100" rows="15" defaultValue={post[0][0].content} onChange={handleChange} required/>
+                                        <textarea className="edit-entry-textarea" type="text" name="content" id="content" cols="100" rows="15" defaultValue={content} onChange={handleChange} required/>
                                     </li>
                                     {
                                         category === "openings" &&
-                                        <li>
-                                            <label className="edit-entry-label">Video URL</label>
-                                            <input className="input-title" type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
+                                        <li className="container-label-input">
+                                            <label htmlFor="video" className="edit-entry-label">Video URL</label>
+                                            <input className="input-title" type="text" name="video" id="video" maxLength="3000" defaultValue={video} required onChange={handleChange}></input>
                                         </li>
                                     }
                                 </ul>
                                 {
                                     category !== "openings" &&
-                                    <section className="section-select-photos">
+                                    <section className="section-select-photos-videos">
                                         <h4 className="edit-entry-label">Fotos <small>(opcional)</small></h4>
                                         <ul className="ul-select-photos">
                                             <label className="upload-img-1">
@@ -335,7 +360,6 @@ function EditEntryPage() {
                                 <button className="edit-entry-btn">Publicar</button>
                             </div>
                         </form>
-                    }
                 </section>
     )
 }

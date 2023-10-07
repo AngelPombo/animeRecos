@@ -4,7 +4,7 @@ import { getOneEntryService } from "../services";
 function useEntry (id, userId){
     const [post, setPost] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function loadPost (){
