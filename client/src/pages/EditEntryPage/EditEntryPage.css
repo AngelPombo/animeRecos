@@ -184,3 +184,37 @@
     background-color: var(--crema);
     color: var(--marron-oscuro);
 }
+
+
+
+.edit-entry-textarea::-webkit-scrollbar{
+    -webkit-appearance: none;
+}
+
+.edit-entry-textarea::-webkit-scrollbar:vertical {
+    width: 0.5rem;
+    
+}
+
+.edit-entry-textarea::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.edit-entry-textarea::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
+.edit-entry-textarea::-webkit-scrollbar-thumb {
+    background-color: #712c275e;
+    border-radius: 20px;
+}
+
+.edit-entry-textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #712c27c0;
+    border-radius: 20px;
+}
+
+.edit-entry-textarea::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #712c270c;
+}

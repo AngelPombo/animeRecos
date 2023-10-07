@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "./GenreButton.css";
 
+
 function GenreButton({category, genre, img}) {
     return (
         <>

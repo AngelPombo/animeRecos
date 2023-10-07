@@ -19,9 +19,15 @@ function UserHeaderProfile () {
                 !loading
                 ?
                 <div className='profile-header'>
-                    <img  className= "profile-image" src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
-                    <Link className='profile-nick' to={`/perfil-usuario/${user[0].id}`}><h4>@{user[0].user_name}</h4></Link>
-                    <p className='profile-badge'>{user[0].user_badge}</p>
+                    {
+                        user[0] && 
+                        <>
+                            <img  className= "profile-image" src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                            <Link className='profile-nick' to={`/perfil-usuario/${user[0].id}`}><h4>@{user[0].user_name}</h4></Link>
+                            <p className='profile-badge'>{user[0].user_badge}</p>
+                        </>
+                    }
+                   
                 </div>
                 :
                 <p>Cargando...</p>

@@ -18,7 +18,7 @@ function LastOpeningsList({endpoint}) {
         return(
         <section>
             <h2>Openings</h2>
-            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+            <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )
@@ -35,7 +35,7 @@ function LastOpeningsList({endpoint}) {
                 <section className='section-openings-list'> 
                     <h2>Openings</h2>
                     <ul className='openings-list'>
-                    {dataPosts.slice(0,2).map((post) => {
+                    {dataPosts.slice(0,3).map((post) => {
                     return <li key={post.id}><OpeningsCard post={post}/></li>
                     })}
                     </ul>

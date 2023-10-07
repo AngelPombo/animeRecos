@@ -19,7 +19,7 @@ function LastCosplaysList({endpoint}) {
         return(
         <section>
             <h2>Cosplays</h2>
-            <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+            <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
         </section>
         )

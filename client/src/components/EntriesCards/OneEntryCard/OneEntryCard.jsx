@@ -118,7 +118,7 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                     <>
                         {
                             oneEntryPosts[2].length === 0 && !oneEntryPosts[0][0].video_url &&
-                            <>
+                            <div className='conteiner-one-entry-card'>
                                 <article className='one-entry-card'>
                                         <header className='one-entry-header'>
                                             <section className='one-entry-user-info'>
@@ -170,12 +170,12 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                         <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                                         <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                                 </section>
-                            </>
+                            </div>
                         }
         
                         {
                             oneEntryPosts[0][0].video_url &&
-                            <>
+                            <div className='conteiner-one-entry-card'>
                                 <article className='one-entry-card'>
                                     <header className='one-entry-header'>
                                         <section className='one-entry-user-info'>
@@ -198,7 +198,7 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                     </div>
                                     <div className='one-entry-opening-div'>
                                         <p className='one-entry-content'>{oneEntryPosts[0][0].content}</p>
-                                        <div>
+                                        <div className='one-entry-video-div'>
                                             <ReactPlayer url={oneEntryPosts[0][0].video_url}/>
                                         </div>
                                     </div>
@@ -232,12 +232,12 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                     <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                                     <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                                 </section>
-                            </>
+                            </div>
                         }
         
                         {
                             oneEntryPosts[2].length > 0 &&
-                            <>
+                            <div className='conteiner-one-entry-card'>
                                 <article className='one-entry-card'>
                                     <header className='one-entry-header'>
                                         <section className='one-entry-user-info'>
@@ -254,18 +254,51 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                         </section>
                                         <h5>{new Date(oneEntryPosts[0][0].create_date).toLocaleDateString()}</h5>
                                     </header>
+
                                     <div className='one-entry-title-genre'>
                                         <h3>{oneEntryPosts[0][0].title}</h3>
                                         <div className='one-entry-genre'>{oneEntryPosts[0][0].category === "recomendaciones" ? "recos": oneEntryPosts[0][0].category } - {oneEntryPosts[0][0].genre}</div>
                                     </div>
                                     <div className='one-entry-content-image-div'>
                                         <p>{oneEntryPosts[0][0].content}</p>
-                                        <div className="one-entry-image-div">
-                                            <img 
+                                        <div className='galeria-div'>
+                                            {
+                                                oneEntryPosts[2].length === 1 ?
+                                            
+                                                    <div className='one-entry-one-photo'>
+                                                        <img 
+                                                        src={`${baseUrl}/photoentries/${oneEntryPosts[2][0].name_photo}`} 
+                                                        alt={oneEntryPosts[2][0].name_photo} 
+                                                        />
+                                                    </div>
+                                                :
+                                                
+                                                <div className="one-entry-image-div">
+                                                {oneEntryPosts[2][0] && 
+                                                <img 
                                                 src={`${baseUrl}/photoentries/${oneEntryPosts[2][0].name_photo}`} 
                                                 alt={oneEntryPosts[2][0].name_photo} 
-                                            />
+                                                />
+                                                }
+                                                {oneEntryPosts[2][1] && 
+                                                <img 
+                                                src={`${baseUrl}/photoentries/${oneEntryPosts[2][1].name_photo}`} 
+                                                alt={oneEntryPosts[2][1].name_photo} 
+                                                />
+                                                }
+                                                {oneEntryPosts[2][2] && 
+                                                <img 
+                                                src={`${baseUrl}/photoentries/${oneEntryPosts[2][2].name_photo}`} 
+                                                alt={oneEntryPosts[2][2].name_photo} 
+                                                />
+                                                }
+
+                                                </div>
+                                            
+                                            }
                                         </div>
+                                        
+                                       
                                     </div>
                                     <footer className='one-entry-footer'>
                                         <div>
@@ -291,7 +324,7 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                     <CommentsList error={error} isLoading={isLoading} dataComments={dataComments} setDataComments={setDataComments}/>
                                     <CommentForm setDataComments={setDataComments} dataComments={dataComments}/>
                                 </section>
-                            </>
+                            </div>
                         }
                     </>
                 }

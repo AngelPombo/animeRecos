@@ -4,10 +4,11 @@
     padding: 2rem;
     border: 1px solid transparent;
     border-radius: 14px;
-    color: rgba(255, 255, 255, 0.555);
+    color: rgba(255, 255, 255, 0.644);
     text-transform: uppercase;
     font-size: x-large;
     font-weight: 600;
+    text-shadow: 2px 2px 4px rgb(87, 85, 85);
 }
 
 .genre-btn:hover{
@@ -15,7 +16,99 @@
 }
 
 .accion-img-btn{
-    background-image: url("../../../public/accionImg.jpg");
+    background-image: url("./accionImg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.aventura-img-btn{
+    background-image: url("./aventurabtn.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.deportes-img-btn{
+    background-image: url("./deportesbtn.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.comedia-img-btn{
+    background-image: url("./comediabtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.drama-img-btn{
+    background-image: url("./dramabtn.jfif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.fantasia-img-btn{
+    background-image: url("./fantasiabtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.musical-img-btn{
+    background-image: url("./musicalbtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.romance-img-btn{
+    background-image: url("./romancebtn.jfif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.ciencia-ficcion-img-btn{
+    background-image: url("./cienciaficcionbtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.sobrenatural-img-btn{
+    background-image: url("./sobrenaturalbtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.thriller-img-btn{
+    background-image: url("./thrillerbtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.terror-img-btn{
+    background-image: url("./terrorbtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.psicologico-img-btn{
+    background-image: url("./psicologicobtn.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.infantil-img-btn{
+    background-image: url("./infantilbtn.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

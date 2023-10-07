@@ -26,6 +26,7 @@ div.app {
 
 main{
     flex-grow: 1;
+    margin: 0 3rem;
 }
 
 ul{
@@ -42,6 +43,10 @@ a:link, a:active{
 
 a:visited{
     color: var(--verde-oscuro);
+}
+
+p{
+    word-break: break-word;
 }
 
 /*QUITAR ESTE CSS DE IMG*/

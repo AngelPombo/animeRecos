@@ -17,3 +17,10 @@
     display: flex;
     justify-content: center;
 }
+.cosplays-img-div>img{
+    box-shadow: 1px 1px 5px grey;
+}
+
+.genre-card{
+    font-style: italic;
+}

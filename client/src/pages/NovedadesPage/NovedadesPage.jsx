@@ -26,11 +26,21 @@ function NovedadesPage() {
                 )
                 :(
                     <section className='section-novedades-page'> 
+                    {
+                        dataPosts !== undefined ?
                         <ul className='novedades-page'>
                         {dataPosts.map((post) => {
                         return <li  key={post.id}><NovedadesCard post={post}/></li>
                         })}
                         </ul>
+                        :
+                        <div className='sin-entradas-by-genre-section'>
+                            <h2>Novedades</h2>
+                            <p>No se han encontrado publicaciones... ¡Animate a crear una entrada!</p>
+                        </div>
+                       
+                    }
+                       
                     </section>
                 )
     );

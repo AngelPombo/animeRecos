@@ -10,11 +10,16 @@ function RecoverPasswordPage () {
     const [error, setError] = useState(null);
     const navigateTo = useNavigate();
 
-    useEffect(() => {
+    useEffect(()=>{
+
         if(sendEmail){
+                        
             navigateTo("/nueva-password");
         }
-    },[sendEmail])
+    }
+    ,[sendEmail])
+        
+   
     
     async function handleSubmit(e){
         e.preventDefault();
@@ -31,15 +36,16 @@ function RecoverPasswordPage () {
             setError(e.message);
         }finally{
             e.target.email.value = "";
-
-            if(error !== null){
+        
+            if(error === null){
                 setSendEmail(true);
+                
+                
             }
         }
     }
 
     return (
-        <main>
             <section className='recover-password-section'>
                 <h2>Recuperación de contraseña</h2>
                 <p>Introduce a continuación el email con el que has registrado tu cuenta y enviaremos el código de recuperación</p>
@@ -52,7 +58,6 @@ function RecoverPasswordPage () {
                     </div>
                 </form>
             </section>
-        </main>
     );
 }
 

@@ -1,0 +1,120 @@
+.edit-profile-section{
+    max-width: 40%;
+    margin: 4rem auto;
+}
+
+.edit-profile-form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.edit-profile-fieldset{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.edit-profile-h4{
+    font-weight: 500;
+    display: none;  
+}
+
+
+.edit-profile-ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
+.edit-profile-li{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-edit-profile{
+    padding: 0.5rem 1rem;
+    border: 0.5px solid transparent;
+    border-radius: 14px;
+    background-color: #9da63d1f;
+    color: var(--marron-oscuro);
+    outline: none;
+}
+
+.input-edit-profile:focus{
+    border: 0.5px solid var(--verde-claro);
+    background-color: #9da63d34;
+    color: var(--marron-oscuro);
+}
+
+.input-edit-foto{
+    display: none;
+}
+
+.figure-edit-foto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-profile-foto{
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgb(151, 149, 149);
+}
+
+
+
+.edit-profile-textarea{
+    resize: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 1.5rem;
+    border: 0.05px solid transparent;
+    border-radius: 14px;
+    background-color: #9da63d1f;
+    color: var(--marron-oscuro);
+    outline: none;
+    margin-bottom: 1.5rem;
+}
+
+.edit-profile-textarea:focus{
+    border: 0.5px solid var(--verde-claro);
+    background-color: #9da63d34;
+    color: var(--marron-oscuro);
+}
+
+.upload-icon{
+    max-width: 12rem;
+
+}
+
+.edit-profile-btn-div{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.edit-profile-btn{
+    padding: 0.5rem 1rem;
+    
+    border: 0.5px solid transparent;
+    border-radius: 14px;
+    background-color: var(--marron-oscuro);
+    color: var(--crema);
+}
+
+.edit-profile-btn:hover{
+    border: 0.5px solid var(--marron-oscuro);
+    background-color: var(--crema);
+    color: var(--marron-oscuro);
+}
+
+.footer-edit-profile{
+    display: flex;
+   justify-content: center;
+}
+
+.footer-edit-profile>p{
+    font-size: small;
+}

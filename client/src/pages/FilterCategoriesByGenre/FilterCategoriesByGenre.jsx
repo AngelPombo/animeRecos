@@ -16,7 +16,7 @@ function FilterCategoriesByGenre() {
 
     if( dataPosts.length === 0){
         return(
-        <section>
+        <section className='sin-entradas-by-genre-section'>
             <h2>{category.toUpperCase()}</h2>
             <h3>{genre.toUpperCase()}</h3>
             <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>

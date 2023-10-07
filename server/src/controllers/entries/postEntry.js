@@ -44,8 +44,8 @@ async function postEntry (req,res) {
             });
         } 
         
-        const categoryValues = ["recomendaciones", "teorias", "fanArt",
-        "openings", "cosplays", "memes"];
+        const categoryValues = ["Recomendaciones", "Teorías", "FanArt",
+        "Openings", "Cosplays", "Memes"];
 
         let categoryExists = null;
 
@@ -65,11 +65,11 @@ async function postEntry (req,res) {
             });
         }
 
-        const genreValues = ["accion", "aventura", "deportes",
-        "comedia", "drama", "fantasia",
-        "musical","romance", "ciencia-ficcion",
-        "sobrenatural", "thriller", "terror",
-        "psicologico", "infantil", "otros"];
+        const genreValues = ["Acción", "Aventura", "Deportes",
+        "Comedia", "Drama", "Fantasía",
+        "Musical","Romance", "Ciencia-ficción",
+        "Sobrenatural", "Thriller", "Terror",
+        "Psicológico", "Infantil"];
 
         let genreExists = null;
 
