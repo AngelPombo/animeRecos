@@ -55,11 +55,21 @@ async function editEntry (req,res) {
             [new Date(), title, content, video, animeCharacter, category, genre, idEntry] 
         );
 
+        const [updatedEntry] = await connect.query(
+            `
+                SELECT u.user_name, u.id AS user_id, u.avatar, u.user_badge, e.id AS entry_id,e.create_date, e.last_update, e.edited,e.banned, e.title, e.content, e.video_url, e.anime_character, e.genre, e.category
+                FROM entries e
+                INNER JOIN users u ON e.user_id=u.id
+                WHERE e.id=?
+            `,[idEntry]
+        )
+
         connect.release();
         
         res.status(200).send({
             status: "OK",
-            data: editedEntry
+            data: editedEntry,
+            update: updatedEntry
         });
 
     } catch(e){

@@ -40,7 +40,9 @@ async function deletePhotoEntry(req,res) {
 
         res.status(200).send({
             status: 'OK',
-            message: 'Imagen eliminada'
+            message: 'Imagen eliminada',
+            idPhotoDeleted: idPhoto,
+            idEntryOfPhoto: idEntry
         });
         
     } catch (error) {
