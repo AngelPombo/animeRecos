@@ -101,7 +101,6 @@ if (!response.ok){
 }
 
   async function addPhotoService(token, entry_id, formData){
-
     const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry_id}/photos`,{
       method: "POST",
       body: formData,
@@ -115,6 +114,8 @@ if (!response.ok){
     if (!response.ok) {
         throw new Error(json.message);
     }
+    
+    return json
 
   }
 
@@ -132,6 +133,8 @@ if (!response.ok){
     if (!response.ok) {
         throw new Error(json.message);
     }
+
+    return json;
   }
 
 async function getUserInfoService (id, token){
@@ -248,7 +251,6 @@ async function deletePhotoService(idEntry, idPhoto, token){
   const res = await fetch(`${import.meta.env.VITE_API_URL}/entries/${idEntry}/photos/${idPhoto}`,{
     method: "DELETE",
     headers:{
-      "Content-Type": "application/json",
       auth: token,
     }
   });

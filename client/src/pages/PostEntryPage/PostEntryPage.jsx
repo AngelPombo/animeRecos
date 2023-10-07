@@ -167,15 +167,13 @@ function PostEntryPage() {
                             <label htmlFor="content" className="edit-entry-label">Contenido</label>
                             <textarea className="edit-entry-textarea" type="text" name="content" id="content" maxLength="10000" cols="100" rows="15" onChange={handleChange} required/>
                         </li>
-                        
                         {
-                            category === "openings" && 
-                            <label>Video URL
-                                <input type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
-                            </label>
-                        }
-                        {
-                            category !== "openings" &&
+                            category === "openings" ?
+                            <li className="container-label-input">
+                                <label htmlFor="video" className="edit-entry-label">Video URL</label>
+                                <input className="input-title" type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
+                            </li>
+                            :
                             <section className="section-select-photos">
                                 <h4 className="edit-entry-label">Fotos <small>(opcional)</small></h4>
                                 <ul className="ul-select-photos">
