@@ -1,22 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { changePwdService } from '../../services';
-import { useNavigate } from 'react-router-dom';
-import sessionContext from '../../context/sessionContext';
+
 import "./ChangePasswordPage.css";
 
 function ChangePasswordPage() {
 
-    const { handleLogout } = useContext(sessionContext);
     const [error, setError] = useState(null);
     const [editedPwd, setEditedPwd] = useState(false);
-    const navigateTo = useNavigate();
-
-    useEffect(() => {
-        if(editedPwd){
-            handleLogout();
-            navigateTo("/login");
-        }
-    },[editedPwd])
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -31,6 +21,10 @@ function ChangePasswordPage() {
 
             if(newPwd !== confirmPwd){
                 throw new Error("Las contraseñas no coinciden");
+            }
+
+            if(newPwd.length < 7 || confirmPwd < 7){
+                throw new Error("La nueva contraseña debe tener al menos 6 caracteres")
             }
 
             await changePwdService(currentPwd, newPwd, token, id);
@@ -65,7 +59,8 @@ function ChangePasswordPage() {
                         </li>
                     </ul>
                     <button className="change-pwd-btn" type="submit">Guardar cambios</button>
-                    {error ? <p className="feedback-msg">{error}</p> : null}
+                    {editedPwd && <p>La contraseña se ha modificado correctamente. Por favor, vuelve a iniciar sesión.</p>}
+                    {error && <p className="feedback-msg">{error}</p>}
                 </form>
             </section>
     )

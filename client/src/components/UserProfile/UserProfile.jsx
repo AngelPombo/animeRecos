@@ -44,7 +44,12 @@ function UserProfile ({user}) {
             <header className='user-profile-header'>
                 <div className='user-profile-body'>
                     <div className='user-profile-info-btns'>
-                        <img className='user-avatar' src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                        {
+                            user[0].avatar ? <img className='user-avatar' src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                            :
+                            <img className='user-avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={user[0].user_name}></img>
+                        }
+                        
                         <h2>{user[0].user_name}</h2>
                         <p>{user[0].user_badge}</p>
                         {

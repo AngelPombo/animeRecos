@@ -23,7 +23,11 @@ function UserHeaderProfile () {
                     {
                         user[0] && 
                         <>
-                            <img  className= "profile-image" src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                            {
+                                user[0].avatar ? <img  className='avatar' src={`${baseUrl}/avataruser/${user[0].avatar}`} alt={user[0].user_name} />
+                                :
+                                <img className='avatar' src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={user[0].user_name}></img> 
+                            }
                             <Link className='profile-nick' to={`/perfil-usuario/${user[0].id}`}><h4>@{user[0].user_name}</h4></Link>
                             <p className='profile-badge'>{user[0].user_badge}</p>
                         </>

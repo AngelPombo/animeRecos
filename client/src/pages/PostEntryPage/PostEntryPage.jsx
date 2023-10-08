@@ -71,7 +71,7 @@ function PostEntryPage() {
     }
 
     function handleDeleteImage (e){
-
+        e.preventDefault();
         const {name}= e.target;
 
         if (name === 'img'){

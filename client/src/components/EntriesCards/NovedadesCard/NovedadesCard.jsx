@@ -55,7 +55,7 @@ function NovedadesCard({post}) {
                     <div className='content-opening-div'>
                         <p>{post.content}</p>
                         <div className='novedades-div img-card' >
-                            <ReactPlayer  width= {370} height={180}  url={post.video_url}/>
+                            <ReactPlayer  width= {370} height={180}  url={post.video_url} controls={true}/>
                         </div>
                     </div>
                     <div className='novedades-button-div'>

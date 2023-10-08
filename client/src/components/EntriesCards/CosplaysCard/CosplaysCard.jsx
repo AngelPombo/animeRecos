@@ -15,7 +15,7 @@ function CosplaysCard({post}) {
                             post.avatar ?
                             <img className="avatar" src={`${baseUrl}/avataruser/${post.avatar}`} alt={post.user_name}></img>
                             :
-                            null
+                            <img className="avatar" src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={post.user_name}></img>
                         }
                         <div className='username-badge-card'>
                             <h4>{post.user_name}</h4>
