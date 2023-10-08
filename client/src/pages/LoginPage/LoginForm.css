@@ -52,6 +52,7 @@
 
 .div-buttons{
     display: flex;
+    flex-direction: column;
     justify-content: right;
 }
 
@@ -77,4 +78,8 @@
 
 .recuperar-password-hover:hover{
     color: var(--marron-oscuro);
+}
+
+.feedback-msg{
+    color: var(--marron-claro);
 }

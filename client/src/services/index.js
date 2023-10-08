@@ -101,6 +101,7 @@ if (!response.ok){
 }
 
   async function addPhotoService(token, entry_id, formData){
+    
     const response = await fetch(`${import.meta.env.VITE_API_URL}/entries/${entry_id}/photos`,{
       method: "POST",
       body: formData,

@@ -1,17 +1,17 @@
 import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
-import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard'; 
-import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-import "./NovedadesPage.css";
 import { ThreeDots } from "react-loader-spinner";
+import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard';
+import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
+import { useParams } from 'react-router-dom';
+import './AllByCategoryPage.css';
 
 
-
-function NovedadesPage() {
-    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+function AllByCategoryPage() {
     const baseUrl = import.meta.env.VITE_API_URL;
+    const {category} = useParams();
 
-    const {data,error, isLoading} = useEntries(`${baseUrl}/last-entries`);
+    const {data,error, isLoading} = useEntries(`${baseUrl}/entries/${category}`);
 
     const dataPosts = data.data;
 
@@ -38,7 +38,7 @@ function NovedadesPage() {
                 )
                 :(
                     <section className='section-novedades-page'>
-                        <h2>Novedades</h2>
+                        <h2 className="title-page-category">{category}</h2>
                         {
                             dataPosts !== undefined ?
                             <ul className='novedades-page'>
@@ -56,4 +56,4 @@ function NovedadesPage() {
     );
 }
 
-export {NovedadesPage};
+export {AllByCategoryPage};

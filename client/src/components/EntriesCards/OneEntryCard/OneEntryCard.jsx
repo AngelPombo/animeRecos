@@ -199,7 +199,7 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                     <div className='one-entry-opening-div'>
                                         <p className='one-entry-content'>{oneEntryPosts[0][0].content}</p>
                                         <div className='one-entry-video-div'>
-                                            <ReactPlayer url={oneEntryPosts[0][0].video_url}/>
+                                            <ReactPlayer url={oneEntryPosts[0][0].video_url} controls={true}/>
                                         </div>
                                     </div>
                                     <footer className='one-entry-footer'>
@@ -297,8 +297,6 @@ function OneEntryCard({oneEntryPosts, setOneEntryPosts}) {
                                             
                                             }
                                         </div>
-                                        
-                                       
                                     </div>
                                     <footer className='one-entry-footer'>
                                         <div>

@@ -10,13 +10,9 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
     const { logged } = useContext(sessionContext);
     const [editError, setEditError] = useState(null);
     const [editedEntry, setEditedEntry] = useState(false);
-
-    /*fallo de subir y guardar fotos aqui? */
     const [img, setImg] = useState();
     const [img2, setImg2] = useState();
     const [img3, setImg3] = useState();
-    /* const {post, error, loading} = useEntry(id); */
-    
     const navigateTo = useNavigate();
     const formRef = useRef(null);
     const [imgPreview, setImgPreview] = useState();
@@ -45,67 +41,58 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
         const {name}= e.target;
         const value = e.target.type === 'file' ? e.target.files[0] : e.target.value
 
+
         if (name === 'title'){
             setTitle(value);
         }
+
         if (name === 'content'){
             setContent(value);
         }
+
         if (name === 'category'){
             setCategory(value);
         }
+
         if (name === 'genre'){
             setGenre(value);
         }
+
         if (name === 'animeCharacter'){
             setAnimeCharacter(value);
         }
-        
+
         if(name === 'video'){
             setVideo(value);
         }
-                
+
         if (name === 'img'){
             setImg(value);
-            setImgPreview(URL.createObjectURL(value));
+            if(value){
+                setImgPreview(URL.createObjectURL(value));
+            }
+            
             
         }
+
         if (name === 'img2'){
             setImg2(value);
-            setImgPreview2(URL.createObjectURL(value));
+            if(value){
+                setImgPreview2(URL.createObjectURL(value));
+            }
+            
         }
+
         if (name === 'img3'){
             setImg3(value);
-            setImgPreview3(URL.createObjectURL(value));
-        }
-    }
-
-    function handleDeletePreview (e){
-        e.preventDefault();
-
-        const {name}= e.target;
-
-        if (name === 'prevImg1'){
-            setImg(null);
-            setImgPreview(null);
-            formRef.current.reset();
-        }
-
-        if (name === 'prevImg2'){
-            setImg2(null);
-            setImgPreview2(null);
-            formRef.current.reset();
-        }
-
-        if (name === 'prevImg3'){
-            setImg3(null);
-            setImgPreview3(null);
-            formRef.current.reset();
+            if(value){
+                setImgPreview3(URL.createObjectURL(value));
+            }
+            
         }
     }
 
     async function handleDeleteImg(e){
-        e.preventDefault();
 
         const {name}= e.target;
 
@@ -115,8 +102,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
             token = window.localStorage.getItem("jwt");
         }
 
-        if (name === 'imgPost1'){
-
+        if (name === 'imgPost1' && (img2 === null || post[2].length < 2)){
             try{
                 
                 await deletePhotoService(post[0][0].entry_id, post[2][0].photo_id, token);
@@ -131,15 +117,14 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
             }finally{
                 if(editError === null){
                     const eliminarFoto = updatedPost[2];
-                    eliminarFoto.splice(0,1)
+                    eliminarFoto.splice(0,1);
                     setOneEntryPosts(updatedPost);
                 }
             }
             
         }
 
-        if (name === 'imgPost2'){
-            
+        if (name === 'imgPost2' && (img3 === null || post[2].length < 3)){
             try{
                 
                 await deletePhotoService(post[0][0].entry_id, post[2][1].photo_id, token);
@@ -164,7 +149,6 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
         }
 
         if (name === 'imgPost3'){
-
             try{
                 
                 await deletePhotoService(post[0][0].entry_id, post[2][2].photo_id, token);
@@ -207,11 +191,9 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
 
             updatedPost[0] = update;
 
-            if(updatedPost[2]){
-                const {newPhotos} = await addPhotoService(token, post[0][0].entry_id, data);
-
-                updatedPost[2] = newPhotos;
-            }
+            const {newPhotos} = await addPhotoService(token, post[0][0].entry_id, data);
+            
+            updatedPost[2] = newPhotos;
 
         }catch(e){
             setEditError(e.message);
@@ -289,13 +271,13 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 0 && !deletedImg1 ?
-                                                    <li><img className="preview-img" name="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost1" id="imgPost1" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][0].name_photo}`} alt={post[2][0].name_photo} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         
                                                         {
                                                             img ?
-                                                                <img className="preview-img" name="prevImg1" src={imgPreview} onClick={handleDeletePreview}/>
+                                                                <img className="preview-img" name="prevImg1" src={imgPreview}/>
                                                             :
                                                             <figure>
                                                                     <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
@@ -312,12 +294,12 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 1 && !deletedImg2 ?
-                                                    <li><img className="preview-img" name="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost2" id="imgPost2" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][1].name_photo}`} alt={post[2][1].name_photo} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         {
                                                         img2 ?
-                                                        <img className="preview-img" name="prevImg2" src={imgPreview2} onClick={handleDeletePreview}/>
+                                                        <img className="preview-img" name="prevImg2" src={imgPreview2} />
                                                         :
                                                         <figure>
                                                                 <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
@@ -336,13 +318,13 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                                 <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
                                                 {
                                                     post[2].length > 2 && !deletedImg3 ?
-                                                    <li><img className="preview-img" name="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
+                                                    <li><img className="preview-img" name="imgPost3" id="imgPost3" src={`${import.meta.env.VITE_API_URL}/photoentries/${post[2][2].name_photo}`} alt={post[2][2].name_photo} onClick={handleDeleteImg}></img></li>
                                                     :
                                                     <>
                                                         
                                                         {
                                                             img3 ?
-                                                            <img className="preview-img" name="prevImg3" src={imgPreview3}  onClick={handleDeletePreview}/>
+                                                            <img className="preview-img" name="prevImg3" src={imgPreview3}  />
                                                             :
                                                             <figure>
                                                                     <img className="upload-img-icon" src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>

@@ -2,7 +2,7 @@ import React, { useContext,  useRef,  useState } from 'react';
 import { postEntryService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
-import uploadIcon from "/upload.svg"
+import uploadIcon from "/upload.svg";
 
 function PostEntryPage() {
     
@@ -71,25 +71,24 @@ function PostEntryPage() {
     }
 
     function handleDeleteImage (e){
-        e.preventDefault();
 
         const {name}= e.target;
 
         if (name === 'img'){
             setImg(null);
-            setImgPreview(URL.createObjectURL(null));
+            setImgPreview(null);
             formRef.current.reset();
         }
 
         if (name === 'img2'){
             setImg2(null);
-            setImgPreview2(URL.createObjectURL(null));
+            setImgPreview2(null);
             formRef.current.reset();
         }
 
         if (name === 'img3'){
             setImg3(null);
-            setImgPreview3(URL.createObjectURL(null));
+            setImgPreview3(null);
             formRef.current.reset();
         }
     }
@@ -106,13 +105,10 @@ function PostEntryPage() {
                 token = window.localStorage.getItem("jwt");
             }
 
-            
             setPostError(null);
             
             await postEntryService(data, token);
-            
-        
-        
+
             navigateTo(`/novedades`)
             
         }catch(e){
@@ -178,7 +174,7 @@ function PostEntryPage() {
                             <section className="section-select-photos">
                                 <h4 className="edit-entry-label">Fotos <small>(opcional)</small></h4>
                                 <ul className="ul-select-photos">
-                                    <label className="upload-img-1">
+                                    <label className="upload-img-1" htmlFor='img'>
                                     <input onChange={handleChange}  type="file" name='img' id='img' accept='image/*' className="input-file"/>
                                         {
                                             !img ? (
@@ -189,6 +185,7 @@ function PostEntryPage() {
                                             ) : (
                                                 <figure>
                                                     <img className='preview-img'
+                                                        name="prevImg1"
                                                         src={imgPreview}
                                                         alt="Previsualización"
                                                         onClick={handleDeleteImage}
@@ -200,7 +197,7 @@ function PostEntryPage() {
                                     </label>
                     
                                     {
-                                        img && <label className="upload-img-2">
+                                        img && <label className="upload-img-2" htmlFor='img2'>
                                             <input onChange={handleChange} type="file" name='img2' id='img2' accept='image/*' className="input-file"/>
                                             {
                                                 !img2 ? (
@@ -211,6 +208,7 @@ function PostEntryPage() {
                                                 ) : (
                                                     <figure>
                                                         <img className='preview-img'
+                                                            name="prevImg2"
                                                             src={imgPreview2}
                                                             alt="Previsualización"
                                                             onClick={handleDeleteImage}
@@ -223,7 +221,7 @@ function PostEntryPage() {
                                     }
                     
                                     {
-                                        img2 && <label className="upload-img-3">
+                                        img2 && <label className="upload-img-3" htmlFor='img3'>
                                             <input onChange={handleChange} type="file" name='img3' id='img3' accept='image/*' className="input-file"/>
                                                 {
                                                     !img3 ? (
@@ -234,6 +232,7 @@ function PostEntryPage() {
                                                     ) : (
                                                         <figure>
                                                             <img className='preview-img'
+                                                                name="prevImg3"
                                                                 src={imgPreview3}
                                                                 alt="Previsualización"
                                                                 onClick={handleDeleteImage}

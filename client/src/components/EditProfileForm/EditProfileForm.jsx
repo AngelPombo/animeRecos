@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
 import { newUserProfile } from '../../services';
 import sessionContext from '../../context/sessionContext';
-import uploadIcon from "/upload.svg"
-import "./EditProfileForm.css"
+import uploadIcon from "/upload.svg";
+import "./EditProfileForm.css";
+import { ThreeDots } from "react-loader-spinner";
 
 function EditProfileForm() {
 
@@ -113,7 +114,18 @@ function EditProfileForm() {
     }
 
     if(loading){
-        return <p>Cargando...</p>
+        return <div className="loader-spinner">
+                    <ThreeDots 
+                    height="80" 
+                    width="80" 
+                    radius="9"
+                    color="#9da63d" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                    />
+                </div>
     }
 
     return (

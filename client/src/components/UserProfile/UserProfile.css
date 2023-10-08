@@ -32,6 +32,8 @@
     background-color: #712c2724;
     border-radius: 14px;
     padding: 2rem;
+    text-align: justify;
+    word-break: break-word;
 
 }
 

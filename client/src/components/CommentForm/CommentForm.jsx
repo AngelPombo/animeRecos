@@ -68,7 +68,6 @@ function CommentForm({setDataComments, dataComments}) {
         <div className="btn-comment-div">
           <button className="btn-comment" type='submit'> Comentar </button>
         </div>
-        
       </form>
       }
     </>

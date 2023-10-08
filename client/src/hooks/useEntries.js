@@ -9,7 +9,6 @@ function useEntries(endpoint, token){
         
         async function getData(endpoint, token){
             try{
-               
                 setIsLoading(true);
                 const res = await fetch(endpoint, {
                     headers: {

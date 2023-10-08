@@ -1,0 +1,17 @@
+.section-validate{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 4rem;
+}
+
+.container-img-div-validate{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.container-img-div-validate > img{
+    box-shadow: 2px 2px 5px grey;
+    min-width: 600px;
+    min-height: 336px;
+}

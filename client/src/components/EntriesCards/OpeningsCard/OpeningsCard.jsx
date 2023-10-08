@@ -32,7 +32,7 @@ function OpeningsCard({post}) {
                 <div className='openings-video-div'>
                     {
                         post.video_url ?
-                        <ReactPlayer width= {370} height={180} url={post.video_url}/>
+                        <ReactPlayer width= {370} height={180} url={post.video_url} controls={true}/>
                         :
                         null
                     }

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useEntry } from '../../hooks/useEntry';
 import sessionContext from '../../context/sessionContext'
 import { getOneEntryService } from '../../services';
+import { ThreeDots } from "react-loader-spinner";
 
 function OneEntryPage() {
 
@@ -36,7 +37,18 @@ function OneEntryPage() {
         <>
         {
             loading ?
-            <p>Cargando...</p>
+            <div className="loader-spinner">
+                <ThreeDots 
+                height="80" 
+                width="80" 
+                radius="9"
+                color="#9da63d" 
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+                />
+            </div>
             :
             <>
                 {

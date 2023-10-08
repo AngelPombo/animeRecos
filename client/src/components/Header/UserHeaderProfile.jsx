@@ -3,6 +3,7 @@ import sessionContext from '../../context/sessionContext';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
 import './UserHeaderProfile.css'
+import { ThreeDots } from "react-loader-spinner";
 
 
 
@@ -27,10 +28,20 @@ function UserHeaderProfile () {
                             <p className='profile-badge'>{user[0].user_badge}</p>
                         </>
                     }
-                   
                 </div>
                 :
-                <p>Cargando...</p>
+                <div className="loader-spinner">
+                    <ThreeDots 
+                    height="30" 
+                    width="30" 
+                    radius="9"
+                    color="#9da63d" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                    />
+                </div>
             }
             {error && <p>{error}</p>}
             
