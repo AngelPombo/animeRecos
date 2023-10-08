@@ -8,7 +8,7 @@ async function savePhoto(dataPhoto, dir){
     let img;
 
     if(dataPhoto.data){
-        img = sharp(dataPhoto.data);
+        img = sharp(dataPhoto.data).resize(300, 300);
         const photoNameUniq = `${uuid.v4()}_${dataPhoto.name}`;
 
         await img.toFile(
@@ -29,21 +29,21 @@ async function savePhoto(dataPhoto, dir){
 
         for (let i = 0; i < dataPhoto.length; i++) {
             if(i === 0){
-                img1 = sharp(dataPhoto[i].data);
+                img1 = sharp(dataPhoto[i].data).resize(300, 300);
                 photoNameUniq1 = `${uuid.v4()}_${dataPhoto[i].name}`;
                 await img1.toFile(
                     path.join(__dirname,process.env.UPLOADS_DIRECTORY+dir, photoNameUniq1)
                 ); 
             }
             if(i === 1){
-                img2 = sharp(dataPhoto[i].data);
+                img2 = sharp(dataPhoto[i].data).resize(300, 300);
                 photoNameUniq2 = `${uuid.v4()}_${dataPhoto[i].name}`;
                 await img2.toFile(
                     path.join(__dirname,process.env.UPLOADS_DIRECTORY+dir, photoNameUniq2)
                 );
             }
             if(i === 2){
-                img3 = sharp(dataPhoto[i].data);
+                img3 = sharp(dataPhoto[i].data).resize(300, 300);
                 photoNameUniq3 = `${uuid.v4()}_${dataPhoto[i].name}`;
                 await img3.toFile(
                     path.join(__dirname,process.env.UPLOADS_DIRECTORY+dir, photoNameUniq3)

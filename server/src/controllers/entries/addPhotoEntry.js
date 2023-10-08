@@ -7,8 +7,7 @@ async function addPhotoEntry (req, res){
         const {idEntry} = req.params;
         const connect = await getDB();
         
-        if(req.files && req.files.img){
-
+        if(req.files && (req.files.img || req.files.img2 || req.files.img3)){
             if(req.files && Object.keys(req.files).length > 0){
                 for(let photoData of Object.values(req.files).slice(0,3)){
                     const photoName =  await savePhoto(photoData, "/photoentries");
