@@ -94,6 +94,8 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
 
     async function handleDeleteImg(e){
 
+        e.preventDefault();
+        
         const {name}= e.target;
 
         let token;

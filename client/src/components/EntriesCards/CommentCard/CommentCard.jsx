@@ -60,7 +60,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
                                         comment.avatar ?
                                         <img className="avatar-comment" src={`${baseUrl}/avataruser/${comment.avatar}`} alt={comment.user_name}></img>
                                         :
-                                        null
+                                        <img className="avatar-comment" src='https://ideogram.ai/api/images/direct/a9clBXDhS_GtGnjN4dzfKg' alt={comment.user_name}></img>
                                     }
                                     <div className="username-badge-card">
                                         <h4>{comment.user_name}</h4>

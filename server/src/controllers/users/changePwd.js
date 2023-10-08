@@ -12,13 +12,19 @@ async function changePwd (req,res){
         if(parseInt(idUser) !== idCurrentUser){
             connect.release();
 
-            return res.status(401).send('No estás autorizado para realizar este cambio de contraseña');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'No estás autorizado para realizar este cambio de contraseña'
+            });
         }
 
         if(!oldPwd || !newPwd){
             connect.release();
 
-            return res.status(400).send('Faltan datos');
+            return res.status(400).send({
+                status: 'Faltan datos',
+                message: 'Es necesario introducir la contraseña actual y la nueva contraseña'
+            });
         }
 
         const [user] = await connect.query(
@@ -28,7 +34,10 @@ async function changePwd (req,res){
         if(!user.length || user.length === 0){
             connect.release();
 
-            return res.status(401).send('Las contraseñas no coinciden.');
+            return res.status(401).send({
+                status: 'No autorizado',
+                message: 'Contraseña actual incorrecta'
+            });
         }
 
         await connect.query(
