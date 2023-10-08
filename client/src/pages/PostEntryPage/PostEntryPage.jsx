@@ -1,4 +1,4 @@
-import React, { useContext,  useRef,  useState } from 'react';
+import React, { useContext,  useEffect,  useRef,  useState } from 'react';
 import { postEntryService } from '../../services';
 import { useNavigate } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
@@ -165,7 +165,7 @@ function PostEntryPage() {
                             <textarea className="edit-entry-textarea" type="text" name="content" id="content" maxLength="10000" cols="100" rows="15" onChange={handleChange} required/>
                         </li>
                         {
-                            category === "openings" ?
+                            category.toLocaleLowerCase() === "openings" ?
                             <li className="container-label-input">
                                 <label htmlFor="video" className="edit-entry-label">Video URL</label>
                                 <input className="input-title" type="text" name="video" id="video" maxLength="3000" required onChange={handleChange}></input>
