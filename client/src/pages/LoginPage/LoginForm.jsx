@@ -44,7 +44,7 @@ function LoginForm() {
     } else setFeedbackMsg("Usuario y/o contraseña incorrectas");
   }
 
-  if (logged) return <h2>{feedbackMsg}</h2>;
+  if (logged) return <h2 className="feedback-msg">{feedbackMsg}</h2>;
 
   return (
       <div className="login-main-div">
