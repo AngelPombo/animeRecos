@@ -1,6 +1,7 @@
 import React from 'react';
 import { CommentCard } from '../EntriesCards/CommentCard/CommentCard';
 import "./CommentList.css";
+import { ThreeDots } from "react-loader-spinner";
 
 
 function CommentsList({error, isLoading, dataComments, setDataComments}) {
@@ -20,7 +21,18 @@ function CommentsList({error, isLoading, dataComments, setDataComments}) {
             {
                 isLoading ?
                 (
-                    <div>Cargando...</div>
+                    <div className="loader-spinner">
+                        <ThreeDots 
+                        height="80" 
+                        width="80" 
+                        radius="9"
+                        color="#9da63d" 
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                        />
+                    </div>
                 )
                 :
                 (

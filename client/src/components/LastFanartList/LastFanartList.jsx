@@ -2,7 +2,9 @@ import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
 import { FanartCard } from '../EntriesCards/FanartCard/FanartCard';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import "./LastFanartList.css"
+import "./LastFanartList.css";
+import { ThreeDots } from "react-loader-spinner";
+import { Link } from 'react-router-dom';
 
 
 
@@ -15,7 +17,7 @@ function LastFanartList({endpoint}) {
     if(error){
         return <ErrorMessage message= {error}/>
     }
-    if(!dataPosts){
+    if(!isLoading && !dataPosts){
         return(
         <section>
             <h2>Fanart</h2>
@@ -28,12 +30,25 @@ function LastFanartList({endpoint}) {
     return (
         isLoading ? 
                 (
-                    <div>Cargando...</div>
+                    <div className="loader-spinner">
+                        <ThreeDots 
+                        height="30" 
+                        width="30" 
+                        radius="9"
+                        color="#9da63d" 
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                        />
+                    </div>
                     
                 )
                 :(
                 <section className='section-fanart-list'>
-                    <h2>FanArts</h2>
+                    <Link to={'/fanart/ver-todos'}>
+                        <h2>FanArts</h2>
+                    </Link>
                     <ul className='fanart-list'>
                     {dataPosts.slice(0,3).map((post) => {
                     return <li key={post.id}><FanartCard post={post}/></li>

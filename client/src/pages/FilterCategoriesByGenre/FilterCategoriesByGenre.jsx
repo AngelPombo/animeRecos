@@ -2,8 +2,9 @@ import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
 import { useParams } from 'react-router-dom';
 import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard';
+import './FilterCategoriesByGenre.css';
+import { ThreeDots } from "react-loader-spinner";
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-import './FilterCategoriesByGenre.css'
 
 function FilterCategoriesByGenre() {
     const baseUrl = import.meta.env.VITE_API_URL;
@@ -12,7 +13,22 @@ function FilterCategoriesByGenre() {
     
     const dataPosts = data.data;
 
-    if (isLoading) return <ErrorMessage message={error}/>;
+    if (isLoading){
+        return <div className="loader-spinner">
+                    <ThreeDots 
+                    height="30" 
+                    width="30" 
+                    radius="9"
+                    color="#9da63d" 
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                    />
+                </div>
+    }
+
+    if(error) return <ErrorMessage message={error}/>
 
     if( dataPosts.length === 0){
         return(

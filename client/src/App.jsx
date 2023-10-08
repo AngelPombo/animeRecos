@@ -17,11 +17,11 @@ import { NotFound } from './components/NotFound/Notfound';
 import { RecoverPasswordPage } from './pages/RecoverPasswordPage/RecoverPasswordPage';
 import { NewPasswordWithCode } from './pages/NewPasswordWithCode/NewPasswordWithCode';
 import { PostEntryPage } from './pages/PostEntryPage/PostEntryPage';
-import { EditEntryPage } from './pages/EditEntryPage/EditEntryPage';
 import { UserPage } from './pages/UserPage/UserPage';
 import { EditProfileForm } from './components/EditProfileForm/EditProfileForm';
 import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage';
 import { DeleteUserPage } from './pages/DeleteUserPage/DeleteUserPage';
+import { AllByCategoryPage } from './pages/AllByCategoryPage/AllByCategoryPage';
 
 
 function App() {
@@ -44,6 +44,7 @@ function App() {
                   <Route path='/openings'element={<SelectGenrePage category="openings"/>}/>
                   <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
                   <Route path='/novedades' element={<NovedadesPage />}/>
+                  <Route path='/:category/ver-todos' element={<AllByCategoryPage/>}/>
                   <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
                   <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                   <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>

@@ -2,7 +2,9 @@ import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
 import { CosplaysCard } from '../EntriesCards/CosplaysCard/CosplaysCard';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import "./LastCosplaysList.css"
+import "./LastCosplaysList.css";
+import { ThreeDots } from "react-loader-spinner";
+import { Link } from 'react-router-dom';
 
 
 
@@ -15,25 +17,39 @@ function LastCosplaysList({endpoint}) {
     if(error){
         return <ErrorMessage message= {error}/>
     }
-    if(!dataPosts){
-        return(
-        <section>
-            <h2>Cosplays</h2>
-            <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
-        </section>
-        )
+    if(!isLoading && !dataPosts){
+        return(
+            <section>
+                <h2>Cosplays</h2>
+                <p className='sin-entradas'>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
+    
+            </section>
+            )
     }
 
     return (
         isLoading ? 
                 (
-                    <div>Cargando...</div>
+                    <div className="loader-spinner">
+                        <ThreeDots 
+                        height="30" 
+                        width="30" 
+                        radius="9"
+                        color="#9da63d" 
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                        />
+                    </div>
                     
                 )
                 :(
                 <section className='section-cosplays-list'>
-                    <h2>Cosplays</h2>
+                    <Link to={'/cosplays/ver-todos'}>
+                        <h2>Cosplays</h2>
+                    </Link>
                     <ul className='cosplays-list'>
                     {dataPosts.slice(0,3).map((post) => {
                     return <li key={post.id}><CosplaysCard post={post}/></li>

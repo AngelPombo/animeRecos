@@ -1,6 +1,7 @@
 import React from 'react'
 import {GenreButton} from "../../components/Buttons/GenreButton"
 import "./SelectGenrePage.css"
+import { Link } from 'react-router-dom';
 
 
 function SelectGenrePage({category}) {
@@ -11,10 +12,12 @@ function SelectGenrePage({category}) {
         <section className="select-genre-page">
             <h2>{category}</h2>
             <ul className="btns-genre-list">
+                <Link to={`/${category}/ver-todos`}>
+                    <li><button className="genre-btn genre-btn-all">todos</button></li>
+                </Link>
                 {genres.map((genre) => {
                     return  <li key={genre}><GenreButton category={category} genre={genre}/></li>
                 })}
-                
             </ul>
         </section>
     );

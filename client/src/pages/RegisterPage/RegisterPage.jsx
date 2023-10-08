@@ -15,7 +15,7 @@ export const RegisterPage = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     if (pwd1 !== pwd2) {
-      setError("Passwords do not match");
+      setError("Las contraseñas no coinciden");
       return;
     }
 
@@ -79,10 +79,12 @@ export const RegisterPage = () => {
                   onChange={(e) => setPwd2(e.target.value)}
                 />
               </fieldset>
-              <div>
-                <button className="register-page-btn">Confirmar</button>
+              <div className="btn-div-register">
+                {error ? <p>{error}</p> : null}
+                <div>
+                  <button className="register-page-btn">Confirmar</button>
+                </div>
               </div>
-              {error ? <p>{error}</p> : null}
             </form>
       </section>
     </main>

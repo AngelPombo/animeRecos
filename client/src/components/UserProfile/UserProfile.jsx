@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { useEntries } from '../../hooks/useEntries';
 import { NovedadesCard } from '../EntriesCards/NovedadesCard/NovedadesCard';
-import "./UserProfile.css"
-import imgTwitterLogo from "/twitterSvgIcon.svg"
-import imgYoutubeLogo from "/youtubeSvgIcon.svg"
-import imgTwitchLogo from "/ttvSvgIcon.svg"
-import imgInstagramLogo from "/instaSvgIcon.svg"
+import "./UserProfile.css";
+import imgTwitterLogo from "/twitterSvgIcon.svg";
+import imgYoutubeLogo from "/youtubeSvgIcon.svg";
+import imgTwitchLogo from "/ttvSvgIcon.svg";
+import imgInstagramLogo from "/instaSvgIcon.svg";
+import { ThreeDots } from "react-loader-spinner";
 
 
 function UserProfile ({user}) {
@@ -98,7 +99,18 @@ function UserProfile ({user}) {
                     {
                         isLoading ?
                         (
-                            <div>Cargando...</div>
+                            <div className="loader-spinner">
+                                <ThreeDots 
+                                height="50" 
+                                width="50" 
+                                radius="9"
+                                color="#9da63d" 
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClassName=""
+                                visible={true}
+                                />
+                            </div>
                         )
                         :(
                             <section className='section-entradas-perfil'>

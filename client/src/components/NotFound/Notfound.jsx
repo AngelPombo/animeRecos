@@ -7,7 +7,6 @@ function NotFound() {
     <section className='not-found-section' >
       <img  className='not-found-img' src={img404} alt='Not found' />
     </section>
-   
   )
 }
- export {NotFound}
+export {NotFound}

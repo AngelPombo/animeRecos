@@ -12,7 +12,7 @@ function NewPasswordWithCode() {
     if (pwdRecovered){
         navigateTo("/login");
     }
-  
+
 
 
     async function handleSubmit(e){
@@ -32,7 +32,7 @@ function NewPasswordWithCode() {
             e.target.regcode.value = "";
             e.target.newpwd.value = "";
 
-            if(error !== null){
+            if(error === null){
                 setPwdRecovered(true);
             }
         }
@@ -45,19 +45,18 @@ function NewPasswordWithCode() {
                         <ul className='recuperation-ul'>
                             <li className='recuperation-li'>
                                 <label className='recuperation-code-label' htmlFor="regcode">Código de recuperación</label>
-                                <input className="recuperation-code-input" type="text" name="regcode" id="regcode" placeholder='Copia y pega aquí el código enviado a tu correo...'/>
+                                <input className="recuperation-code-input" type="text" name="regcode" id="regcode" placeholder='Copia y pega aquí el código enviado a tu correo...' required/>
                             </li>
                             <li className='recuperation-li'>
                                 <label className='recuperation-code-label'  htmlFor="newpwd">Nueva contraseña</label>
-                                <input className="recuperation-code-input" type="password" name="newpwd" id="newpwd" placeholder='Nueva constraseña...'/>
+                                <input className="recuperation-code-input" type="password" name="newpwd" id="newpwd" placeholder='Nueva constraseña...' required/>
                             </li>
                         </ul>
-                        {error ? <p>{error}</p> : null}
+                        {error ? <p className="error-msg">{error}</p> : null}
                     </fieldset>
                     <div>
                         <button className='recover-password-btn' type="submit">Enviar</button>
                     </div>
-                   
                 </form>
             </section>
     )

@@ -73,9 +73,8 @@ function LoginForm() {
             <small><Link to='/recuperar-password' className="recuperar-password-hover">¿Has olvidado tu contraseña?</Link></small>
           </div>
           <div className="div-buttons">
-            <button className="login-btn" type="submit">Login</button>
-            <button  className= "login-btn" type="reset">Borrar</button>
-            {feedbackMsg ? <small>{feedbackMsg}</small> : <></>}
+            <button className="login-btn" type="submit">Iniciar sesión</button>
+            {feedbackMsg ? <small className="feedback-msg">{feedbackMsg}</small> : <></>}
           </div>
         </form>
         <div className="register-div">

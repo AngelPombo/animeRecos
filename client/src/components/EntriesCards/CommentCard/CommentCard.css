@@ -29,6 +29,7 @@
 }
 
 .comment-content-p{
+    margin-top: 0.5rem;
     word-wrap: break-word;
     text-align: justify;
 }

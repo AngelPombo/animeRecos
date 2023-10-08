@@ -9,7 +9,7 @@
 .select-genre-page>h2{
     color: var(--marron-oscuro);
     display: flex;
+    margin-top: 2rem;
     border-bottom: 0.5px solid var(--marron-oscuro);
     text-transform: uppercase;
-
 }

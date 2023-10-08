@@ -60,3 +60,14 @@
     background-color: var(--crema);
     color: var(--marron-oscuro);
 }
+
+.btn-div-register{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-div-register > p{
+    font-size: small;
+    color: var(--marron-claro);
+}

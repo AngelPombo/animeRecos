@@ -5,7 +5,6 @@ import { CardButton } from '../../Buttons/CardButton';
 
 
 function NovedadesCard({post}) {
-   
 
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
