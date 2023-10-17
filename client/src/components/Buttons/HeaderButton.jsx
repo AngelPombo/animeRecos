@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function HeaderButton({category}) {
+function HeaderButton({category, setClicked, clicked}) {
+
+    function handleClick(){
+        setClicked(!clicked)
+    }
+
     return (
         <Link to={`/${category}`} >
-            <button className="header-btn">
+            <button onClick={handleClick} className={`header-btn`}>
                 {category}
             </button>
         </Link>  

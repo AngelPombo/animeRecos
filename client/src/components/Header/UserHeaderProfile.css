@@ -6,36 +6,37 @@
     max-width: 95%;
     margin: 2.5rem auto;
 }
+
 .profile-image{
     border-radius: 50%;
     width: 70px;
-    grid-area: a;
+    grid-column: 1/2;
+    grid-row: 1/3;
     box-shadow: 2px 2px 5px rgb(151, 149, 149);
 }
 
 .profile-header{
     display: grid;
-    grid-template-columns: auto, 1fr;
+    grid-template-columns: 1fr auto;
     grid-template-rows: repeat(2,1fr);
     grid-gap: 0.3rem;
-    grid-template-areas: 
-    "a b"
-    "a c";
-    justify-content:center;
 }
 
 .profile-nick{
-    grid-area: b;
+    grid-column: 2/3;
+    grid-row: 1/2;
     text-align:start;
     align-self: flex-end;
     
 }
 
 .profile-badge{
-    grid-area: c;
+    grid-column: 2/3;
+    grid-row: 2/3;
     font-size: 0.7rem;
     font-style: italic;
     align-self: flex-start;
 }
+
 
 

@@ -8,7 +8,7 @@ function UserHeader () {
     const { logged, timeStamp, oneDayMs} = useContext(sessionContext);
     
         return (
-            <>
+            <section>
                 {
                     (logged && (new Date().getTime() < (parseInt(timeStamp) + oneDayMs)))
                     &&
@@ -17,7 +17,7 @@ function UserHeader () {
                         <PostEntryButton /> 
                     </section>
                 }
-            </>
+            </section>
             
             
         );

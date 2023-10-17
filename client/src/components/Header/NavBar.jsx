@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {HeaderButton} from '../Buttons/HeaderButton';
 
 function NavBar() {
 
+    const [clicked, setClicked] = useState(false)
+
+    function handleClick(){
+        setClicked(false)
+    }
+
     return (
         <nav className="nav-header">
-            <ul className="ul-header">
-                <li><HeaderButton category="recos"/></li>
-                <li><HeaderButton category="fanart"/></li>
-                <li><HeaderButton category="memes"/></li>
-                <li><HeaderButton category="teorias"/></li>
-                <li><HeaderButton category="cosplays"/></li>
-                <li><HeaderButton category="openings"/></li>
-                <li><HeaderButton category="novedades"/></li>
+            <a className='burguer-btn' onClick={handleClick} href="#menu">
+                <span></span><span></span><span></span>
+            </a>
+            <ul className={clicked ? "ul-header off" : "ul-header"} id='menu'>
+                <li className='close-menu'><a href="#" id='close-menu-a'>x</a></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="recos"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="fanart"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="memes"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="teorias"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="cosplays"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="openings"/></li>
+                <li><HeaderButton clicked={clicked} setClicked={setClicked} category="novedades"/></li>
             </ul>
         </nav>
     )

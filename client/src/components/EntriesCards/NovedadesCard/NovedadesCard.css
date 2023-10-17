@@ -1,4 +1,7 @@
 .novedades-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: rgba(255, 255, 255, 0.603);
     background-image: url(/animeRecosIconosepiagirado.png);
     background-position-x: -190%;
@@ -12,29 +15,28 @@
     box-shadow: 1px 1px 5px grey;
     width: 25rem;
     height: 35rem;
-    position: relative;
 }
 
 .novedades-card-div{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin: 0 auto;
-}
-.content-opening-div{
-    display: flex;
-    flex-direction: column;  
 }
 
+.content-opening-div{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;  
+}
 
 .content-image-div{
     display: flex;
     flex-direction: column;
-    
 }
+
 .novedades-div{
+    display: flex;
     margin: 1rem auto;
-    
 }
 
 .img-card{
@@ -43,7 +45,8 @@
 }
 
 .novedades-button-div{
-position: absolute;
-top: 500px;
-left:330px
+    display: flex;
+    justify-content: end    
 }
+
+

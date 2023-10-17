@@ -9,9 +9,7 @@
 
 .ul-header{
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
-    /* gap:4rem; */
 }
 
 .header-btn {
@@ -21,7 +19,7 @@
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     color: var(--crema);
-    font-size: 1rem;
+    font-size: 1.2vw;
     background-color: transparent;
 }
 
@@ -31,12 +29,11 @@
 }
 
 .logo{
-    max-width: 10rem;
+    max-width: 10vw;
 }
 
 .login-cta{
-    width: 4rem;
-    margin-right: 2rem;
+    width: 4vw;
     fill:var(--crema);
 }
 
@@ -50,4 +47,9 @@
     border: none;
     border-radius: 50%;
 }
+
+.burguer-btn{
+    display: none;
+}
+
 

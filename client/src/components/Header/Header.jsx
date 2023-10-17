@@ -5,7 +5,7 @@ import { UserHeader } from './UserHeader';
 
 function Header() {
     return (
-        <header>
+        <header className='main-header'>
             <TopHeader/>
             <UserHeader />
         </header>
