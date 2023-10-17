@@ -28,9 +28,9 @@ function NovedadesCard({post}) {
                         <p className='genre'>{`${post.category} - ${post.genre}`}</p>
                     </div>
                     <p className='card-content'>{post.content}</p>
-                    <div className='novedades-button-div'>
-                        <CardButton id={post.id}/>
-                    </div>
+                </div>
+                <div className='novedades-button-div'>
+                    <CardButton id={post.id}/>
                 </div>
             </article>
         )
@@ -54,13 +54,13 @@ function NovedadesCard({post}) {
                     </div>
                     <div className='content-opening-div'>
                         <p>{post.content}</p>
-                        <div className='novedades-div img-card' >
+                        <div className='img-card openings-video-div'>
                             <ReactPlayer  width= {370} height={180}  url={post.video_url} controls={true}/>
                         </div>
                     </div>
-                    <div className='novedades-button-div'>
-                        <CardButton id={post.id}/>
-                    </div>
+                </div>
+                <div className='novedades-button-div'>
+                    <CardButton id={post.id}/>
                 </div>
             </article>
         )
@@ -91,10 +91,10 @@ function NovedadesCard({post}) {
                             />
                         </div>
                     </div>
-                    <div className='novedades-button-div'>
-                        <CardButton id={post.id}/>
-                    </div>
                 </div> 
+                <div className='novedades-button-div'>
+                    <CardButton id={post.id}/>
+                </div>
             </article>
         )
     }
