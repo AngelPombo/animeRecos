@@ -3,7 +3,6 @@ import "./TermsAndConditions.css"
 
 function TermsAndConditions() {
     return (
-        <main>
             <section className='terms-section'>
                 <article className='terms-article'>
                     <h2>Términos y condiciones de uso</h2>
@@ -53,8 +52,6 @@ function TermsAndConditions() {
                     </p>
                 </article>
             </section>
-        </main>
-        
     )
 }
 
