@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {HeaderButton} from '../Buttons/HeaderButton';
+import closeIcon from '/closeIcon.svg'
 
 function NavBar() {
 
@@ -15,7 +16,7 @@ function NavBar() {
                 <span></span><span></span><span></span>
             </a>
             <ul className={clicked ? "ul-header off" : "ul-header"} id='menu'>
-                <li className='close-menu'><a href="#" id='close-menu-a'>x</a></li>
+                <li className='close-menu'><a href="#" id='close-menu-a'><img src={closeIcon} alt="Cerrar menú" id='close-menu-icon'/></a></li>
                 <li><HeaderButton clicked={clicked} setClicked={setClicked} category="recos"/></li>
                 <li><HeaderButton clicked={clicked} setClicked={setClicked} category="fanart"/></li>
                 <li><HeaderButton clicked={clicked} setClicked={setClicked} category="memes"/></li>

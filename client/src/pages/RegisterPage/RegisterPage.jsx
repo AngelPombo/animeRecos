@@ -27,7 +27,6 @@ export const RegisterPage = () => {
     }
   };
   return (
-    <main>
       <section className="register-page-section">
             <form onSubmit={handleForm}>
             <h2 className="register-page-title">Formulario de registro</h2>
@@ -87,6 +86,5 @@ export const RegisterPage = () => {
               </div>
             </form>
       </section>
-    </main>
   );
 };
