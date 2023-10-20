@@ -46,7 +46,12 @@
 
 .novedades-button-div{
     display: flex;
-    justify-content: end    
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.total-votos{
+    font-size: small;
 }
 
 

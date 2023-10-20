@@ -10,13 +10,18 @@ async function getTopRatedEntriesByCategory (req,res){
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.genre, e.create_date
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,200),"...") AS content, e.video_url, e.category, e.id, e.genre, e.create_date, COUNT(vo.id) AS votos
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
+                LEFT JOIN votes vo ON e.id = vo.entry_id
                 WHERE e.category=?
+                GROUP BY e.id
+              
             `,
             [category]
         );
+        
+        
 
         if(!entries.length){
             connect.release();
@@ -28,6 +33,7 @@ async function getTopRatedEntriesByCategory (req,res){
         }
 
         const noBannedEntries = [];
+        
 
         for (let i = 0; i < entries.length; i++) {
             if(!entries[i]){
@@ -39,6 +45,7 @@ async function getTopRatedEntriesByCategory (req,res){
             }
         }
 
+
         if(!noBannedEntries.length){
             connect.release();
 
@@ -47,24 +54,14 @@ async function getTopRatedEntriesByCategory (req,res){
                 message: 'No hay entradas para mostrar'
             });
         }
-
-        const [votesEntry] = await connect.query(
-            `
-                SELECT count(vo.id) AS "votos", e.id AS "id_entry", u.user_name, u.avatar, u.user_badge, e.title, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.genre, e.create_date
-                FROM votes vo
-                INNER JOIN entries e ON vo.entry_id=e.id
-                INNER JOIN users u ON e.user_id=u.id
-                GROUP BY e.id
-            `
-        );
-
-        votesEntry.sort((a, b) => b.votos - a.votos);
+       
+        noBannedEntries.sort((a, b) => b.votos - a.votos);
 
         connect.release();
 
         res.status(200).send({
             status: "OK",
-            data: votesEntry
+            data: noBannedEntries
         });
 
     }catch(e){

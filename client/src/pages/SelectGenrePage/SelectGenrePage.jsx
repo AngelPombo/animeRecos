@@ -15,6 +15,9 @@ function SelectGenrePage({category}) {
                 <Link to={`/${category}/ver-todos`}>
                     <li><button className="genre-btn genre-btn-all">todos</button></li>
                 </Link>
+                <Link to={`/${category}/mas-votados`}>
+                    <li><button className='genre-btn genre-btn-top'>mas votados</button></li>
+                </Link>
                 {genres.map((genre) => {
                     return  <li key={genre}><GenreButton category={category} genre={genre}/></li>
                 })}

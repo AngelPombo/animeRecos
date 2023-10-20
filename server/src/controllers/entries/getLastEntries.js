@@ -6,9 +6,11 @@ async function getLastEntries (_req,res){
         
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, e.id, CONCAT(SUBSTRING(e.content,1,200),"...") AS content, e.video_url, e.category, e.genre, e.create_date
-                FROM users u
-                INNER JOIN entries e ON u.id=e.user_id
+                SELECT u.user_name, u.avatar, u.user_badge, e.title, e.banned, e.id, CONCAT(SUBSTRING(e.content,1,200),"...") AS content, e.video_url, e.category, e.genre, e.create_date, COUNT(vo.id) AS votos
+                FROM entries e
+                INNER JOIN users u ON u.id=e.user_id
+                LEFT JOIN votes vo ON e.id = vo.entry_id
+                GROUP BY e.id
             `
         );
 

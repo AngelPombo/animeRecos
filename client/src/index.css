@@ -143,6 +143,15 @@ img{
         max-width: 12.5rem;
         max-height: 12.5rem;
     }
+
+    .genre-btn{
+        width: 14rem;
+        height: 7rem;
+        min-width: 0;
+        min-height: 0;
+        font-size: 1.2rem;
+    }
+    
     
 }
 
@@ -166,11 +175,7 @@ img{
         min-width: 90vw;
     }
 
-    .genre-btn{
-        min-width: 15rem;
-        min-height: 7.5rem;
-    }
-
+   
     .user-bio-header{
         flex-wrap: wrap;
     }
@@ -348,16 +353,17 @@ img{
     }
 
     .genre-btn{
-        width: 12rem;
-        height: 6rem;
+        width: 9rem;
+        height: 4.5rem;
         min-width: 0;
         min-height: 0;
-        font-size: 1rem;
+        font-size: 0.7rem;
     }
 
     .user-profile-header{
         padding: 0;
     }
+    
 
 }
 
@@ -418,9 +424,9 @@ img{
     }
 
     .genre-btn{
-        width: 10rem;
-        height: 5rem;
-        font-size: 0.8rem;
+        width: 14rem;
+        height: 7rem;
+        font-size: 1.2rem;
     }
 
     .user-profile-btn{
@@ -464,12 +470,7 @@ img{
         max-width: 100%;
     }
 
-    .genre-btn{
-        width: 14rem;
-        height: 7rem;
-        font-size: 1.2rem;
-    }
-
+    
     .Btn{
         width: 8rem;
         padding: 0 5px;

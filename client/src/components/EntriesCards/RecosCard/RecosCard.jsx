@@ -30,6 +30,7 @@ function RecosCard({post}) {
                 </div>
                 <p className='card-content'>{post.content}</p>
                 <div className='card-button-div'>
+                    <p className='total-votos'>{post.votos} votos</p>
                     <CardButton id={post.id}/>
                 </div>
             </div>

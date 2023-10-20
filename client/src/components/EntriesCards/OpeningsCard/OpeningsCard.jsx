@@ -38,6 +38,7 @@ function OpeningsCard({post}) {
                     }
                 </div>
                 <div className='card-button-div'>
+                    <p className='total-votos'>{post.votos} votos</p>
                     <CardButton id={post.id}/>
                 </div>
             </div>

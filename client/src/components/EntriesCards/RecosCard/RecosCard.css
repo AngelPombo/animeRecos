@@ -45,7 +45,8 @@
 
 .card-button-div{
     display: flex;
-    justify-content: end
+    justify-content: space-between;
+    align-items: center;
 }
 
 .entry-card-btn{
