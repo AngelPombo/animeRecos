@@ -121,6 +121,10 @@ img{
         max-width: 18rem;
         margin: 0 auto;
     }
+
+    .header-btn{
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width:1150px){

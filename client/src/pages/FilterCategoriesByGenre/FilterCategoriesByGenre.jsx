@@ -13,8 +13,6 @@ function FilterCategoriesByGenre() {
     
     const dataPosts = data.data;
 
-    
-
     if (isLoading){
         return <div className="loader-spinner">
                     <ThreeDots 

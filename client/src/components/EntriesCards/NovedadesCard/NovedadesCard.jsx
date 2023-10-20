@@ -9,8 +9,6 @@ function NovedadesCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    
-
     if(!post.photos_info && !post.video_url){
         return (
             <article className='novedades-card'>
