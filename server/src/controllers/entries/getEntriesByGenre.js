@@ -10,10 +10,12 @@ async function getEntriesByGenre (req,res) {
 
         const [entries] = await connect.query(
             `
-                SELECT u.user_name, u.avatar, u.user_badge, e.id, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,50),"...") AS content, e.video_url, e.category, e.create_date, e.genre
+                SELECT u.user_name, u.avatar, u.user_badge, e.id, e.title, e.banned, CONCAT(SUBSTRING(e.content,1,200),"...") AS content, e.video_url, e.category, e.create_date, e.genre, COUNT (vo.id) AS votos
                 FROM entries e
                 INNER JOIN users u ON u.id=e.user_id
+                LEFT JOIN votes vo ON e.id = vo.entry_id
                 WHERE genre =? AND category = ?
+                GROUP BY e.id
             `,
             [genre, category]
         );
@@ -32,8 +34,7 @@ async function getEntriesByGenre (req,res) {
 
         let photos = [];
         let infoPhotos = [];
-        let votesEntry = [];
-        let infoVotes = [];
+        
 
         for (let i = 0; i < entries.length; i++) {
             photos[i] = await connect.query(
@@ -43,18 +44,6 @@ async function getEntriesByGenre (req,res) {
                     WHERE entry_id=?
                 `,[entries[i].id]
             )
-
-            votesEntry[i] = await connect.query(
-                `
-                    SELECT SUM (vo.vote_entry) AS "votos_entrada", vo.entry_id
-                    FROM votes vo
-                    WHERE vo.entry_id=?
-                `,
-                [entries[i].id]
-            );
-            if(votesEntry[i].length > 0){
-                infoVotes[i] = votesEntry[i][0];
-            }
 
             if(photos[i][0].length > 0){
                 infoPhotos[i] = photos[i][0];
@@ -86,12 +75,7 @@ async function getEntriesByGenre (req,res) {
                                     noBannedEntries[i].photos_info = infoPhotos[j];
                                 }
                             }
-                            if(infoVotes[j]){
-                                if(noBannedEntries[i].id === infoVotes[j][0].entry_id){
-                                    noBannedEntries[i].votes = infoVotes[j];
-                                }
-                            }
-                            
+                           
                         }
                     }
                 } 
