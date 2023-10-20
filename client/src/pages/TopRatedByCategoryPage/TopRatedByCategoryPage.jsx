@@ -14,8 +14,7 @@ function TopRatedByCategoryPage() {
     const {data,error, isLoading} = useEntries(`${baseUrl}/top-rated/${category}`);
 
     const dataPosts = data.data;
-    console.log(category)
- 
+
     if(error){
         return <ErrorMessage message= {error}/>
     }
@@ -44,7 +43,7 @@ function TopRatedByCategoryPage() {
                             dataPosts !== undefined ?
                             <ul className='novedades-page'>
                             {dataPosts.map((post) => {
-                            return <li  key={post.id_entry}><NovedadesCard post={post}/></li>
+                            return <li  key={post.id}><NovedadesCard post={post}/></li>
                             })}
                             </ul>
                             :

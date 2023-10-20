@@ -16,7 +16,6 @@ async function getTopRatedEntriesByCategory (req,res){
                 LEFT JOIN votes vo ON e.id = vo.entry_id
                 WHERE e.category=?
                 GROUP BY e.id
-              
             `,
             [category]
         );
@@ -32,6 +31,25 @@ async function getTopRatedEntriesByCategory (req,res){
             });
         }
 
+        let photos = [];
+        let infoPhotos = [];
+        
+        for (let i = 0; i < entries.length; i++) {
+
+            photos[i] = await connect.query(
+                `
+                    SELECT p.photo, p.entry_id
+                    FROM photos p
+                    WHERE entry_id=?
+                `,[entries[i].id]
+            )
+
+            if(photos[i][0].length > 0){
+                infoPhotos[i] = photos[i][0];
+            }
+
+        }
+
         const noBannedEntries = [];
         
 
@@ -41,6 +59,13 @@ async function getTopRatedEntriesByCategory (req,res){
             }else{
                 if(entries[i].banned === 0){
                     noBannedEntries.push(entries[i]);
+                    for(let j = 0 ; j < infoPhotos.length; j++){
+                        if(infoPhotos[j]){
+                            if(noBannedEntries[i].id===infoPhotos[j][0].entry_id){
+                                noBannedEntries[i].photos_info = infoPhotos[j];
+                            }
+                        }                  
+                    }
                 }  
             }
         }
@@ -54,7 +79,7 @@ async function getTopRatedEntriesByCategory (req,res){
                 message: 'No hay entradas para mostrar'
             });
         }
-       
+
         noBannedEntries.sort((a, b) => b.votos - a.votos);
 
         connect.release();
