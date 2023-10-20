@@ -9,6 +9,8 @@ function NovedadesCard({post}) {
     //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
     const baseUrl = import.meta.env.VITE_API_URL;
 
+    
+
     if(!post.photos_info && !post.video_url){
         return (
             <article className='novedades-card'>
@@ -30,6 +32,7 @@ function NovedadesCard({post}) {
                     <p className='card-content'>{post.content}</p>
                 </div>
                 <div className='novedades-button-div'>
+                    <p className='total-votos'>{post.votos} votos</p>
                     <CardButton id={post.id}/>
                 </div>
             </article>
@@ -60,6 +63,7 @@ function NovedadesCard({post}) {
                     </div>
                 </div>
                 <div className='novedades-button-div'>
+                    <p className='total-votos'>{post.votos} votos</p>
                     <CardButton id={post.id}/>
                 </div>
             </article>
@@ -93,6 +97,7 @@ function NovedadesCard({post}) {
                     </div>
                 </div> 
                 <div className='novedades-button-div'>
+                    <p className='total-votos'>{post.votos} votos</p>
                     <CardButton id={post.id}/>
                 </div>
             </article>

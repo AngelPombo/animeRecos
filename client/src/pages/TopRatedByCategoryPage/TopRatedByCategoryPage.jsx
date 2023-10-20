@@ -1,22 +1,21 @@
 import React from 'react'
 import {useEntries} from '../../hooks/useEntries';
-import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard'; 
-import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-import "./NovedadesPage.css";
 import { ThreeDots } from "react-loader-spinner";
+import { NovedadesCard } from '../../components/EntriesCards/NovedadesCard/NovedadesCard';
+import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
+import { useParams } from 'react-router-dom';
+import './TopRatedByCategoryPage.css';
 
 
-
-function NovedadesPage() {
-    //esto igual hay que meterlo en utils para no tener que crear tantas veces la misma variable
+function TopRatedByCategoryPage() {
     const baseUrl = import.meta.env.VITE_API_URL;
+    const {category} = useParams();
 
-    const {data,error, isLoading} = useEntries(`${baseUrl}/last-entries`);
+    const {data,error, isLoading} = useEntries(`${baseUrl}/top-rated/${category}`);
 
     const dataPosts = data.data;
-
-
-
+    console.log(category)
+ 
     if(error){
         return <ErrorMessage message= {error}/>
     }
@@ -40,12 +39,12 @@ function NovedadesPage() {
                 )
                 :(
                     <section className='section-novedades-page'>
-                        <h2>Novedades</h2>
+                        <h2 className="title-page-category">{category}</h2>
                         {
                             dataPosts !== undefined ?
                             <ul className='novedades-page'>
                             {dataPosts.map((post) => {
-                            return <li  key={post.id}><NovedadesCard post={post}/></li>
+                            return <li  key={post.id_entry}><NovedadesCard post={post}/></li>
                             })}
                             </ul>
                             :
@@ -58,4 +57,5 @@ function NovedadesPage() {
     );
 }
 
-export {NovedadesPage};
+export {TopRatedByCategoryPage}
+

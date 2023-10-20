@@ -22,6 +22,7 @@ import { EditProfileForm } from './components/EditProfileForm/EditProfileForm';
 import { ChangePasswordPage } from './pages/ChangePasswordPage/ChangePasswordPage';
 import { DeleteUserPage } from './pages/DeleteUserPage/DeleteUserPage';
 import { AllByCategoryPage } from './pages/AllByCategoryPage/AllByCategoryPage';
+import { TopRatedByCategoryPage } from './pages/TopRatedByCategoryPage/TopRatedByCategoryPage';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                   <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
                   <Route path='/novedades' element={<NovedadesPage />}/>
                   <Route path='/:category/ver-todos' element={<AllByCategoryPage/>}/>
+                  <Route path='/:category/mas-votados' element={<TopRatedByCategoryPage/>}/>
                   <Route path='/:category/:genre' element={<FilterCategoriesByGenre/>}/>
                   <Route path='/terminos-condiciones-uso'element= {<TermsAndConditions/>}/>
                   <Route path='/entrada/:idEntry' element= {<OneEntryPage/>}/>
