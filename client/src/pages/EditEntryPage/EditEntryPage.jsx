@@ -58,7 +58,7 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
             setGenre(value);
         }
 
-        if (name === 'animeCharacter'){
+        if (name === 'anime-character'){
             setAnimeCharacter(value);
         }
 
@@ -249,8 +249,8 @@ function EditEntryPage({post, setWantEdit, setOneEntryPosts}) {
                                         </select>
                                     </li>
                                     <li className="container-label-input">
-                                        <label htmlFor="anime-character" className="edit-entry-label">Personaje <small>(opcional)</small></label>
-                                        <input  className="input-character" type="text" name="anime-character" id="anime-character" defaultValue={animeCharacter} onChange={handleChange} />
+                                        <label htmlFor="animeCharacter" className="edit-entry-label">Personaje <small>(opcional)</small></label>
+                                        <input  className="input-character" type="text" name="animeCharacter" id="animeCharacter" defaultValue={animeCharacter} onChange={handleChange} />
                                     </li>
                                     <li className="container-label-input">
                                         <label htmlFor="content" className="edit-entry-label">Contenido</label>

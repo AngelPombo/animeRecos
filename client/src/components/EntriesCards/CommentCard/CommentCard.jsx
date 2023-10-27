@@ -12,7 +12,7 @@ function CommentCard({comment, setDataComments, dataComments}) {
     const [editar, setEditar] = useState(false);
     const [deleteComment, setDeleteComment] = useState(false);
     const [error, setError] = useState(null);
-    const [contentEdit, setContentEdit] = useState(comment.content);
+    const [contentEdit, setContentEdit] = useState(comment.comment_content);
     let removedDataComments;
 
     function handleClick(){

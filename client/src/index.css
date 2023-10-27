@@ -129,6 +129,10 @@ img{
 
 @media (max-width:1150px){
 
+    .container-alert-cerrar-sesion{
+        z-index: 2;
+    }
+
     img{
         max-width: 20rem;
         max-height: 20rem;
@@ -155,8 +159,28 @@ img{
         min-height: 0;
         font-size: 1.2rem;
     }
+
+    .alert-cerrar-sesion{
+        font-size: 0.6rem;
+    }
     
+    .btn-alert-cerrar-sesion{
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width:1114px){
+    .alert-cerrar-sesion{
+        font-size: 0.5rem;
+    }
     
+    .btn-alert-cerrar-sesion{
+        font-size: 0.5rem;
+    }
+
+    .container-alert-cerrar-sesion{
+        padding: 0.3rem;
+    }
 }
 
 @media (max-width:940px){
@@ -179,14 +203,24 @@ img{
         min-width: 90vw;
     }
 
-   
     .user-bio-header{
         flex-wrap: wrap;
     }
-    
 }
 
-@media (max-width:768px){
+@media (max-width:903px){
+
+    .alert-cerrar-sesion{
+        font-size: 0.6rem;
+    }
+    
+    .btn-alert-cerrar-sesion{
+        font-size: 0.6rem;
+    }
+
+    .container-alert-cerrar-sesion{
+        padding: 0.5rem;
+    }
 
     .burguer-btn{
         display: flex;
@@ -377,6 +411,10 @@ img{
         max-width: 80%;
     }
 
+    .profile-image{
+        max-width: none;
+    }
+
     .one-entry-card{
         margin: 3rem 0.5rem;
         min-width: 20rem;
@@ -507,4 +545,24 @@ img{
     }
 
     
+}
+
+@media (max-width: 305px){
+    .user-header{
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
+
+    .recos-card, .openings-card, .teorias-card, .fanart-card, .memes-card, .cosplays-card, .one-entry-card{
+        min-width: 16rem;
+    }
+
+    .openings-video-div{
+        max-width: 13rem;
+    }
+
+    .novedades-card{
+        width:10rem;
+    }
 }

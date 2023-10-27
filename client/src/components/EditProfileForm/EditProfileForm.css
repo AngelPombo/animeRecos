@@ -1,5 +1,5 @@
 .edit-profile-section{
-    max-width: 40%;
+    max-width: 60%;
     margin: 4rem auto;
 }
 
@@ -28,6 +28,7 @@
     gap: 1rem;
     
 }
+
 .edit-profile-li{
     display: flex;
     flex-direction: column;
@@ -57,14 +58,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    margin: 10px;
+    
+    border-radius: 50%;
+    /* box-shadow: 2px 2px 5px rgb(151, 149, 149); */
 }
 
 .edit-profile-foto{
-    border-radius: 50%;
-    box-shadow: 2px 2px 5px rgb(151, 149, 149);
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    top: -100%;
+    margin: auto;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center center;
+    
 }
 
-
+.container-prev{
+    display: flex;
+    justify-content: center;
+}
 
 .edit-profile-textarea{
     resize: none;
@@ -112,7 +135,7 @@
 
 .footer-edit-profile{
     display: flex;
-   justify-content: center;
+    justify-content: center;
 }
 
 .footer-edit-profile>p{
