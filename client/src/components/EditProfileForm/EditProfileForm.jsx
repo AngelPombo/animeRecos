@@ -138,20 +138,25 @@ function EditProfileForm() {
                             <input  className='input-edit-foto' type="file" name="avatar" id="avatar" filename={user[0].avatar} accept='image/*' onChange={handleChange}></input>
                                 {
                                         !avatar ? (
-                                            <figure className='figure-edit-foto'>
-                                                <img className='upload-icon' src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
-                                                <figcaption className='input-edit-foto' >¡Cambia tu foto de perfil!</figcaption>
-                                            </figure>
+                                            <div className='container-prev'>
+                                                <figure className='figure-edit-foto'>
+                                                    <img className='upload-icon' src={uploadIcon} alt="Selección de imagen" title="Selecciona una imagen"/>
+                                                    <figcaption className='input-edit-foto' >¡Cambia tu foto de perfil!</figcaption>
+                                                </figure>
+                                            </div>
                                         ) : (
-                                            <figure className='figure-edit-foto'>
-                                                <img
-                                                    className='edit-profile-foto'
-                                                    src={imgPreview}
-                                                    alt="Previsualización"
-                                                    onClick={handleDeletePreview}
-                                                />
-                                                <figcaption className='input-edit-foto' >Previsualización</figcaption>
-                                            </figure>
+                                            <div className='container-prev'>
+                                                <figure className='figure-edit-foto'>
+                                                    <img
+                                                        className='edit-profile-foto'
+                                                        src={imgPreview}
+                                                        alt="Previsualización"
+                                                        onClick={handleDeletePreview}
+                                                    />
+                                                    <figcaption className='input-edit-foto' >Previsualización</figcaption>
+                                                </figure>
+                                            </div>
+                                            
                                         )
                                 }
                         </label>
@@ -165,7 +170,7 @@ function EditProfileForm() {
                         <label htmlFor="email">Email</label>
                         <input className='input-edit-profile'  type="email" name="email" id="email" maxLength="256" defaultValue={user[0].email} onChange={handleChange}></input>
                     </li>
-                   
+
                     <li className='edit-profile-li' >
                         <label htmlFor="bio">Biografía</label>
                         <textarea className='edit-profile-textarea' name="bio" id="bio" maxLength="3000" defaultValue={user[0].biography} onChange={handleChange}></textarea>

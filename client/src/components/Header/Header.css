@@ -46,7 +46,6 @@
 .login-cta{
     min-width: 3rem;
     max-width: 4vw;
-    /* width: 4vw; */
     fill:var(--crema);
 }
 
@@ -66,4 +65,32 @@
     display: none;
 }
 
+.container-alert-cerrar-sesion{
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    border-radius: 14px;
+    background-color: #faeed410;
+    border: 1px solid #faeed43f;
+}
 
+.alert-cerrar-sesion{
+    text-align: center;
+    word-break: normal;
+    font-size: 0.7rem;
+    color: var(--crema)
+}
+
+.btn-alert-cerrar-sesion{
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: var(--crema);
+    cursor: pointer;
+}
+
+.btn-alert-cerrar-sesion:hover{
+    color: var(--verde-claro);
+}

@@ -15,8 +15,7 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments, 
         const value = e.target.value
 
         if (name === 'commentContent'){
-          setContentEdit(value)
-        
+          setContentEdit(value);
       }
     }
 
@@ -53,7 +52,7 @@ function EditCommentForm ({idComment, setEditar, setDataComments, dataComments, 
     return (
         <form onSubmit={handleSubmit} className="edit-comment-form">
             <label className="edit-comment-label">
-              <textarea className="edit-comment-textarea" name="commentContent" id="commentContent" cols="50" rows="5" maxLength="5000" onChange={handleChange} defaultValue={contentEdit}></textarea>
+              <textarea className="edit-comment-textarea" name="commentContent" id="commentContent" cols="50" rows="5" maxLength="5000" onChange={handleChange} defaultValue={contentEdit} required></textarea>
             </label>
             {error ? <p>{error}</p> : null}
             <button className="edit-comment-button" type='submit'> Publicar </button>
