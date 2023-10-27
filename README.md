@@ -4,7 +4,7 @@ Este proyecto (alfa), creado durante el bootcamp de HAB por Luis Cibeira, Ángel
 
 Para utilizar la base de datos desde cero, dirígete al readme del server... ¡Ahí encontrarás las indicaciones necesarias para ejecutar el script y ponerla a funcionar desde cero con datos de prueba (**npm run fulldb**), o sin ellos (**npm run emptydb**)!
 
-No olvides utilizar el comando *npm i* para descargar todos los módulos necesarios, tanto en el backend, como en el frontend.
+No olvides utilizar el comando **npm i** para descargar todos los módulos necesarios, tanto en el backend, como en el frontend.
 
 Y... ¡una última cosilla! Para acceder a todas las funcionalidades de la página es necesario registrarse.
 
