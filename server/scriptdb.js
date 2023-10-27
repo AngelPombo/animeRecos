@@ -13,7 +13,9 @@ async function createDB() {
     try {
     connection = await createDBconnection();
     
-    await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
+    await connection.query(`DROP DATABASE IF EXISTS ${dbName}`);
+
+    await connection.query(`CREATE DATABASE ${dbName}`);
 
     await connection.query(`USE ${dbName}`);
 
@@ -148,7 +150,7 @@ async function createDB() {
     `
     );
 
-    console.log(`Si no existía una base de datos con el mismo nombre, se ha creado ${dbName} y sus correspondientes tablas`);
+    console.log(`Si existía una base de datos con el mismo nombre se ha eliminado. Además, se ha creado una nueva base de datos con el nombre "${dbName}" y sus correspondientes tablas (completamente vacías).`);
 
     }catch(e){
 
