@@ -8,7 +8,7 @@ function HeaderButton({category, setClicked, clicked}) {
     }
 
     return (
-        <Link to={`/${category}`} >
+        <Link to={ category === "recos" ? "/recomendaciones" : `/${category}`} >
             <button onClick={handleClick} className={`header-btn`}>
                 {category}
             </button>

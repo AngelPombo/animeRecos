@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     max-width: 95%;
-    margin: 2.5rem auto;
+    margin: 2.5rem auto 0;
 }
 
 .profile-image{

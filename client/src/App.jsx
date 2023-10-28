@@ -38,12 +38,7 @@ function App() {
                   <Route path="/login" element={<LoginForm/>} />
                   <Route path='/editar-perfil/:id' element= {<EditProfileForm/>}/>
                   <Route path='/perfil-usuario/:id' element={<UserPage/>}/> 
-                  <Route path='/fanart'element={<SelectGenrePage category="fanart"/>}/>
-                  <Route path='/memes'element={<SelectGenrePage category="memes"/>}/>
-                  <Route path='/teorias'element={<SelectGenrePage category="teorias"/>}/>
-                  <Route path='/cosplays'element={<SelectGenrePage category="cosplays"/>}/>
-                  <Route path='/openings'element={<SelectGenrePage category="openings"/>}/>
-                  <Route path='/recos'element={<SelectGenrePage category="recomendaciones"/>}/>
+                  <Route path='/:category'element={<SelectGenrePage />}/>
                   <Route path='/novedades' element={<NovedadesPage />}/>
                   <Route path='/:category/ver-todos' element={<AllByCategoryPage/>}/>
                   <Route path='/:category/mas-votados' element={<TopRatedByCategoryPage/>}/>

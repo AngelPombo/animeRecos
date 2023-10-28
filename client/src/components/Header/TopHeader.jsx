@@ -11,7 +11,6 @@ function TopHeader() {
     const sessionUser = useContext(sessionContext);
 
     function handleClick(){
-        /* e.stopPropagation(); */
         setClicked(true);
     }
 

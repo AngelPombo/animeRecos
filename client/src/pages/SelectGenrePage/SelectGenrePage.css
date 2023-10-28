@@ -1,9 +1,14 @@
 .btns-genre-list{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 3rem;
-    padding: 5rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    position: sticky;
+    top: 8px;
+}
+
+.select-genre-page{
+    display: flex;
+    flex-direction: column;
 }
 
 .select-genre-page>h2{
@@ -12,4 +17,68 @@
     margin-top: 2rem;
     border-bottom: 0.5px solid var(--marron-oscuro);
     text-transform: uppercase;
+}
+
+.select-genre-page-div{
+    display: flex;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+/*Botón*/
+.drop-button{
+  background-color: var(--verde-claro);
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  box-shadow: 5px 5px 0px #5d6d2c;
+}
+
+
+/*Posición del contenedor*/
+.dropdown{
+  position: relative;
+  display: none;
+ }
+
+/*submenu*/
+.dropdown-content{
+  display: none;
+  position: absolute;
+  width: 150px;
+  max-height: 90vh;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  background-color: #712c27cd;
+  box-shadow: 5px 5px 0px #5c2420cd;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.dropdown-content li{
+  color: var(--crema);
+  padding: 5px 16px;
+  display: block;
+  
+}
+
+
+.show {
+  display: block;
+}
+
+.deploy-btn{
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  color: var(--crema);
+}
+
+.dropdown-genre-list > li > button{
+  font-size: 12px;
 }
