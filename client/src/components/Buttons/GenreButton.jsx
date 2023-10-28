@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import "./GenreButton.css";
 
 
-function GenreButton({category, genre, img}) {
+function GenreButton({category, genre, setViewGenre}) {
+
+    function handleGenre(e){
+        const targetBtn = e.target.name
+        setViewGenre(targetBtn)
+    }
+
     return (
         <>
-            <Link to={`/${category}/${genre}`} >
-                <button className={`genre-btn ${category}-genre-btn ${genre}-img-btn`}>
+            <button name={genre} onClick={handleGenre} className={`genre-btn ${category}-genre-btn ${genre}-img-btn`}>
                     {genre}
-                </button>
-            </Link> 
-        </>
-        
+            </button>
+        </> 
     )
 }
 

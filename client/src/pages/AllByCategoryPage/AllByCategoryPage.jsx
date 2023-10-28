@@ -38,10 +38,9 @@ function AllByCategoryPage() {
                 )
                 :(
                     <section className='section-novedades-page'>
-                        <h2 className="title-page-category">{category}</h2>
                         {
                             dataPosts !== undefined ?
-                            <ul className='novedades-page'>
+                            <ul className='all-by-category-page'>
                             {dataPosts.map((post) => {
                             return <li  key={post.id}><NovedadesCard post={post}/></li>
                             })}

@@ -6,9 +6,10 @@ import './FilterCategoriesByGenre.css';
 import { ThreeDots } from "react-loader-spinner";
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 
-function FilterCategoriesByGenre() {
+function FilterCategoriesByGenre({category, genre}) {
+
     const baseUrl = import.meta.env.VITE_API_URL;
-    const {category, genre} = useParams();
+    /* const {category, genre} = useParams(); */
     const {data, error, isLoading} = useEntries(`${baseUrl}/entries/${category}/${genre}`);
     
     const dataPosts = data.data;
@@ -33,7 +34,6 @@ function FilterCategoriesByGenre() {
     if( dataPosts.length === 0){
         return(
         <section className='sin-entradas-by-genre-section'>
-            <h2>{category.toUpperCase()}</h2>
             <h3>{genre.toUpperCase()}</h3>
             <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
 
@@ -45,7 +45,7 @@ function FilterCategoriesByGenre() {
             <section className='section-filter'>
                 {
                     dataPosts ?
-                    <ul className='list-filter'>
+                    <ul className='all-by-category-page'>
                         {dataPosts.map((post) => {
                             return <li key={post.id}>
                                 <NovedadesCard post={post}/>
@@ -54,7 +54,6 @@ function FilterCategoriesByGenre() {
                     </ul>
                     :
                     <>
-                        <h2>{category.toUpperCase()}</h2>
                         <h3>{genre.toUpperCase()}</h3>
                         <p>Todavía no hay entradas para mostrar, ¡Anímate y se el primero en publicar!</p>
                     </>

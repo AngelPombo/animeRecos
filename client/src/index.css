@@ -127,6 +127,12 @@ img{
     }
 }
 
+@media (max-width:1280px){
+    .all-by-category-page{
+        width: 75vw;
+    }
+}
+
 @media (max-width:1150px){
 
     .container-alert-cerrar-sesion{
@@ -152,14 +158,6 @@ img{
         max-height: 12.5rem;
     }
 
-    .genre-btn{
-        width: 14rem;
-        height: 7rem;
-        min-width: 0;
-        min-height: 0;
-        font-size: 1.2rem;
-    }
-
     .alert-cerrar-sesion{
         font-size: 0.6rem;
     }
@@ -180,6 +178,12 @@ img{
 
     .container-alert-cerrar-sesion{
         padding: 0.3rem;
+    }
+}
+
+@media (max-width:1025px){
+    .all-by-category-page{
+        width: 70vw;
     }
 }
 
@@ -208,7 +212,13 @@ img{
     }
 }
 
-@media (max-width:903px){
+@media (max-width:915px){
+
+    .user-header{
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0;
+    }
 
     .alert-cerrar-sesion{
         font-size: 0.6rem;
@@ -315,7 +325,7 @@ img{
         }
     }
 
-    .novedades-page, .btns-genre-list{
+    .novedades-page{
         padding: 2rem;
     }
 
@@ -390,16 +400,24 @@ img{
         max-width: 100%;
     }
 
-    .genre-btn{
-        width: 9rem;
-        height: 4.5rem;
-        min-width: 0;
-        min-height: 0;
-        font-size: 0.7rem;
-    }
-
     .user-profile-header{
         padding: 0;
+    }
+
+    .btns-genre-list{
+        display: none;
+    }
+
+    .dropdown{
+        display: inline-block;
+    }
+
+    .select-genre-page-div{
+        flex-direction: column;
+    }
+
+    .all-by-category-page{
+        width: 90vw;
     }
     
 
@@ -463,12 +481,6 @@ img{
 
     .register-page-input{
         min-width: 40%;
-    }
-
-    .genre-btn{
-        width: 14rem;
-        height: 7rem;
-        font-size: 1.2rem;
     }
 
     .user-profile-btn{
@@ -548,10 +560,14 @@ img{
 }
 
 @media (max-width: 305px){
+
     .user-header{
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 3rem;
+        gap:0.25rem;
+    }
+
+    .profile-image{
+        width: 100%;
     }
 
     .recos-card, .openings-card, .teorias-card, .fanart-card, .memes-card, .cosplays-card, .one-entry-card{
