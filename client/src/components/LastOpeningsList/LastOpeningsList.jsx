@@ -46,7 +46,7 @@ function LastOpeningsList({endpoint}) {
                 )
                 :(
                 <section className='section-openings-list'>
-                    <Link to={'/openings/ver-todos'}>
+                    <Link to={'/openings'}>
                         <h2>Openings</h2>
                     </Link>
                     <ul className='openings-list'>

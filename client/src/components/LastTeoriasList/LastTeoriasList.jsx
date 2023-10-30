@@ -45,7 +45,7 @@ function LastTeoriasList({endpoint}) {
                 )
                 :(
                 <section className='section-teorias-list'>
-                    <Link to={'/teorias/ver-todos'}>
+                    <Link to={'/teorias'}>
                         <h2>Teorias</h2>
                     </Link>
                     <ul className='recos-list'>

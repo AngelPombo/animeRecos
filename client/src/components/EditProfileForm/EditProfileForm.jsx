@@ -55,7 +55,7 @@ function EditProfileForm() {
         }
 
         if (name === 'linkInsta'){
-            setLinkInsta(value);
+            setLinkInsta(value)
         }     
                 
         if (name === 'linkYoutube'){

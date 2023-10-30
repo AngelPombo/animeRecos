@@ -46,7 +46,7 @@ function LastMemesList({endpoint}) {
                 )
                 :(
                 <section className='section-memes-list'>
-                    <Link to={'/memes/ver-todos'}>
+                    <Link to={'/memes'}>
                         <h2>Memes</h2>
                     </Link>
                     <ul className='memes-list'>

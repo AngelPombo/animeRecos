@@ -46,7 +46,7 @@ function LastRecosList({endpoint}) {
                 )
                 :(
                 <section className='section-recos-list'>
-                    <Link to={'/recomendaciones/ver-todos'}>
+                    <Link to={'/recomendaciones'}>
                         <h2>Recos</h2>
                     </Link>
                     <ul className='recos-list'>

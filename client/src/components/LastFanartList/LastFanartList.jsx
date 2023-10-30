@@ -46,7 +46,7 @@ function LastFanartList({endpoint}) {
                 )
                 :(
                 <section className='section-fanart-list'>
-                    <Link to={'/fanart/ver-todos'}>
+                    <Link to={'/fanart'}>
                         <h2>FanArts</h2>
                     </Link>
                     <ul className='fanart-list'>

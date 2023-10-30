@@ -47,7 +47,7 @@ function LastCosplaysList({endpoint}) {
                 )
                 :(
                 <section className='section-cosplays-list'>
-                    <Link to={'/cosplays/ver-todos'}>
+                    <Link to={'/cosplays'}>
                         <h2>Cosplays</h2>
                     </Link>
                     <ul className='cosplays-list'>
