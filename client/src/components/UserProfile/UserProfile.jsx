@@ -66,25 +66,25 @@ function UserProfile ({user}) {
                     <section className='user-rrss-section'>
                         {
                             user[0].link_twitter ?
-                            <a href={`https://${user[0].link_twitter}`} target='_blank'><img src={imgTwitterLogo} alt='Link twitter' className='logo-link'/></a>
+                            <a href={user[0].link_twitter.includes("https://")? user[0].link_twitter :`https://${user[0].link_twitter}`} target='_blank'><img src={imgTwitterLogo} alt='Link twitter' className='logo-link'/></a>
                             :
                             null
                         }
                         {
                             user[0].link_youtube ?
-                            <a href={`https://${user[0].link_youtube}`} target='_blank'><img src={imgYoutubeLogo} className='logo-link' alt='Link Youtube'/></a>
+                            <a href={user[0].link_youtube.includes("https://")? user[0].link_youtube :`https://${user[0].link_youtube}`}  target='_blank'><img src={imgYoutubeLogo} className='logo-link' alt='Link Youtube'/></a>
                             :
                             null
                         }
                         {
                             user[0].link_ttv ?
-                            <a href={`https://${user[0].link_ttv}`} target='_blank'><img src={imgTwitchLogo} className='logo-link' alt='Link Twitch'/></a>
+                            <a href={user[0].link_ttv.includes("https://")? user[0].link_ttv :`https://${user[0].link_ttv}`} target='_blank'><img src={imgTwitchLogo} className='logo-link' alt='Link Twitch'/></a>
                             :
                             null
                         }
                         {
                             user[0].link_insta ?
-                            <a href={`https://${user[0].link_insta}`} target='_blank'><img src={imgInstagramLogo} alt='Link Instagram' className='logo-link'/></a>
+                            <a href={user[0].link_insta.includes("https://")? user[0].link_insta :`https://${user[0].link_insta}`} target='_blank'><img src={imgInstagramLogo} alt='Link Instagram' className='logo-link'/></a>
                             :
                             null
                         }

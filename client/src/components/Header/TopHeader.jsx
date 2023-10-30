@@ -3,6 +3,7 @@ import imgUrlLogo from '/animeRecosIcono1.png';
 import { Link } from 'react-router-dom';
 import sessionContext from '../../context/sessionContext';
 import { NavBar } from './NavBar';
+import logoTipo from "/animeRecosTypo.png"
 import './Header.css'
 
 function TopHeader() {
@@ -27,13 +28,26 @@ function TopHeader() {
                 <section className="alert-and-icon-container">
                     {
                         clicked ?
-                        <div className="container-alert-cerrar-sesion">
+                        /* <div className="container-alert-cerrar-sesion">
                             <p className="alert-cerrar-sesion">¿Cerrar sesión?</p>
                             <div className="btns-alert-container">
                                 <Link to={"/"}><button className="btn-alert-cerrar-sesion" onClick={sessionUser.handleLogout}>Sí</button></Link>
                                 <button className="btn-alert-cerrar-sesion" onClick={handleNotLogOut}>No</button>
                             </div>
-                        </div>
+                        </div> */
+                        <>
+                            <button onClick={handleClick} className='top-header-button'>
+                            <svg className="login-cta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2a9.985 9.985 0 0 1 8 4h-2.71a8 8 0 1 0 .001 12h2.71A9.985 9.985 0 0 1 12 22zm7-6v-3h-8v-2h8V8l5 4-5 4z"/></svg>
+                            </button> 
+                            <dialog open className= "container-alert-cerrar-sesion"> 
+                            <img src={logoTipo} alt="animerecos" className='image-alert'/>
+                            <p className="alert-cerrar-sesion">¿Cerrar sesión?</p>
+                            <div className="btns-alert-container">
+                                <Link to={"/"}><button className="btn-alert-cerrar-sesion" onClick={sessionUser.handleLogout}>Sí</button></Link>
+                                <button className="btn-alert-cerrar-sesion" onClick={handleNotLogOut}>No</button>
+                            </div> </dialog>
+                        </>
+                        
                         :
                         <button onClick={handleClick} className='top-header-button'>
                             <svg className="login-cta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2a9.985 9.985 0 0 1 8 4h-2.71a8 8 0 1 0 .001 12h2.71A9.985 9.985 0 0 1 12 22zm7-6v-3h-8v-2h8V8l5 4-5 4z"/></svg>

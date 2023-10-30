@@ -55,7 +55,8 @@
     border: 1px solid transparent;
     border-radius: 50%;
     padding: 0.5rem 1rem;
-    color: var(--marron-oscuro)
+    color: var(--marron-oscuro);
+    cursor: pointer;
 }
 
 .entry-card-btn:hover{

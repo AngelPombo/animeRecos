@@ -79,6 +79,7 @@
     border-radius: 14px;
     background-color: var(--marron-oscuro);
     color: var(--crema);
+    cursor: pointer;
 }
 
 .user-profile-btn:hover{
